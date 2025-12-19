@@ -7,6 +7,7 @@ This template is your blank canvas. It comes with a minimal setup to help you ge
 - A clean, minimal Spark environment
 - Pre-configured for local development
 - Ready to scale with your ideas
+- **Brand Guide & Instructions** - See the `/BrandGuideInstructions` directory for brand assets and website requirements
   
 🧠 What Can You Do?
 
