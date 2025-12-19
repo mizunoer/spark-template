@@ -1,0 +1,374 @@
+/* Mythic Rx brand styles */
+:root {
+  /* Primary Green Palette */
+  --mythic-green-1-sage: #e5e8d1;
+  --mythic-green-2-leaf: #878f45;
+  --mythic-green-3-moss: #3d4d1a;
+  --mythic-green-4-forest: #2e360a;
+
+  /* Grey Palette (alternate scheme) */
+  --mythic-grey-1-platinum: #f2f2f2;
+  --mythic-grey-2-silver: #c2c2c2;
+  --mythic-grey-3-stone: #666666;
+  --mythic-grey-4-slate: #333333;
+
+  /* Brown Palette (alternate warm scheme) */
+  --mythic-brown-1-sand: #f4ece1;
+  --mythic-brown-2-gold: #f7de70; /* Accent; NOT a full-page background */
+  --mythic-brown-3-earth: #6b5703;
+  --mythic-brown-4-wood: #302603;
+
+  /* Derived semantic tokens */
+  --color-bg-page: var(--mythic-grey-1-platinum);
+  --color-bg-section-alt: var(--mythic-green-1-sage);
+  --color-bg-card: #ffffff;
+  --color-text-main: var(--mythic-grey-4-slate);
+  --color-text-muted: var(--mythic-grey-3-stone);
+  --color-text-on-dark: #ffffff;
+  --color-brand-primary: var(--mythic-green-2-leaf);
+  --color-brand-primary-dark: var(--mythic-green-4-forest);
+  --color-brand-accent: var(--mythic-brown-2-gold);
+
+  /* Typography */
+  --font-family-base: "Serious Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-family-display: "Sunflora", var(--font-family-base);
+}
+
+/* Alternate themes */
+body.theme-grey {
+  --color-bg-page: var(--mythic-grey-1-platinum);
+  --color-bg-section-alt: var(--mythic-grey-2-silver);
+  --color-text-main: var(--mythic-grey-4-slate);
+  --color-brand-primary: var(--mythic-green-2-leaf);
+}
+
+body.theme-brown {
+  --color-bg-page: var(--mythic-brown-1-sand);
+  --color-bg-section-alt: var(--mythic-brown-3-earth);
+  --color-text-main: var(--mythic-brown-4-wood);
+  --color-brand-primary: var(--mythic-brown-3-earth);
+  --color-brand-accent: var(--mythic-brown-2-gold);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-family-base);
+  font-size: 1rem;
+  line-height: 1.6;
+  background-color: var(--color-bg-page);
+  color: var(--color-text-main);
+  margin: 0;
+  padding-bottom: 80px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-text-main);
+  margin-top: 0;
+  letter-spacing: 0.01em;
+}
+
+h1, .heading-xl {
+  font-family: var(--font-family-display);
+  font-weight: 700;
+  font-size: clamp(2.5rem, 5vw, 3.4rem);
+  line-height: 1.1;
+}
+
+h2, .heading-lg {
+  font-weight: 700;
+  font-size: clamp(2rem, 3.5vw, 2.125rem);
+}
+
+h3, .heading-md {
+  font-weight: 600;
+  font-size: 1.625rem;
+}
+
+h4, .heading-sm {
+  font-weight: 600;
+  font-size: 1.3125rem;
+}
+
+h5, .heading-xs {
+  font-weight: 600;
+  font-size: 1.0625rem;
+}
+
+small, .eyebrow, .caption {
+  font-size: 0.875rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--color-text-muted);
+  max-width: 70ch;
+}
+
+a {
+  color: var(--color-brand-primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+a:hover, a:focus {
+  color: var(--color-brand-primary-dark);
+  text-decoration: underline;
+}
+
+.navbar {
+  background-color: var(--color-bg-card);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  padding-block: 0.75rem;
+}
+
+.navbar .navbar-brand {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-brand-primary-dark);
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: var(--color-text-main);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link:focus {
+  color: var(--color-brand-primary);
+}
+
+.mythic-nav {
+  background-color: var(--mythic-green-4-forest);
+  color: var(--color-text-on-dark);
+  border-bottom: none;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+}
+
+.mythic-nav .navbar-brand {
+  color: var(--color-text-on-dark);
+}
+
+.mythic-nav .navbar-brand:hover,
+.mythic-nav .navbar-brand:focus {
+  color: var(--color-brand-accent);
+}
+
+.mythic-nav .nav-link {
+  color: var(--color-text-on-dark);
+}
+
+.mythic-nav .nav-link:hover,
+.mythic-nav .nav-link:focus {
+  color: var(--color-brand-accent);
+}
+
+.container main {
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
+
+.brand-panel {
+  background: linear-gradient(135deg, var(--mythic-green-1-sage), #ffffff);
+  border-radius: 1.5rem;
+  padding: 3rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1.5rem 3rem rgba(46, 54, 10, 0.08);
+}
+
+.brand-panel .eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-brand-primary-dark);
+  font-weight: 700;
+}
+
+.brand-panel .lead {
+  font-size: 1.125rem;
+  color: var(--color-text-main);
+}
+
+.section-alt {
+  background-color: var(--color-bg-section-alt);
+  border-radius: 1.25rem;
+  padding: 2rem;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.container main {
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
+
+.brand-panel {
+  background: linear-gradient(135deg, var(--mythic-green-1-sage), #ffffff);
+  border-radius: 1.5rem;
+  padding: 3rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1.5rem 3rem rgba(46, 54, 10, 0.08);
+}
+
+.brand-panel .eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-brand-primary-dark);
+  font-weight: 700;
+}
+
+.brand-panel .lead {
+  font-size: 1.125rem;
+  color: var(--color-text-main);
+}
+
+.section-alt {
+  background-color: var(--color-bg-section-alt);
+  border-radius: 1.25rem;
+  padding: 2rem;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.feature-card {
+  background-color: var(--color-bg-card);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  border: 1px solid var(--mythic-grey-2-silver);
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.06);
+  height: 100%;
+}
+
+.feature-card h3 {
+  color: var(--color-brand-primary-dark);
+}
+
+.accent-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background-color: var(--color-brand-accent);
+  color: var(--mythic-brown-4-wood);
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+.btn,
+button,
+input[type="submit"],
+input[type="button"] {
+  font-family: var(--font-family-base);
+  font-weight: 700;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary,
+.button--primary,
+button.primary {
+  background-color: var(--color-brand-primary);
+  border-color: var(--color-brand-primary-dark);
+  color: var(--color-text-on-dark);
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.button--primary:hover,
+.button--primary:focus {
+  background-color: var(--color-brand-primary-dark);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.12);
+  color: var(--color-text-on-dark);
+}
+
+.btn-outline-secondary,
+.button--secondary,
+button.secondary {
+  background-color: transparent;
+  border-color: var(--color-brand-primary);
+  color: var(--color-brand-primary-dark);
+}
+
+.btn-outline-secondary:hover,
+.btn-outline-secondary:focus,
+.button--secondary:hover,
+.button--secondary:focus {
+  background-color: var(--mythic-green-1-sage);
+  border-color: var(--color-brand-primary-dark);
+  color: var(--color-brand-primary-dark);
+}
+
+.form-control,
+input[type="text"],
+input[type="email"],
+select,
+textarea {
+  font-family: var(--font-family-base);
+  border-radius: 0.75rem;
+  border: 1px solid var(--mythic-grey-2-silver);
+  padding: 0.75rem 1rem;
+  background-color: #ffffff;
+  color: var(--color-text-main);
+}
+
+.form-control:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--color-brand-primary);
+  border-color: var(--color-brand-primary);
+  box-shadow: 0 0 0 4px rgba(135, 143, 69, 0.2);
+}
+
+label {
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.35rem;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+  color: var(--color-text-muted);
+  background-color: rgba(255, 255, 255, 0.8);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.footer a {
+  color: var(--color-brand-primary-dark);
+}
+
+.badge-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--color-brand-primary);
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+@media (max-width: 767.98px) {
+  .brand-panel {
+    padding: 2rem;
+  }
+
+  .navbar .navbar-brand {
+    margin-bottom: 0.5rem;
+  }
+}
