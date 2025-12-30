@@ -8,10 +8,25 @@ This template is your blank canvas. It comes with a minimal setup to help you ge
 - Pre-configured for local development
 - Ready to scale with your ideas
 - **Brand Guide & Instructions** - See the `/BrandGuideInstructions` directory for brand assets and website requirements
+- **Deployment Guide** - See `DEPLOYMENT.md` for instructions on deploying to cPanel or other web hosting
   
 🧠 What Can You Do?
 
 Right now, this is just a starting point — the perfect place to begin building and testing your Spark applications.
+
+## 🌐 Deploying to cPanel
+
+This website is ready to be deployed to a cPanel hosting server. See the [DEPLOYMENT.md](DEPLOYMENT.md) guide for detailed instructions.
+
+**Quick Start:**
+1. Upload all files to your `public_html` directory
+2. Make sure the `.htaccess` file is uploaded (this is critical!)
+3. Visit your domain
+
+The `.htaccess` file included in this repository configures your server to:
+- Serve `index.html` as the default homepage
+- Display the custom `404.html` page for missing pages
+- Enable compression and caching for better performance
 
 🧹 Just Exploring?
 No problem! If you were just checking things out and don’t need to keep this code:
