@@ -143,8 +143,15 @@ The `.htaccess` file already includes:
 ## SSL/HTTPS Configuration
 
 If you have an SSL certificate installed:
-1. Uncomment the HTTPS redirect section in `.htaccess` (lines 48-52)
-2. All HTTP traffic will be automatically redirected to HTTPS
+1. Open the `.htaccess` file
+2. Find the "Force HTTPS" section (around lines 13-15)
+3. Uncomment lines 14-15 by removing the `#` at the beginning:
+   ```apache
+   # Force HTTPS (uncomment the next 2 lines if you have SSL certificate)
+   RewriteCond %{HTTPS} off
+   RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+   ```
+4. All HTTP traffic will be automatically redirected to HTTPS
 
 ## Need Help?
 
