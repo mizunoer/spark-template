@@ -144,7 +144,7 @@ The `.htaccess` file already includes:
 
 If you have an SSL certificate installed:
 1. Open the `.htaccess` file
-2. Find the "Force HTTPS" section (around lines 15-16)
+2. Find the "Force HTTPS" section (lines 15-16)
 3. Uncomment lines 15-16 by removing the `#` at the beginning:
    ```apache
    # Force HTTPS (uncomment the next 2 lines if you have SSL certificate)
