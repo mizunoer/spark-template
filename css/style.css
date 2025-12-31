@@ -359,6 +359,10 @@ img {
     filter: none;
 }
 
+.partner-logo-white {
+    filter: brightness(0) invert(1);
+}
+
 .navbar-nav .nav-link:focus {
     color: var(--accent-color);
     text-align: center;
