@@ -8,7 +8,7 @@ PRIMARY BRAND COLORS (Update in css/style.css :root section)
 #0F4D2E  - Mythic Green 3 (Deep Emerald) - Medium dark
 #0B3A20  - Mythic Green 4 (Evergreen) - Dark accent
 
-#F5F3E7  - Mythic Cream 1 (Ivory) - Main background
+#FFFFFF  - Mythic White - Main background
 #DADAD3  - Mythic Grey 2 (Fog) - Secondary backgrounds
 #4A4A4A  - Mythic Grey 3 (Stone) - Muted text
 #2E2E2E  - Mythic Grey 4 (Charcoal) - Main text
@@ -37,7 +37,7 @@ OVERLAY GRADIENT COLORS (Update rgba values)
 --------------------------------------------
 rgba(15, 77, 46, ...)   - Deep Emerald overlay
 rgba(30, 107, 58, ...)  - Forest overlay
-rgba(245, 243, 231, ...) - Cream overlay
+rgba(255, 255, 255, ...) - White overlay
 rgba(46, 46, 46, ...)   - Charcoal overlay
 rgba(11, 58, 32, ...)   - Evergreen overlay
 
@@ -50,11 +50,11 @@ SVG LOGO COLORS (BrandGuideInstructions/)
 #302913  - Dark brown
 #6B5824  - Medium brown
 #F8DE70  - Gold
-#F5F3E7  - Cream
+#FFFFFF  - Mythic White
 #2E2E2E  - Dark grey
 #4A4A4A  - Medium grey
 #DADAD3  - Light grey
-#F5F3E7  - Very light grey
+#F5F3E7  - Ivory (legacy, not used)
 
 FIND & REPLACE CHECKLIST
 =========================

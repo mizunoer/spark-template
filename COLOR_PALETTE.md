@@ -16,7 +16,7 @@ Located in `css/style.css` (lines 84-112):
 
 ### Grey/Cream Palette (Updated)
 ```css
---mythic-grey-1-platinum: #F5F3E7;   /* Ivory - Primary background */
+--mythic-grey-1-platinum: #FFFFFF;   /* Mythic White - Primary background */
 --mythic-grey-2-silver: #DADAD3;     /* Fog - Secondary backgrounds */
 --mythic-grey-3-stone: #4A4A4A;      /* Stone - Muted text */
 --mythic-grey-4-slate: #2E2E2E;      /* Charcoal - Main text color */
@@ -32,7 +32,7 @@ Located in `css/style.css` (lines 84-112):
 These map to the brand colors above:
 
 ```css
---primary: var(--mythic-grey-1-platinum);        /* #F5F3E7 - Main background */
+--primary: var(--mythic-grey-1-platinum);        /* #FFFFFF - Main background */
 --text-color: var(--mythic-grey-4-slate);        /* #2E2E2E - Main text */
 --text-color-2: var(--mythic-grey-3-stone);      /* #4A4A4A - Secondary text */
 --background-color: #ffffff;                      /* White - Card backgrounds */
@@ -59,7 +59,7 @@ These map to the brand colors above:
 - **Image Overlay:** `linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(15, 77, 46, 0.8) 100%)`
 - **Background Overlay:** `linear-gradient(180deg, rgba(0, 0, 0, 0) -78.74%, #0F4D2E 99.63%)`
 - **Background Overlay 2:** `linear-gradient(0deg, rgba(30, 107, 58, 0.28), rgba(30, 107, 58, 0.28))`
-- **Testimonial Overlay:** `linear-gradient(0deg, rgba(245, 243, 231, 0.96), rgba(245, 243, 231, 0.96))`
+- **Testimonial Overlay:** `linear-gradient(0deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.96))`
 - **CTA Overlay:** `linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(15, 77, 46, 0.6) 100%)`
 - **Video Overlay:** `linear-gradient(180deg, rgba(11, 58, 32, 0.144) 0%, rgba(11, 58, 32, 0.72) 100%)`
 - **Accent Opacity:** `linear-gradient(0deg, rgba(46, 46, 46, 0.86), rgba(46, 46, 46, 0.86))`
@@ -91,7 +91,7 @@ From `BrandGuideInstructions/Mythic Brand assets (1).svg`:
 - **Soft Mint:** `#CFE3CC` (Light green)
 - **Evergreen:** `#0B3A20` (Dark accent)
 - **Gold:** `#F8DE70`
-- **Cream:** `#F5F3E7`
+- **Mythic White:** `#FFFFFF`
 - **Charcoal:** `#2E2E2E`
 - **Stone:** `#4A4A4A`
 - **Fog:** `#DADAD3`
@@ -100,7 +100,7 @@ From `BrandGuideInstructions/Mythic Brand assets (1).svg`:
 
 | Color Variable | Hex Value | Usage |
 |---------------|-----------|-------|
-| `--primary` | `#F5F3E7` | Main page background, buttons, cards |
+| `--primary` | `#FFFFFF` | Main page background, buttons, cards |
 | `--text-color` | `#2E2E2E` | Headings, main text, navigation |
 | `--text-color-2` | `#4A4A4A` | Body text, muted content |
 | `--background-color` | `#FFFFFF` | Card backgrounds, form inputs |
