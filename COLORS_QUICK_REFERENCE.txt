@@ -1,0 +1,63 @@
+QUICK COLOR REFERENCE - All Hex Codes in the Codebase
+=====================================================
+
+PRIMARY BRAND COLORS (Update in css/style.css :root section)
+-------------------------------------------------------------
+#CFE3CC  - Mythic Green 1 (Soft Mint) - Light backgrounds
+#1E6B3A  - Mythic Green 2 (Translucent Forest) - Primary accent color
+#0F4D2E  - Mythic Green 3 (Deep Emerald) - Medium dark
+#0B3A20  - Mythic Green 4 (Evergreen) - Dark accent
+
+#F5F3E7  - Mythic Cream 1 (Ivory) - Main background
+#DADAD3  - Mythic Grey 2 (Fog) - Secondary backgrounds
+#4A4A4A  - Mythic Grey 3 (Stone) - Muted text
+#2E2E2E  - Mythic Grey 4 (Charcoal) - Main text
+
+#F8DE70  - Mythic Gold (Accent) - Highlight color
+
+#FFFFFF  - White - Card backgrounds, borders
+
+HARDCODED COLORS (Search & Replace Throughout Codebase)
+--------------------------------------------------------
+#F8DE70  - Star ratings (gold) - Used in HTML inline styles
+#DADAD3  - Scrollbar track background
+#1E6B3A  - Scrollbar drag handle (green accent)
+#0F4D2EB7 - Dark transparent background (with alpha)
+#1E6B3AD5 - Glass effect mobile header (with alpha)
+#F8DE70  - Active rating stars
+#CFE3CC  - Inactive rating stars
+#C2C8A1  - Divider line color
+#0F4D2E  - Link color (class-link)
+#2E2E2E  - List icon black
+#0B3A20  - Swiper pagination
+#FFFFFF  - Borders, text on dark backgrounds
+#4A4A4A  - Fallback grey text
+
+OVERLAY GRADIENT COLORS (Update rgba values)
+--------------------------------------------
+rgba(15, 77, 46, ...)   - Deep Emerald overlay
+rgba(30, 107, 58, ...)  - Forest overlay
+rgba(245, 243, 231, ...) - Cream overlay
+rgba(46, 46, 46, ...)   - Charcoal overlay
+rgba(11, 58, 32, ...)   - Evergreen overlay
+
+SVG LOGO COLORS (BrandGuideInstructions/)
+-----------------------------------------
+#868D44  - Primary green in logo (Legacy Leaf)
+#0F4D2E  - Deep Emerald (Primary brand green)
+#1E6B3A  - Translucent Forest (Secondary green)
+#CFE3CC  - Soft Mint (Light green)
+#302913  - Dark brown
+#6B5824  - Medium brown
+#F8DE70  - Gold
+#F5F3E7  - Cream
+#2E2E2E  - Dark grey
+#4A4A4A  - Medium grey
+#DADAD3  - Light grey
+#F5F3E7  - Very light grey
+
+FIND & REPLACE CHECKLIST
+=========================
+✅ COMPLETED - All colors have been updated in the codebase
+
+This version keeps your apothecary-scientific tone while visually aligning with the fluid emerald aesthetic of your new imagery — rich greens, soft mints, and natural gradients balanced by warm cream and charcoal neutrals.

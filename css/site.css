@@ -1,20 +1,20 @@
 /* Mythic Rx brand styles */
 :root {
   /* Primary Green Palette */
-  --mythic-green-1-sage: #e5e8d1;
-  --mythic-green-2-leaf: #878f45;
-  --mythic-green-3-moss: #3d4d1a;
-  --mythic-green-4-forest: #2e360a;
+  --mythic-green-1-sage: #CFE3CC;
+  --mythic-green-2-leaf: #1E6B3A;
+  --mythic-green-3-moss: #0F4D2E;
+  --mythic-green-4-forest: #0B3A20;
 
   /* Grey Palette (alternate scheme) */
-  --mythic-grey-1-platinum: #f2f2f2;
-  --mythic-grey-2-silver: #c2c2c2;
-  --mythic-grey-3-stone: #666666;
-  --mythic-grey-4-slate: #333333;
+  --mythic-grey-1-platinum: #F5F3E7;
+  --mythic-grey-2-silver: #DADAD3;
+  --mythic-grey-3-stone: #4A4A4A;
+  --mythic-grey-4-slate: #2E2E2E;
 
   /* Brown Palette (alternate warm scheme) */
   --mythic-brown-1-sand: #f4ece1;
-  --mythic-brown-2-gold: #f7de70; /* Accent; NOT a full-page background */
+  --mythic-brown-2-gold: #F8DE70; /* Accent; NOT a full-page background */
   --mythic-brown-3-earth: #6b5703;
   --mythic-brown-4-wood: #302603;
 
@@ -183,7 +183,7 @@ a:hover, a:focus {
   border-radius: 1.5rem;
   padding: 3rem;
   border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 1.5rem 3rem rgba(46, 54, 10, 0.08);
+  box-shadow: 0 1.5rem 3rem rgba(11, 58, 32, 0.08);
 }
 
 .brand-panel .eyebrow {
@@ -215,7 +215,7 @@ a:hover, a:focus {
   border-radius: 1.5rem;
   padding: 3rem;
   border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 1.5rem 3rem rgba(46, 54, 10, 0.08);
+  box-shadow: 0 1.5rem 3rem rgba(11, 58, 32, 0.08);
 }
 
 .brand-panel .eyebrow {
@@ -328,7 +328,7 @@ select:focus,
 textarea:focus {
   outline: 2px solid var(--color-brand-primary);
   border-color: var(--color-brand-primary);
-  box-shadow: 0 0 0 4px rgba(135, 143, 69, 0.2);
+  box-shadow: 0 0 0 4px rgba(30, 107, 58, 0.2);
 }
 
 label {
