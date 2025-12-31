@@ -362,9 +362,6 @@ img {
 .partner-logo-white {
     filter: brightness(0) invert(1);
     opacity: 1;
-    background-color: white;
-    padding: 5px;
-    border-radius: 4px;
 }
 
 .partner-logo-grey {
