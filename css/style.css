@@ -675,6 +675,15 @@ img {
     padding-bottom: 70px;
 }
 
+/* Optimize location images for faster loading */
+.location-image {
+    max-width: 600px;
+    max-height: 600px;
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+}
+
 .swiper-pagination {
     margin-block: 1rem;
     position: relative;
