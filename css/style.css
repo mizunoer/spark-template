@@ -373,6 +373,19 @@ img {
     padding: 20px 15px;
 }
 
+.swiperPartner .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+}
+
+.swiperPartner .swiper-slide img {
+    max-height: 60px;
+    width: auto;
+    object-fit: contain;
+}
+
 .banner-heading-container {
     background-color: rgba(255, 255, 255, 0.92);
     padding: 20px 25px;
