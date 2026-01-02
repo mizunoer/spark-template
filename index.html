@@ -4,7 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="stylesheet" href="css/style.css" id="main-stylesheet">
+    <script>
+        // Force reload CSS on every page load during development
+        (function() {
+            var stylesheet = document.getElementById('main-stylesheet');
+            var timestamp = new Date().getTime();
+            stylesheet.href = 'css/style.css?v=' + timestamp;
+        })();
+    </script>
     <link rel="icon" type="image/x-icon" href="image/logo.png">
     <title>Mythic Rx - Precision Compounding for Progressive Clinics</title>
 </head>
