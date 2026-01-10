@@ -39,6 +39,11 @@ uploads/**/*
 !uploads/**/.htaccess
 !uploads/**/.gitkeep
 
+# Allow directories for review folders (must come before file patterns)
+!uploads/facility/
+!uploads/logos/
+!uploads/team/
+
 # Allow specific image files in review folders to be tracked
 !uploads/facility/*.jpg
 !uploads/facility/*.JPG
@@ -46,12 +51,16 @@ uploads/**/*
 !uploads/facility/*.PNG
 !uploads/facility/*.gif
 !uploads/facility/*.webp
+!uploads/facility/*.jpeg
+!uploads/facility/*.JPEG
 !uploads/logos/*.jpg
 !uploads/logos/*.JPG
 !uploads/logos/*.png
 !uploads/logos/*.PNG
 !uploads/logos/*.gif
 !uploads/logos/*.webp
+!uploads/logos/*.jpeg
+!uploads/logos/*.JPEG
 !uploads/team/*.jpg
 !uploads/team/*.JPG
 !uploads/team/*.png
