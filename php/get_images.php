@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 
 // Configuration
 $allowedCategories = ['pending', 'updates', 'banners', 'logos', 'team', 'facility'];
-$uploadBaseDir = dirname(__DIR__) . '/uploads/';
+$uploadBaseDir = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR;
 
 // Get category from query parameter
 $category = isset($_GET['category']) ? sanitizeFileName($_GET['category']) : 'pending';
@@ -26,7 +26,7 @@ if (!in_array($category, $allowedCategories)) {
     exit;
 }
 
-$categoryDir = $uploadBaseDir . $category . '/';
+$categoryDir = $uploadBaseDir . $category . DIRECTORY_SEPARATOR;
 $images = [];
 
 // Check if directory exists
@@ -34,15 +34,15 @@ if (is_dir($categoryDir)) {
     $files = scandir($categoryDir);
     
     foreach ($files as $file) {
-        // Skip hidden files, directories, and .htaccess
-        if ($file === '.' || $file === '..' || $file === '.htaccess') {
+        // Skip hidden files, directories, .htaccess, and .gitkeep
+        if ($file === '.' || $file === '..' || $file === '.htaccess' || $file === '.gitkeep') {
             continue;
         }
         
         $filePath = $categoryDir . $file;
         
         // Only process image files
-        if (is_file($filePath) && preg_match('/\.(jpg|jpeg|png)$/i', $file)) {
+        if (is_file($filePath) && preg_match('/\.(jpg|jpeg|png|gif|webp)$/i', $file)) {
             $imageInfo = @getimagesize($filePath);
             if ($imageInfo !== false) {
                 $images[] = [

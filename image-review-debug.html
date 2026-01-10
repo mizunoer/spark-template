@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Review Debug</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; }
+        .error { color: red; }
+        .success { color: green; }
+        img { max-width: 200px; margin: 10px; border: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <h1>Image Review System - Debug Page</h1>
+    
+    <div class="test-section">
+        <h2>Test 1: Get Images from Facility Category</h2>
+        <button onclick="testGetImages()">Test Get Images API</button>
+        <div id="get-images-result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 2: Display Retrieved Images</h2>
+        <div id="images-display"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 3: Test Individual Image Serving</h2>
+        <button onclick="testImageServe()">Test Image Serving</button>
+        <div id="serve-image-result"></div>
+    </div>
+
+    <script src="js/vendor/jquery.min.js"></script>
+    <script>
+        function testGetImages() {
+            const resultDiv = $('#get-images-result');
+            resultDiv.html('<p>Testing...</p>');
+            
+            $.ajax({
+                url: 'php/get_images.php',
+                method: 'GET',
+                data: { category: 'facility' },
+                dataType: 'json',
+                success: function(response) {
+                    console.log('Response:', response);
+                    if (response.success) {
+                        let html = '<p class="success">✓ Success! Found ' + response.count + ' images</p>';
+                        html += '<pre>' + JSON.stringify(response, null, 2) + '</pre>';
+                        
+                        if (response.images && response.images.length > 0) {
+                            html += '<h3>Images:</h3><ul>';
+                            response.images.forEach(function(img) {
+                                html += '<li>' + img.name + ' (' + img.width + 'x' + img.height + ')';
+                                html += ' - Path: ' + img.path + '</li>';
+                                
+                                // Try to display the image
+                                const imgUrl = 'php/serve_image.php?path=' + encodeURIComponent(img.path) + '&category=facility';
+                                html += '<img src="' + imgUrl + '" alt="' + img.name + '" onerror="this.style.border=\'3px solid red\'; this.alt=\'FAILED TO LOAD: \' + this.alt;">';
+                            });
+                            html += '</ul>';
+                        }
+                        
+                        resultDiv.html(html);
+                        
+                        // Also populate the display section
+                        if (response.images && response.images.length > 0) {
+                            displayImages(response.images);
+                        }
+                    } else {
+                        resultDiv.html('<p class="error">✗ Failed: ' + (response.message || 'Unknown error') + '</p>');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', xhr, status, error);
+                    let html = '<p class="error">✗ AJAX Error</p>';
+                    html += '<p>Status: ' + status + '</p>';
+                    html += '<p>Error: ' + error + '</p>';
+                    if (xhr.responseText) {
+                        html += '<pre>' + xhr.responseText + '</pre>';
+                    }
+                    resultDiv.html(html);
+                }
+            });
+        }
+        
+        function displayImages(images) {
+            const displayDiv = $('#images-display');
+            let html = '<h3>Displaying ' + images.length + ' images:</h3>';
+            images.forEach(function(img) {
+                const imgUrl = 'php/serve_image.php?path=' + encodeURIComponent(img.path) + '&category=facility';
+                html += '<div style="display: inline-block; margin: 10px; padding: 10px; border: 1px solid #ccc;">';
+                html += '<img src="' + imgUrl + '" alt="' + img.name + '" ';
+                html += 'onerror="this.style.border=\'3px solid red\'; console.error(\'Failed to load: ' + img.name + '\');">';
+                html += '<p style="font-size: 12px; max-width: 200px; word-wrap: break-word;">' + img.name + '</p>';
+                html += '</div>';
+            });
+            displayDiv.html(html);
+        }
+        
+        function testImageServe() {
+            const resultDiv = $('#serve-image-result');
+            resultDiv.html('<p>Testing with a sample image path...</p>');
+            
+            // Test with the first image from facility
+            $.ajax({
+                url: 'php/get_images.php',
+                method: 'GET',
+                data: { category: 'facility' },
+                dataType: 'json',
+                success: function(response) {
+                    if (response.images && response.images.length > 0) {
+                        const firstImage = response.images[0];
+                        const testUrl = 'php/serve_image.php?path=' + encodeURIComponent(firstImage.path) + '&category=facility';
+                        
+                        let html = '<p>Testing: ' + firstImage.name + '</p>';
+                        html += '<p>URL: ' + testUrl + '</p>';
+                        html += '<img src="' + testUrl + '" alt="Test" ';
+                        html += 'onload="this.style.border=\'3px solid green\';" ';
+                        html += 'onerror="this.style.border=\'3px solid red\'; console.error(\'Image failed to load\');">';
+                        
+                        resultDiv.html(html);
+                    } else {
+                        resultDiv.html('<p class="error">No images found to test</p>');
+                    }
+                }
+            });
+        }
+        
+        // Auto-run test on page load
+        $(document).ready(function() {
+            testGetImages();
+        });
+    </script>
+</body>
+</html>

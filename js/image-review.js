@@ -30,8 +30,13 @@ $(document).ready(function() {
                     displayEmptyState(category);
                 }
             },
-            error: function() {
+            error: function(xhr, status, error) {
                 console.error('Error loading images for category: ' + category);
+                console.error('Status: ' + status);
+                console.error('Error: ' + error);
+                if (xhr.responseText) {
+                    console.error('Response: ' + xhr.responseText);
+                }
                 displayEmptyState(category);
             }
         });
