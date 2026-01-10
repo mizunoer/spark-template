@@ -38,3 +38,28 @@ pids
 uploads/**/*
 !uploads/**/.htaccess
 !uploads/**/.gitkeep
+
+# Allow specific image files in review folders to be tracked
+!uploads/facility/*.jpg
+!uploads/facility/*.JPG
+!uploads/facility/*.png
+!uploads/facility/*.PNG
+!uploads/facility/*.gif
+!uploads/facility/*.webp
+!uploads/logos/*.jpg
+!uploads/logos/*.JPG
+!uploads/logos/*.png
+!uploads/logos/*.PNG
+!uploads/logos/*.gif
+!uploads/logos/*.webp
+!uploads/team/*.jpg
+!uploads/team/*.JPG
+!uploads/team/*.png
+!uploads/team/*.PNG
+!uploads/team/*.gif
+!uploads/team/*.webp
+!uploads/team/*.jpeg
+!uploads/team/*.JPEG
+
+# Still ignore user-uploaded content in other folders (pending, updates, banners)
+# These should be uploaded through the website interface
