@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="stylesheet" href="css/style.css" id="main-stylesheet">
+    <script>
+        // Force reload CSS on every page load during development
+        (function() {
+            var stylesheet = document.getElementById('main-stylesheet');
+            var timestamp = new Date().getTime();
+            stylesheet.href = 'css/style.css?v=' + timestamp;
+        })();
+    </script>
+    <link rel="icon" type="image/x-icon" href="image/logo.png">
+    <title>Mythic Rx - Image Review & Voting</title>
+    <style>
+        .image-review-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
+        }
+        
+        .image-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .image-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .image-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .image-card-body {
+            padding: 15px;
+        }
+        
+        .image-meta {
+            font-size: 0.875rem;
+            color: var(--text-color-2);
+            margin-bottom: 10px;
+        }
+        
+        .vote-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 10px;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 10px;
+        }
+        
+        .vote-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-vote {
+            padding: 6px 12px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+        }
+        
+        .btn-vote:hover {
+            background: #f5f5f5;
+        }
+        
+        .btn-vote.voted-up {
+            background: #1E6B3A;
+            color: white;
+            border-color: #1E6B3A;
+        }
+        
+        .btn-vote.voted-down {
+            background: #dc3545;
+            color: white;
+            border-color: #dc3545;
+        }
+        
+        .vote-count {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        
+        .upload-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .upload-dropzone {
+            border: 2px dashed #1E6B3A;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-dropzone:hover {
+            background: #f0f8f0;
+            border-color: #0F4D2E;
+        }
+        
+        .upload-dropzone.dragover {
+            background: #e8f5e9;
+            border-color: #0F4D2E;
+        }
+        
+        .upload-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .upload-preview-item {
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .upload-preview-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+        
+        .upload-preview-item .remove-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(220, 53, 69, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .tab-content {
+            min-height: 400px;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-color-2);
+        }
+        
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="sticky-top bg-accent-primary">
+        <div class="r-container">
+            <nav class="navbar navbar-expand-xl">
+                <div class="container-fluid ps-3">
+                    <div class="logo-container">
+                        <a class="navbar-brand" href="index.html"><img src="image/logo.png" alt="Mythic Rx Compounding Pharmacy Logo" class="img-fluid"></a>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fa-solid fa-bars-staggered accent-color-2"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav mx-auto mb-2 mb-xl-0 gap-xl-4 gap-1">
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="index.html">Homepage</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    Services
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="services.html">Services</a></li>
+                                    <li><a class="dropdown-item" href="service_detail.html">Service Details</a></li>
+                                    <li><a class="dropdown-item" href="member.html">Membership</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    About
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="about.html">About Us</a></li>
+                                    <li><a class="dropdown-item" href="team.html">Team</a></li>
+                                    <li><a class="dropdown-item" href="contact.html">Contact Us</a></li>
+                                    <li><a class="dropdown-item" href="faq.html">FAQs</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="mb-xl-0 mb-3">
+                            <a href="contact.html"
+                                class="btn btn-accent-outline d-flex flex-row rounded-pill gap-2 px-4 py-2">
+                                <span>Get Started</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <!-- End Header -->
+
+    <!-- Main -->
+    <main>
+        <!-- Banner -->
+        <div class="section position-relative bg-attach-fixed overflow-hidden mx-auto rounded-4"
+            style="background-image: url(image/dummy-img-1920x900.jpg); background-position: top; height: 40vh; max-width: 1770px;">
+            <div class="cta-overlay"></div>
+            <div class="r-container h-100 position-relative" style="z-index: 2;">
+                <div class="d-flex flex-column w-100 h-100 justify-content-center mx-auto align-items-center text-white gap-3"
+                    style="max-width: 895px;">
+                    <h2 class="m-0 text-white">Image Review & Voting</h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html" class="text-white">Home</a></li>
+                            <li class="breadcrumb-item active text-white" aria-current="page">Image Review</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <!-- Image Review Section -->
+        <div class="section">
+            <div class="r-container image-review-container">
+                <div class="d-flex flex-column gap-4">
+                    <!-- Upload Section -->
+                    <div class="upload-section">
+                        <h3 class="mb-4">Upload New Images</h3>
+                        <form id="imageUploadForm" enctype="multipart/form-data">
+                            <div class="upload-dropzone" id="dropzone">
+                                <i class="fa-solid fa-cloud-arrow-up" style="font-size: 48px; color: #1E6B3A; margin-bottom: 15px;"></i>
+                                <p class="mb-2"><strong>Click to upload or drag and drop</strong></p>
+                                <p class="text-color-2 mb-3">PNG, JPG, JPEG up to 10MB each</p>
+                                <input type="file" id="imageFiles" name="images[]" multiple accept="image/png,image/jpeg,image/jpg" style="display: none;">
+                                <label for="imageFiles" class="btn btn-accent rounded-pill px-4 py-2" style="cursor: pointer;">
+                                    Select Images
+                                </label>
+                            </div>
+                            
+                            <div class="mb-3 mt-4">
+                                <label for="imageCategory" class="form-label">Category</label>
+                                <select class="form-control" id="imageCategory" name="category" required>
+                                    <option value="pending">Pending Review</option>
+                                    <option value="updates">Possible Updates</option>
+                                    <option value="banners">Banners</option>
+                                    <option value="logos">Logos</option>
+                                    <option value="team">Team Photos</option>
+                                    <option value="facility">Facility Photos</option>
+                                </select>
+                            </div>
+                            
+                            <div id="uploadPreview" class="upload-preview" style="display: none;"></div>
+                            
+                            <div class="mt-4">
+                                <button type="submit" class="btn btn-accent rounded-pill px-5 py-2" id="uploadBtn">
+                                    <span>Upload Images</span>
+                                </button>
+                                <button type="button" class="btn btn-secondary rounded-pill px-5 py-2 ms-2" id="cancelUpload" style="display: none;">
+                                    Cancel
+                                </button>
+                            </div>
+                            
+                            <div id="uploadProgress" class="mt-3" style="display: none;">
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            
+                            <div id="uploadMessage" class="mt-3"></div>
+                        </form>
+                    </div>
+
+                    <!-- Tabs Navigation -->
+                    <ul class="nav nav-tabs" id="imageTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending" type="button" role="tab">
+                                Pending Review
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="updates-tab" data-bs-toggle="tab" data-bs-target="#updates" type="button" role="tab">
+                                Possible Updates
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="banners-tab" data-bs-toggle="tab" data-bs-target="#banners" type="button" role="tab">
+                                Banners
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="logos-tab" data-bs-toggle="tab" data-bs-target="#logos" type="button" role="tab">
+                                Logos
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="team-tab" data-bs-toggle="tab" data-bs-target="#team" type="button" role="tab">
+                                Team Photos
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="facility-tab" data-bs-toggle="tab" data-bs-target="#facility" type="button" role="tab">
+                                Facility Photos
+                            </button>
+                        </li>
+                    </ul>
+
+                    <!-- Tab Content -->
+                    <div class="tab-content" id="imageTabContent">
+                        <!-- Pending Review Tab -->
+                        <div class="tab-pane fade show active" id="pending" role="tabpanel">
+                            <div class="image-grid" id="pendingGrid">
+                                <!-- Images will be loaded here via JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- Possible Updates Tab -->
+                        <div class="tab-pane fade" id="updates" role="tabpanel">
+                            <div class="image-grid" id="updatesGrid">
+                                <!-- Images will be loaded here via JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- Banners Tab -->
+                        <div class="tab-pane fade" id="banners" role="tabpanel">
+                            <div class="image-grid" id="bannersGrid">
+                                <!-- Images will be loaded here via JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- Logos Tab -->
+                        <div class="tab-pane fade" id="logos" role="tabpanel">
+                            <div class="image-grid" id="logosGrid">
+                                <!-- Images will be loaded here via JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- Team Photos Tab -->
+                        <div class="tab-pane fade" id="team" role="tabpanel">
+                            <div class="image-grid" id="teamGrid">
+                                <!-- Images will be loaded here via JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- Facility Photos Tab -->
+                        <div class="tab-pane fade" id="facility" role="tabpanel">
+                            <div class="image-grid" id="facilityGrid">
+                                <!-- Images will be loaded here via JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="r-container">
+            <div class="row row-cols-xl-4 row-cols-1">
+                <div class="col mb-3">
+                    <div class="d-flex flex-column gap-3">
+                        <img src="image/logo-white.png" alt="Mythic Rx Compounding Pharmacy Logo" class="img-fluid" width="350">
+                        <p class="text-white">
+                            Mythic Rx is a 503A licensed compounding pharmacy serving healthcare providers with precision sterile and non-sterile formulations. USP 797 & 795 compliant.
+                        </p>
+                    </div>
+                </div>
+                <div class="col mb-3">
+                    <div class="d-flex flex-column gap-3">
+                        <h5 class="text-white">Quick Links</h5>
+                        <div class="d-flex flex-column gap-2">
+                            <a href="index.html" class="link link-white">Homepage</a>
+                            <a href="about.html" class="link link-white">About Us</a>
+                            <a href="services.html" class="link link-white">Services</a>
+                            <a href="contact.html" class="link link-white">Contact Us</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-3">
+                    <div class="d-flex flex-column gap-3">
+                        <h5 class="text-white">Services</h5>
+                        <div class="d-flex flex-column gap-2">
+                            <a href="services.html" class="link link-white">Custom Compounding</a>
+                            <a href="services.html" class="link link-white">Sterile Formulations</a>
+                            <a href="services.html" class="link link-white">Provider Portal</a>
+                            <a href="services.html" class="link link-white">Secure Shipping</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-3">
+                    <div class="d-flex flex-column gap-3">
+                        <h5 class="text-white">Contact Info</h5>
+                        <div class="d-flex flex-column gap-2">
+                            <p class="text-white mb-0">Email: info@mythicrx.com</p>
+                            <p class="text-white mb-0">Phone: (801) 555-0123</p>
+                            <p class="text-white mb-0">Licensed in: UT, ID, AZ, CO, WY, HI</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="border-light my-4">
+            <div class="d-flex flex-xl-row flex-column justify-content-between align-items-center gap-3">
+                <p class="text-white mb-0">© 2024 Mythic Rx. All rights reserved.</p>
+                <div class="d-flex flex-row gap-3">
+                    <a href="#" class="link link-white">Privacy Policy</a>
+                    <a href="#" class="link link-white">Terms of Service</a>
+                </div>
+            </div>
+            <div class="mt-4 p-3 bg-dark rounded">
+                <p class="text-white mb-2" style="font-size: 0.875rem;"><strong>Compliance Notice:</strong></p>
+                <p class="text-white mb-0" style="font-size: 0.75rem;">
+                    By submitting a prescription or order request to Mythic Pharmacy, you acknowledge that all compounded medications are prepared pursuant to a valid patient-specific prescription, are not FDA-approved, and must be dispensed and used under the supervision of a licensed prescriber. Mythic Pharmacy does not provide medical diagnosis, treatment decisions, or telehealth services.
+                </p>
+                <p class="text-white mt-2 mb-0" style="font-size: 0.75rem;">
+                    Mythic Pharmacy can only dispense medications in states where we hold an active pharmacy license. Currently licensed in: <strong>Utah, Idaho, Arizona, Colorado, Wyoming, and Hawaii</strong>. Additional states will be added as licenses are approved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/vendor/jquery.min.js"></script>
+    <script src="js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="js/image-review.js"></script>
+</body>
+
+</html>
+
