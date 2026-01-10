@@ -25,9 +25,10 @@ $allowedMimeTypes = ['image/jpeg', 'image/jpg', 'image/png'];
 $allowedExtensions = ['jpg', 'jpeg', 'png'];
 $maxFileSize = 10 * 1024 * 1024; // 10MB
 // Upload directory - adjust path based on your server structure
-// For cPanel, this should be relative to the php/ directory
-$uploadBaseDir = dirname(__DIR__) . '/uploads/'; // Points to /uploads/ directory
-$uploadDir = $uploadBaseDir . sanitizeFileName($_POST['category']) . '/';
+// For cPanel, relative path from php/ directory
+$uploadBaseDir = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR;
+$categoryName = sanitizeFileName($_POST['category']);
+$uploadDir = $uploadBaseDir . $categoryName . DIRECTORY_SEPARATOR;
 
 // Validate category
 $category = sanitizeFileName($_POST['category']);

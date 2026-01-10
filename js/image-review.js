@@ -312,11 +312,14 @@ $(document).ready(function() {
                         $fileInput.val('');
                         $cancelBtn.hide();
                         
-                        // Reload images for the category
-                        loadImages(category);
-                        
-                        // Switch to the uploaded category tab
-                        $('#' + category + '-tab').tab('show');
+                        // Clear form
+                        setTimeout(function() {
+                            // Reload images for the category
+                            loadImages(category);
+                            
+                            // Switch to the uploaded category tab
+                            $('#' + category + '-tab').tab('show');
+                        }, 1000);
                     } else {
                         $message.html('<div class="alert alert-danger">Error: ' + (data.message || 'Upload failed') + '</div>').show();
                     }
