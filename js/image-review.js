@@ -111,7 +111,7 @@ $(document).ready(function() {
         localStorage.setItem('votes_' + imageId, JSON.stringify(voteData));
     }
 
-    // Handle voting
+    // Handle voting - aggregate counts (each click adds to count)
     $(document).on('click', '.btn-vote', function() {
         const $btn = $(this);
         const imageId = $btn.data('image-id');
@@ -119,31 +119,14 @@ $(document).ready(function() {
         const $card = $btn.closest('.image-card');
         
         let voteData = getVoteData(imageId);
-        const previousVote = voteData.userVote;
 
-        // Toggle if clicking same vote
-        if (previousVote === vote) {
-            voteData.userVote = null;
-            if (vote === 'up') {
-                voteData.upvotes = Math.max(0, (voteData.upvotes || 0) - 1);
-            } else {
-                voteData.downvotes = Math.max(0, (voteData.downvotes || 0) - 1);
-            }
+        // Aggregate votes - each click increments the count
+        if (vote === 'up') {
+            voteData.upvotes = (voteData.upvotes || 0) + 1;
+            voteData.userVote = 'up'; // Track last vote for visual feedback
         } else {
-            // Remove previous vote
-            if (previousVote === 'up') {
-                voteData.upvotes = Math.max(0, (voteData.upvotes || 0) - 1);
-            } else if (previousVote === 'down') {
-                voteData.downvotes = Math.max(0, (voteData.downvotes || 0) - 1);
-            }
-            
-            // Add new vote
-            voteData.userVote = vote;
-            if (vote === 'up') {
-                voteData.upvotes = (voteData.upvotes || 0) + 1;
-            } else {
-                voteData.downvotes = (voteData.downvotes || 0) + 1;
-            }
+            voteData.downvotes = (voteData.downvotes || 0) + 1;
+            voteData.userVote = 'down'; // Track last vote for visual feedback
         }
 
         saveVoteData(imageId, voteData);
@@ -152,6 +135,7 @@ $(document).ready(function() {
         const voteCount = (voteData.upvotes || 0) - (voteData.downvotes || 0);
         $card.find('.vote-count').text((voteCount > 0 ? '+' : '') + voteCount);
         
+        // Update visual feedback to show last clicked button
         $card.find('.vote-up').removeClass('voted-up');
         $card.find('.vote-down').removeClass('voted-down');
         
@@ -165,7 +149,7 @@ $(document).ready(function() {
         // $.ajax({
         //     url: 'php/vote.php',
         //     method: 'POST',
-        //     data: { imageId: imageId, vote: voteData.userVote },
+        //     data: { imageId: imageId, vote: vote },
         //     success: function(response) { console.log('Vote saved'); }
         // });
     });
