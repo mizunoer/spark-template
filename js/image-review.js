@@ -1,4 +1,4 @@
-// Image Review and Voting System
+// Image Upload and Review System
 $(document).ready(function() {
     'use strict';
 
@@ -55,7 +55,9 @@ $(document).ready(function() {
 
         images.forEach(function(image) {
             const voteData = getVoteData(image.id);
-            const voteCount = (voteData.upvotes || 0) - (voteData.downvotes || 0);
+            const upvotes = voteData.upvotes || 0;
+            const downvotes = voteData.downvotes || 0;
+            const totalVotes = upvotes + downvotes;
             
             const card = `
                 <div class="image-card" data-image-id="${image.id}">
@@ -68,17 +70,17 @@ $(document).ready(function() {
                         </div>
                         <div class="vote-section">
                             <div class="vote-buttons">
-                                <button class="btn-vote vote-up ${voteData.userVote === 'up' ? 'voted-up' : ''}" 
+                                <button class="btn-vote vote-up" 
                                         data-image-id="${image.id}" data-vote="up">
-                                    <i class="fa-solid fa-thumbs-up"></i> Up
+                                    <i class="fa-solid fa-thumbs-up"></i> <span class="vote-up-count">${upvotes}</span>
                                 </button>
-                                <button class="btn-vote vote-down ${voteData.userVote === 'down' ? 'voted-down' : ''}" 
+                                <button class="btn-vote vote-down" 
                                         data-image-id="${image.id}" data-vote="down">
-                                    <i class="fa-solid fa-thumbs-down"></i> Down
+                                    <i class="fa-solid fa-thumbs-down"></i> <span class="vote-down-count">${downvotes}</span>
                                 </button>
                             </div>
                             <div class="vote-count">
-                                ${voteCount > 0 ? '+' : ''}${voteCount}
+                                <small>Total: ${totalVotes}</small>
                             </div>
                         </div>
                     </div>
@@ -123,27 +125,26 @@ $(document).ready(function() {
         // Aggregate votes - each click increments the count
         if (vote === 'up') {
             voteData.upvotes = (voteData.upvotes || 0) + 1;
-            voteData.userVote = 'up'; // Track last vote for visual feedback
         } else {
             voteData.downvotes = (voteData.downvotes || 0) + 1;
-            voteData.userVote = 'down'; // Track last vote for visual feedback
         }
 
         saveVoteData(imageId, voteData);
 
-        // Update UI
-        const voteCount = (voteData.upvotes || 0) - (voteData.downvotes || 0);
-        $card.find('.vote-count').text((voteCount > 0 ? '+' : '') + voteCount);
+        // Update UI with aggregate counts
+        const upvotes = voteData.upvotes || 0;
+        const downvotes = voteData.downvotes || 0;
+        const totalVotes = upvotes + downvotes;
         
-        // Update visual feedback to show last clicked button
-        $card.find('.vote-up').removeClass('voted-up');
-        $card.find('.vote-down').removeClass('voted-down');
+        $card.find('.vote-up-count').text(upvotes);
+        $card.find('.vote-down-count').text(downvotes);
+        $card.find('.vote-count small').text('Total: ' + totalVotes);
         
-        if (voteData.userVote === 'up') {
-            $card.find('.vote-up').addClass('voted-up');
-        } else if (voteData.userVote === 'down') {
-            $card.find('.vote-down').addClass('voted-down');
-        }
+        // Brief visual feedback on click
+        $btn.addClass('voted-' + vote);
+        setTimeout(function() {
+            $btn.removeClass('voted-' + vote);
+        }, 300);
 
         // In production, send vote to server
         // $.ajax({
