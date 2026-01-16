@@ -914,7 +914,7 @@ a {
 
 .btn-accent {
     background-color: var(--accent-color);
-    color: var(--text-color);
+    color: white !important;
     transition: all 0.5s;
     border: 1px solid transparent;
 }
@@ -922,7 +922,7 @@ a {
 .btn-accent:hover {
     background-color: transparent;
     border-color: var(--text-color);
-    color: var(--text-color);
+    color: var(--text-color) !important;
 }
 
 .btn-accent.accent:hover {
