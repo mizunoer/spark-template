@@ -180,9 +180,9 @@ const mySwiper = new Swiper('.mySwiper', {
             slidesPerView: 4,
         }
     },
-    scrollbar: {
-        el: '.custom-scrollbar',
-        draggable: true,
+    navigation: {
+        nextEl: '.team-swiper-next',
+        prevEl: '.team-swiper-prev',
     }
 });
 
