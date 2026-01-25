@@ -4,11 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="stylesheet" href="css/style.css" id="main-stylesheet">
+    <script>
+        // Force reload CSS on every page load during development
+        (function() {
+            var stylesheet = document.getElementById('main-stylesheet');
+            var timestamp = new Date().getTime();
+            stylesheet.href = 'css/style.css?v=' + timestamp;
+        })();
+    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/shishirraven/animate-on-scroll@v1.2/animation_utility.css">
     <link rel="icon" type="image/x-icon" href="image/logo.png">
-    <title>Pharmed - Services</title>
+    <title>Mythic Rx - Services</title>
 </head>
 
 <body>
@@ -51,6 +62,16 @@
                                     <li><a class="dropdown-item" href="contact.html">Contact Us</a></li>
                                     <li><a class="dropdown-item" href="faq.html">FAQs</a></li>
                                     <li><a class="dropdown-item" href="image-review.html">Image Upload</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    For Providers
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="get-started.html">New Providers</a></li>
+                                    <li><a class="dropdown-item" href="provider-portal.html">Provider Portal</a></li>
                                 </ul>
                             </li>
                         </ul>
