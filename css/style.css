@@ -2889,3 +2889,32 @@ a {
     }
 
 }
+
+/* Footer responsive on phone */
+@media (max-width: 576px) {
+    footer .section {
+        padding: 2rem 1rem !important;
+    }
+    footer .p-5 {
+        padding: 1.5rem 1rem !important;
+    }
+    footer .d-flex.flex-row.gap-2.align-items-center.justify-content-between {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 1rem !important;
+    }
+    footer .d-flex.flex-xl-row.flex-column.gap-5 {
+        flex-wrap: wrap;
+        gap: 1rem !important;
+    }
+    footer .text-white.fs-6.font-2 {
+        text-align: left;
+        font-size: 0.85rem !important;
+    }
+    footer .row.row-cols-xl-2 {
+        flex-direction: column;
+    }
+    footer [style*="max-width: 550px"] {
+        max-width: 100% !important;
+    }
+}
