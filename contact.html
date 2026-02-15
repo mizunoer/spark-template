@@ -90,7 +90,8 @@
             <div class="r-container h-100 position-relative" style="z-index: 2;">
                 <div class="d-flex flex-column w-100 h-100 justify-content-center mx-auto align-items-center text-white gap-3"
                     style="max-width: 895px;">
-                    <h2 class="m-0 text-white">Contact Us</h2>
+                    <h2 class="m-0 text-white">Contact</h2>
+                <p class="m-0 text-white mt-2">Questions about onboarding, orders, shipping, or formulations? Contact the team that handles clinic workflows.</p>
                 </div>
             </div>
         </div>
@@ -104,10 +105,10 @@
                             <div class="pe-5">
                                 <div class="d-flex flex-column gap-3 bg-accent-primary p-4"
                                     style="border-bottom-right-radius: 20px; margin-left: -3rem;">
-                                    <h3>Our Pharmacy & Healthcare Team is Here to Help</h3>
-                                    <p>Whether you need prescription refills, medical advice, or personalized care, our
-                                        expert team is dedicated to supporting your health and well-being.
-                                    </p>
+                                    <h3>Contact</h3>
+                                    <p class="mb-2"><strong>For new provider onboarding</strong><br>Use the New Providers form or email dev@mythic-rx.com.</p>
+                                    <p class="mb-2"><strong>For order status / shipping</strong><br>Include clinic name + patient initials (no full PHI in email) + order reference if available.</p>
+                                    <p class="mb-0"><strong>For pharmacist questions</strong><br>Send protocol context and requested formulation details—our pharmacists will respond.</p>
                                 </div>
                             </div>
                             <div class="success_msg toast align-items-center w-100 shadow-none mb-3 border border-success rounded-pill my-4"
@@ -115,7 +116,7 @@
                                 <div class="d-flex p-2">
                                     <div class="toast-body f-18 d-flex flex-row gap-3 align-items-center text-success">
                                         <i class="fa-solid fa-check f-36 text-success"></i>
-                                        Your Message Successfully Send.
+                                        Thanks—your message was sent.
                                     </div>
                                     <button type="button"
                                         class="me-2 m-auto bg-transparent border-0 ps-1 pe-0 text-success"
@@ -128,7 +129,7 @@
                                 <div class="d-flex p-2">
                                     <div class="toast-body f-18 d-flex flex-row gap-3 align-items-center text-danger">
                                         <i class="fa-solid fa-triangle-exclamation f-36 text-danger"></i>
-                                        Something Wrong ! Send Form Failed.
+                                        Something went wrong. Please try again or call 555-555-5555.
                                     </div>
                                     <button type="button"
                                         class="me-2 m-auto bg-transparent border-0 ps-1 pe-0 text-danger"
@@ -142,34 +143,30 @@
                                 <div class="mb-3">
                                     <input type="text" class="form-control py-3 px-4" name="name" id="name"
                                         placeholder="Name" required>
-                                    <div class="invalid-feedback">
-                                        The field is required.
-                                    </div>
+                                    <div class="invalid-feedback">This field is required.</div>
                                 </div>
                                 <div class="row row-cols-xl-2 row-cols-1">
                                     <div class="col mb-3">
                                         <input type="email" class="form-control py-3 px-4" name="email" id="email"
                                             placeholder="Email" required>
-                                        <div class="invalid-feedback">
-                                            The field is required.
-                                        </div>
+                                        <div class="invalid-feedback">This field is required.</div>
                                     </div>
                                     <div class="col mb-3">
                                         <input type="tel" class="form-control py-3 px-4" name="phone" id="phone"
                                             placeholder="Phone Number" required>
-                                        <div class="invalid-feedback">
-                                            The field is required.
-                                        </div>
+                                        <div class="invalid-feedback">This field is required.</div>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <select name="subject" id="subject" class="form-select py-3 px-4" required>
                                         <option value="" selected>Subject</option>
-                                        <option value="1">Subject 1</option>
-                                        <option value="2">Subject 2</option>
-                                        <option value="3">Subject 3</option>
-                                        <option value="4">Subject 4</option>
-                                        <option value="5">Subject 5</option>
+                                        <option value="new_provider">New Provider Enrollment</option>
+                                        <option value="prescription">Prescription Submission / Portal Help</option>
+                                        <option value="formulation">Formulation Question (Pharmacist)</option>
+                                        <option value="shipping">Shipping / Tracking</option>
+                                        <option value="documentation">Documentation Request</option>
+                                        <option value="billing">Billing</option>
+                                        <option value="other">Other</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">
@@ -179,7 +176,7 @@
                                 <div>
                                     <button type="submit"
                                         class="btn submit_form py-3 w-100 d-flex flex-row gap-3 justify-content-center gap-2 rounded-pill">
-                                        Submit Now
+                                        Send Message
                                     </button>
                                 </div>
                             </form>

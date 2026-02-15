@@ -267,6 +267,7 @@
                 <div class="d-flex flex-column w-100 h-100 justify-content-center mx-auto align-items-center text-white gap-3"
                     style="max-width: 895px;">
                     <h2 class="m-0 text-white">Image Upload</h2>
+                <p class="m-0 text-white mt-2">Upload site images for review and placement.</p>
                 </div>
             </div>
         </div>
@@ -281,8 +282,8 @@
                         <form id="imageUploadForm" enctype="multipart/form-data">
                             <div class="upload-dropzone" id="dropzone">
                                 <i class="fa-solid fa-cloud-arrow-up" style="font-size: 48px; color: #1E6B3A; margin-bottom: 15px;"></i>
-                                <p class="mb-2"><strong>Click to upload or drag and drop</strong></p>
-                                <p class="text-color-2 mb-3">PNG, JPG, JPEG up to 10MB each</p>
+                                <p class="mb-2"><strong>Drag files here, or click to browse</strong></p>
+                                <p class="text-color-2 mb-3">PNG/JPG up to 10MB each</p>
                                 <input type="file" id="imageFiles" name="images[]" multiple accept="image/png,image/jpeg,image/jpg" style="display: none;">
                                 <label for="imageFiles" class="btn btn-accent rounded-pill px-4 py-2" style="cursor: pointer;">
                                     Select Images
@@ -291,6 +292,7 @@
                             
                             <div class="mb-3 mt-4">
                                 <label for="imageCategory" class="form-label">Category</label>
+                                <span class="text-muted small">Options: Pending Review, Possible Updates, Banners, Logos, Team Photos, Facility Photos</span>
                                 <select class="form-control" id="imageCategory" name="category" required>
                                     <option value="pending">Pending Review</option>
                                     <option value="updates">Possible Updates</option>
@@ -305,7 +307,7 @@
                             
                             <div class="mt-4">
                                 <button type="submit" class="btn btn-accent rounded-pill px-5 py-2" id="uploadBtn">
-                                    <span>Upload Images</span>
+                                    <span>Upload</span>
                                 </button>
                                 <button type="button" class="btn btn-secondary rounded-pill px-5 py-2 ms-2" id="cancelUpload" style="display: none;">
                                     Cancel
