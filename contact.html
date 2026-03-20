@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact Mythic Rx compounding pharmacy. Get in touch for new provider onboarding, prescription questions, formulation inquiries, shipping information, or general support. Phone: 385-584-6620.">
+    <meta name="keywords" content="contact compounding pharmacy, pharmacy support, provider enrollment, prescription help, pharmacist consultation">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/shishirraven/animate-on-scroll@v1.2/animation_utility.css">
@@ -50,7 +52,6 @@
                                     <li><a class="dropdown-item" href="team.html">Team</a></li>
                                     <li><a class="dropdown-item active" href="contact.html">Contact Us</a></li>
                                     <li><a class="dropdown-item" href="faq.html">FAQs</a></li>
-                                    <li><a class="dropdown-item" href="image-review.html">Image Upload</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -106,7 +107,7 @@
                                 <div class="d-flex flex-column gap-3 bg-accent-primary p-4"
                                     style="border-bottom-right-radius: 20px; margin-left: -3rem;">
                                     <h3>Contact</h3>
-                                    <p class="mb-2"><strong>For new provider onboarding</strong><br>Use the New Providers form or email dev@mythic-rx.com.</p>
+                                    <p class="mb-2"><strong>For new provider onboarding</strong><br>Use the New Providers form or email info@mythic-rx.com.</p>
                                     <p class="mb-2"><strong>For order status / shipping</strong><br>Include clinic name + patient initials (no full PHI in email) + order reference if available.</p>
                                     <p class="mb-0"><strong>For pharmacist questions</strong><br>Send protocol context and requested formulation details—our pharmacists will respond.</p>
                                 </div>
@@ -129,7 +130,7 @@
                                 <div class="d-flex p-2">
                                     <div class="toast-body f-18 d-flex flex-row gap-3 align-items-center text-danger">
                                         <i class="fa-solid fa-triangle-exclamation f-36 text-danger"></i>
-                                        Something went wrong. Please try again or call 555-555-5555.
+                                        Something went wrong. Please try again or call 385-584-6620.
                                     </div>
                                     <button type="button"
                                         class="me-2 m-auto bg-transparent border-0 ps-1 pe-0 text-danger"
@@ -141,25 +142,29 @@
                                 class="d-flex flex-column gap-1 h-100 justify-content-center w-100 needs-validation form"
                                 novalidate>
                                 <div class="mb-3">
+                                    <label for="name" class="form-label fw-semibold mb-2">Name <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control py-3 px-4" name="name" id="name"
-                                        placeholder="Name" required>
-                                    <div class="invalid-feedback">This field is required.</div>
+                                        placeholder="Your full name" required>
+                                    <div class="invalid-feedback">Please provide your name.</div>
                                 </div>
                                 <div class="row row-cols-xl-2 row-cols-1">
                                     <div class="col mb-3">
+                                        <label for="email" class="form-label fw-semibold mb-2">Email <span class="text-danger">*</span></label>
                                         <input type="email" class="form-control py-3 px-4" name="email" id="email"
-                                            placeholder="Email" required>
-                                        <div class="invalid-feedback">This field is required.</div>
+                                            placeholder="your.email@example.com" required>
+                                        <div class="invalid-feedback">Please provide a valid email address.</div>
                                     </div>
                                     <div class="col mb-3">
+                                        <label for="phone" class="form-label fw-semibold mb-2">Phone Number <span class="text-danger">*</span></label>
                                         <input type="tel" class="form-control py-3 px-4" name="phone" id="phone"
-                                            placeholder="Phone Number" required>
-                                        <div class="invalid-feedback">This field is required.</div>
+                                            placeholder="385-584-6620" required>
+                                        <div class="invalid-feedback">Please provide a valid phone number (9 digits, or 10 if starting with 1).</div>
                                     </div>
                                 </div>
                                 <div class="mb-3">
+                                    <label for="subject" class="form-label fw-semibold mb-2">Subject <span class="text-danger">*</span></label>
                                     <select name="subject" id="subject" class="form-select py-3 px-4" required>
-                                        <option value="" selected>Subject</option>
+                                        <option value="" selected>Select a subject</option>
                                         <option value="new_provider">New Provider Enrollment</option>
                                         <option value="prescription">Prescription Submission / Portal Help</option>
                                         <option value="formulation">Formulation Question (Pharmacist)</option>
@@ -168,10 +173,12 @@
                                         <option value="billing">Billing</option>
                                         <option value="other">Other</option>
                                     </select>
+                                    <div class="invalid-feedback">Please select a subject.</div>
                                 </div>
                                 <div class="mb-3">
+                                    <label for="message" class="form-label fw-semibold mb-2">Message</label>
                                     <textarea class="form-control py-3 px-4" id="message" name="message" rows="5"
-                                        placeholder="Your Message"></textarea>
+                                        placeholder="Please provide details about your inquiry..."></textarea>
                                 </div>
                                 <div>
                                     <button type="submit"
@@ -192,11 +199,11 @@
                                 </div>
                                 <div class="d-flex flex-row align-items-center font-2 gap-3">
                                     <i class="rtmicon rtmicon-classic-phone  fs-4"></i>
-                                    <span>555-555-5555</span>
+                                    <span>385-584-6620</span>
                                 </div>
                                 <div class="d-flex flex-row align-items-center font-2 gap-3">
                                     <i class="rtmicon rtmicon-envelope fs-4"></i>
-                                    <span>dev@mythic-rx.com</span>
+                                    <span>info@mythic-rx.com</span>
                                 </div>
                             </div>
                         </div>
@@ -216,8 +223,8 @@
                     </div>
                 </div>
                 <iframe loading="lazy" class="maps overflow-hidden"
-                src="https://maps.google.com/maps?q=London%20Eye%2C%20London%2C%20United%20Kingdom&amp;t=m&amp;z=14&amp;output=embed&amp;iwloc=near"
-                title="London Eye, London, United Kingdom" aria-label="London Eye, London, United Kingdom"></iframe>
+                src="https://maps.google.com/maps?q=3920+S+1100+E+STE+110%2C+Millcreek%2C+UT+84124&amp;t=m&amp;z=14&amp;output=embed&amp;iwloc=near"
+                title="Mythic Rx - 3920 S 1100 E STE 110, Millcreek, UT 84124" aria-label="Mythic Rx - 3920 S 1100 E STE 110, Millcreek, UT 84124"></iframe>
             </div>
         </div>
 
@@ -261,11 +268,11 @@
                                     <div class="d-flex flex-column gap-3">
                                         <div class="d-flex flex-row align-items-center font-2 gap-3">
                                             <i class="rtmicon rtmicon-classic-phone  fs-4"></i>
-                                            <span>555-555-5555</span>
+                                            <span>385-584-6620</span>
                                         </div>
                                         <div class="d-flex flex-row align-items-center font-2 gap-3">
                                             <i class="rtmicon rtmicon-envelope fs-4"></i>
-                                            <span>dev@mythic-rx.com</span>
+                                            <span>info@mythic-rx.com</span>
                                         </div>
                                     </div>
                                 </div>
@@ -293,6 +300,33 @@
     <script src="js/vendor/isotope.pkgd.min.js"></script>
     <script src="js/video_embedded.js"></script>
     <script src="js/vendor/fslightbox.js"></script>
+    
+    <!-- Analytics Tracking -->
+    <!-- Google Analytics 4 (GA4) - Replace G-XXXXXXXXXX with your actual Measurement ID -->
+    <!--
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    -->
+    
+    <!-- Form Submission Tracking -->
+    <script>
+        $(document).ready(function() {
+            $('.needs-validation').on('submit', function() {
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'form_submission', {
+                        'event_category': 'Contact',
+                        'event_label': 'contact_page_form',
+                        'value': 1
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Become a Mythic Rx provider partner. Set up your clinic account to submit prescriptions, track orders, and access pharmacist support. Simple onboarding for healthcare providers.">
+    <meta name="keywords" content="provider enrollment, new provider, pharmacy partner, clinic account, provider portal, healthcare provider registration">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/shishirraven/animate-on-scroll@v1.2/animation_utility.css">
@@ -50,7 +52,6 @@
                                     <li><a class="dropdown-item" href="team.html">Team</a></li>
                                     <li><a class="dropdown-item" href="contact.html">Contact Us</a></li>
                                     <li><a class="dropdown-item" href="faq.html">FAQs</a></li>
-                                    <li><a class="dropdown-item" href="image-review.html">Image Upload</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -157,7 +158,8 @@
             </div>
         </div>
 
-        <div class="section mx-auto  rounded-3" style="background-image: url(image/BG_testi.png); max-width: 1770px;">
+        <!-- Testimonials - Hidden until real testimonials are available -->
+        <!-- <div class="section mx-auto  rounded-3" style="background-image: url(image/BG_testi.png); max-width: 1770px; display: none;">
             <div class="r-container">
                 <div class="row row-cols-xl-3 row-cols-1 align-items-center">
                     <div class="col col-xl-4 mb-3 scrollanimation animated fadeInLeft">
@@ -173,9 +175,7 @@
                         <div class="d-flex flex-column gap-3">
                             <div class="overflow-hidden">
                                 <div class="swiper swiperTestimonials2">
-                                    <!-- Additional required wrapper -->
                                     <div class="swiper-wrapper">
-                                        <!-- Slides -->
                                         <div class="swiper-slide">
                                             <div class="testimonial-container white">
                                                 <div class="d-flex flex-column gap-3">
@@ -202,58 +202,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="swiper-slide">
-                                            <div class="testimonial-container white">
-                                                <div class="d-flex flex-column gap-3">
-                                                    <i class="rtmicon rtmicon-blockquote text-color"
-                                                        style="font-size: 82px;"></i>
-                                                    <span class="font-2 fst-italic">"Exceptional service and care!
-                                                        The
-                                                        pharmacists here always go above and beyond to make sure I
-                                                        understand my medications and provide valuable advice. They
-                                                        truly care about my health."</span>
-                                                    <div
-                                                        class="d-flex flex-xl-row flex-column gap-2 justify-content-between">
-                                                        <div class="d-flex flex-row gap-3 align-items-center">
-                                                            <div class="customer-item">
-                                                                <img src="image/dummy-img-400x400.jpg"
-                                                                    class="img-fluid border-light" alt="">
-                                                            </div>
-                                                            <div class="d-flex flex-column">
-                                                                <h4 class="text-color fw-semibold">Muguel Adam</h4>
-                                                                <span class="font-2 text-color">Designation</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="swiper-slide">
-                                            <div class="testimonial-container white">
-                                                <div class="d-flex flex-column gap-3">
-                                                    <i class="rtmicon rtmicon-blockquote text-color"
-                                                        style="font-size: 82px;"></i>
-                                                    <span class="font-2 fst-italic">"Exceptional service and care!
-                                                        The
-                                                        pharmacists here always go above and beyond to make sure I
-                                                        understand my medications and provide valuable advice. They
-                                                        truly care about my health."</span>
-                                                </div>
-                                                <div
-                                                    class="d-flex flex-xl-row flex-column gap-2 justify-content-between">
-                                                    <div class="d-flex flex-row gap-3 align-items-center">
-                                                        <div class="customer-item">
-                                                            <img src="image/dummy-img-400x400.jpg"
-                                                                class="img-fluid border-light" alt="">
-                                                        </div>
-                                                        <div class="d-flex flex-column">
-                                                            <h4 class="text-color fw-semibold">Robert Anderson</h4>
-                                                            <span class="font-2 text-color">Designation</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="swiper-scrollbar custom-scrollbar"></div>
                                 </div>
@@ -262,7 +210,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="section">
             <div class="r-container">
                 <div class="row row-cols-xl-2 row-cols-1">
@@ -295,7 +243,7 @@
                                         <div
                                             class="toast-body f-18 d-flex flex-row gap-3 align-items-center text-danger">
                                             <i class="fa-solid fa-triangle-exclamation f-36 text-danger"></i>
-                                            Something went wrong. Please try again or call 555-555-5555.
+                                            Something went wrong. Please try again or call 385-584-6620.
                                         </div>
                                         <button type="button"
                                             class="me-2 m-auto bg-transparent border-0 ps-1 pe-0 text-danger"
@@ -307,44 +255,52 @@
                                     class="d-flex flex-column gap-1 h-100 justify-content-center w-100 needs-validation form"
                                     novalidate>
                                     <div class="mb-3">
+                                        <label for="name" class="form-label fw-semibold mb-2">Clinic / Practice Name <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control py-3 px-4" name="name" id="name"
-                                            placeholder="Clinic / Practice Name" required>
-                                        <div class="invalid-feedback">This field is required.</div>
+                                            placeholder="Your clinic or practice name" required>
+                                        <div class="invalid-feedback">Please provide your clinic or practice name.</div>
                                     </div>
                                     <div class="mb-3">
+                                        <label for="contact_name" class="form-label fw-semibold mb-2">Primary Contact Name <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control py-3 px-4" name="contact_name" id="contact_name"
-                                            placeholder="Primary Contact Name" required>
-                                        <div class="invalid-feedback">This field is required.</div>
+                                            placeholder="Primary contact person's name" required>
+                                        <div class="invalid-feedback">Please provide the primary contact name.</div>
                                     </div>
                                     <div class="row row-cols-xl-2 row-cols-1">
                                         <div class="col mb-3">
+                                            <label for="email" class="form-label fw-semibold mb-2">Contact Email <span class="text-danger">*</span></label>
                                             <input type="email" class="form-control py-3 px-4" name="email" id="email"
-                                                placeholder="Contact Email" required>
-                                            <div class="invalid-feedback">This field is required.</div>
+                                                placeholder="contact@example.com" required>
+                                            <div class="invalid-feedback">Please provide a valid email address.</div>
                                         </div>
                                         <div class="col mb-3">
+                                            <label for="phone" class="form-label fw-semibold mb-2">Contact Phone <span class="text-danger">*</span></label>
                                             <input type="tel" class="form-control py-3 px-4" name="phone" id="phone"
-                                                placeholder="Contact Phone" required>
-                                            <div class="invalid-feedback">This field is required.</div>
+                                                placeholder="385-584-6620" required>
+                                            <div class="invalid-feedback">Please provide a valid phone number (9 digits, or 10 if starting with 1).</div>
                                         </div>
                                     </div>
                                     <div class="row row-cols-xl-2 row-cols-1">
                                         <div class="col mb-3">
+                                            <label for="prescriber" class="form-label fw-semibold mb-2">Prescriber Name <small class="text-muted">(optional if multiple)</small></label>
                                             <input type="text" class="form-control py-3 px-4" name="prescriber" id="prescriber"
-                                                placeholder="Prescriber Name (optional if multiple)">
+                                                placeholder="Prescriber name">
                                         </div>
                                         <div class="col mb-3">
+                                            <label for="npi" class="form-label fw-semibold mb-2">NPI <small class="text-muted">(optional if multiple)</small></label>
                                             <input type="text" class="form-control py-3 px-4" name="npi" id="npi"
-                                                placeholder="NPI (optional if multiple)">
+                                                placeholder="National Provider Identifier">
                                         </div>
                                     </div>
                                     <div class="mb-3">
+                                        <label for="states" class="form-label fw-semibold mb-2">States Served / Requested</label>
                                         <input type="text" class="form-control py-3 px-4" name="states" id="states"
-                                            placeholder="States Served / Requested">
+                                            placeholder="e.g., Utah, Idaho, Arizona">
                                     </div>
                                     <div class="mb-3">
+                                        <label for="message" class="form-label fw-semibold mb-2">Message <small class="text-muted">(protocols, volume, special handling)</small></label>
                                         <textarea class="form-control py-3 px-4" id="message" name="message" rows="4"
-                                            placeholder="Message (protocols, volume, special handling)"></textarea>
+                                            placeholder="Please provide details about your protocols, expected volume, or special handling requirements..."></textarea>
                                     </div>
                                     <div>
                                         <button type="submit"
@@ -374,9 +330,9 @@
                             </p>
                             <div class="d-flex flex-column gap-2 mt-3">
                                 <p class="text-white mb-0"><strong>Address:</strong> 3920 S 1100 E STE 110, Millcreek, UT 84124-1213</p>
-                                <p class="text-white mb-0"><strong>Phone:</strong> 555-555-5555</p>
-                                <p class="text-white mb-0"><strong>Email:</strong> dev@mythic-rx.com</p>
-                                <p class="text-white mb-0">Currently licensed in: Utah, Idaho, Arizona, Colorado, Wyoming, Hawaii</p>
+                                <p class="text-white mb-0"><strong>Phone:</strong> 385-584-6620</p>
+                                <p class="text-white mb-0"><strong>Email:</strong> info@mythic-rx.com</p>
+                                <p class="text-white mb-0">Currently licensed in: Utah, Idaho, Arizona, Colorado, Wyoming, Hawaii, Montana, Minnesota</p>
                             </div>
                             <div class="d-flex flex-column gap-3 mt-3 p-4 bg-dark rounded-3" style="font-size: 0.85rem;">
                                 <p class="text-white mb-0"><strong>Important Notice:</strong> Compounded medications are prepared pursuant to a valid patient-specific prescription, are not FDA-approved, and must be prescribed/dispensed under the supervision of a licensed prescriber. Mythic Rx does not provide diagnosis, treatment decisions, or telehealth services. Mythic Rx dispenses only in states where it holds an active pharmacy license.</p>
@@ -406,6 +362,33 @@
     <script src="js/vendor/fslightbox.js"></script>
     <script
         src="https://cdn.jsdelivr.net/gh/shishirraven/animate-on-scroll@v1.0/oyethemes_onscroll_animation.js"></script>
+    
+    <!-- Analytics Tracking -->
+    <!-- Google Analytics 4 (GA4) - Replace G-XXXXXXXXXX with your actual Measurement ID -->
+    <!--
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    -->
+    
+    <!-- Form Submission Tracking -->
+    <script>
+        $(document).ready(function() {
+            $('.needs-validation').on('submit', function() {
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'form_submission', {
+                        'event_category': 'Provider Enrollment',
+                        'event_label': 'new_provider_form',
+                        'value': 1
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

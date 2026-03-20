@@ -502,7 +502,7 @@ Replace the 3 identical quotes with 3 distinct provider-style placeholders (unti
 
 “Documentation is easy to reference and doesn’t require back-and-forth.”
 
-Remove “1k+ reviews” unless true.
+Remove “1k+ reviews” .
 
 12) Membership ( /member.html )
 
