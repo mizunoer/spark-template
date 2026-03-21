@@ -33,7 +33,7 @@ These are placeholder images indicating required dimensions. Replace with actual
 
 | Image Name | Dimensions (WxH) | Usage |
 |------------|------------------|-------|
-| **dummy-img-1920x900.jpg** | 1920 x 900 px | *(Superseded)* Page heroes now use **`.hero-banner-mythic`** gradient in CSS—optional real photo can replace the gradient per page if desired |
+| **responsive-banner.jpg** | 1920 x 900 px (typical) | **Primary responsive hero** — full-width page banners and CTA strips site-wide (formerly `dummy-img-1920x900.jpg`; keep this filename in `image/`) |
 | **dummy-img-1920x900-2.jpg** | 1920 x 900 px | Secondary hero/banner |
 | **dummy-img-1920x300.jpg** | 1920 x 300 px | Wide banner strips |
 | **dummy-img-900x700.jpg** | 900 x 700 px | Large content images |

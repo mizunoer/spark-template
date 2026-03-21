@@ -2,7 +2,7 @@
 
 ## Current status (implemented)
 
-- **Page hero / CTA banners:** All former `dummy-img-1920x900.jpg` backgrounds use the **`.hero-banner-mythic`** CSS gradient site-wide (no stock photo required for launch).
+- **Page hero / CTA banners:** Use **`image/responsive-banner.jpg`** (your paid asset) for all full-width heroes and CTA strips. This replaced the earlier CSS-only gradient.
 - **Staff / “People you can actually reach”:** **Hidden** (`d-none` on `index.html` and `about.html`) until real, approved headshots are available. **To show again:** remove the `d-none` class from those sections and remove `aria-hidden="true"`. Replace `MaleDoctor1.png` / `FemaleDoc1.png` with your files (same filenames or update `src` in HTML).
 - **`team.html`:** Redirects to `about.html` (not `#team` while the block is hidden).
 
