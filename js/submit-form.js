@@ -6,12 +6,16 @@ $(function () {
         return emailRegex.test(email);
     }
 
+    // US / NANP: 10 digits (e.g. 8018985536), or 11 digits with country code 1 (e.g. 18018985536)
+    var PHONE_HINT = 'Enter 10 digits, or 11 digits starting with 1 (e.g. 1-801-898-5536).';
+
     function validatePhone(phone) {
         if (!phone) return false;
         const digitsOnly = phone.replace(/\D/g, '');
-        if (digitsOnly.length === 9) {
+        if (digitsOnly.length === 10) {
             return true;
-        } else if (digitsOnly.length === 10 && digitsOnly[0] === '1') {
+        }
+        if (digitsOnly.length === 11 && digitsOnly[0] === '1') {
             return true;
         }
         return false;
@@ -19,16 +23,30 @@ $(function () {
 
     function formatPhoneInput(input) {
         let value = input.value.replace(/\D/g, '');
-        if (value.length > 0) {
-            if (value.length <= 3) {
-                input.value = value;
-            } else if (value.length <= 6) {
-                input.value = value.slice(0, 3) + '-' + value.slice(3);
-            } else if (value.length <= 10) {
-                input.value = value.slice(0, 3) + '-' + value.slice(3, 6) + '-' + value.slice(6);
+        if (value.length > 11) {
+            value = value.slice(0, 11);
+        }
+        if (value.length === 0) {
+            input.value = '';
+            return;
+        }
+        if (value[0] === '1') {
+            const rest = value.slice(1);
+            if (rest.length === 0) {
+                input.value = '1';
+            } else if (rest.length <= 3) {
+                input.value = '1-' + rest;
+            } else if (rest.length <= 6) {
+                input.value = '1-' + rest.slice(0, 3) + '-' + rest.slice(3);
             } else {
-                input.value = value.slice(0, 1) + '-' + value.slice(1, 4) + '-' + value.slice(4, 7) + '-' + value.slice(7, 11);
+                input.value = '1-' + rest.slice(0, 3) + '-' + rest.slice(3, 6) + '-' + rest.slice(6, 10);
             }
+        } else if (value.length <= 3) {
+            input.value = value;
+        } else if (value.length <= 6) {
+            input.value = value.slice(0, 3) + '-' + value.slice(3);
+        } else {
+            input.value = value.slice(0, 3) + '-' + value.slice(3, 6) + '-' + value.slice(6, 10);
         }
     }
 
@@ -48,7 +66,7 @@ $(function () {
     $('input[type="tel"]').on('blur', function() {
         const phone = $(this).val();
         if (phone && !validatePhone(phone)) {
-            this.setCustomValidity('Please enter a valid phone number (9 digits, or 10 digits if starting with 1)');
+            this.setCustomValidity(PHONE_HINT);
             $(this).addClass('is-invalid');
         } else {
             this.setCustomValidity('');
@@ -89,7 +107,7 @@ $(function () {
         form.find('input[type="tel"]').each(function() {
             const phone = $(this).val();
             if (phone && !validatePhone(phone)) {
-                this.setCustomValidity('Phone number must be 9 digits, or 10 digits if starting with 1');
+                this.setCustomValidity(PHONE_HINT);
                 isValid = false;
             } else {
                 this.setCustomValidity('');
