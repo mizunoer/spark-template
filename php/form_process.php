@@ -1,7 +1,8 @@
 <?php
 /**
  * Form mail handler — Mythic Rx
- * Delivery address is dev@mythic-rx.com. Public-facing "From" uses info@mythic-rx.com (site contact).
+ * Notifications go to dev@mythic-rx.com and info@mythic-rx.com.
+ * "From" uses info@mythic-rx.com (site contact).
  * Requires PHP on the server (cPanel). Uses mail(); ensure hosting allows outbound mail.
  */
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
@@ -13,8 +14,8 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 
 header('Content-Type: text/plain; charset=UTF-8');
 
-// Where form notifications are delivered (not shown on the public site)
-$mailTo = 'dev@mythic-rx.com';
+// Where form notifications are delivered (comma-separated To — both receive the same message)
+$mailTo = 'dev@mythic-rx.com, info@mythic-rx.com';
 
 // Must match your domain; many hosts reject arbitrary From: addresses
 $fromAddress = 'info@mythic-rx.com';

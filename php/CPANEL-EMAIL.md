@@ -8,7 +8,7 @@ If **`js/submit-form.js`** had a JavaScript error, the browser fell back to a **
 
 ## Where mail goes
 
-- **Inbox:** `dev@mythic-rx.com` (set in `form_process.php` as `$mailTo`)
+- **Inbox:** `dev@mythic-rx.com` **and** `info@mythic-rx.com` (both in `$mailTo`, comma-separated)
 - **From header (visible to recipients):** `info@mythic-rx.com` (must match your domain for most hosts)
 - **Reply-To:** the visitor’s email (so you can reply directly)
 
