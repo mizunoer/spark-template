@@ -792,36 +792,75 @@ img {
     transform: translateY(20px);
 }
 
+/* Container for navigation buttons */
+.swiper-image-nav-container {
+    position: relative;
+    width: 100%;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    z-index: 10;
+}
+
+/* Mobile: Ensure buttons are below images and properly spaced */
+@media (max-width: 767px) {
+    .swiper-image-nav-container {
+        margin-top: 1.5rem;
+        padding: 0 1rem;
+    }
+}
+
 /* Style for both next and prev buttons */
 .swiperImage .swiper-button-next,
 .swiperImage .swiper-button-prev {
-    bottom: 10px;
-    /* Posisikan tombol di bagian bawah */
+    position: relative;
     width: 50px;
     height: 50px;
     border: 1px solid var(--accent-color);
     background-color: var(--background-color);
-    /* Warna background semi-transparan */
     color: var(--accent-color);
     border-radius: 50%;
-    /* Membuat tombol bulat */
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    margin: 0;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    transform: none;
 }
 
-/* Center the buttons horizontally */
-.swiperImage .swiper-button-next {
-    left: 50%;
-    /* Gerakkan tombol next ke kanan dari tengah */
-    transform: translateY(20px);
-}
-
-.swiperImage .swiper-button-prev {
-    left: 47%;
-    /* Gerakkan tombol prev ke kiri dari tengah */
-    transform: translateY(20px);
+/* Desktop: Position buttons on sides, centered vertically */
+@media (min-width: 768px) {
+    .swiper-image-nav-container {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        margin-top: 0;
+        justify-content: space-between;
+        padding: 0 1rem;
+        pointer-events: none;
+        z-index: 10;
+    }
+    
+    .swiperImage .swiper-button-next,
+    .swiperImage .swiper-button-prev {
+        position: relative;
+        pointer-events: all;
+    }
+    
+    .swiperImage .swiper-button-prev {
+        order: 1;
+    }
+    
+    .swiperImage .swiper-button-next {
+        order: 2;
+    }
 }
 
 /* Ukuran icon panah */

@@ -23,10 +23,10 @@ $(function () {
                 slidesPerView: 4,
             }
         },
-        // If we need pagination
+        // Navigation buttons - scoped to swiper-image-nav-container
         navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
+            nextEl: ".swiper-image-nav-container .swiper-button-next",
+            prevEl: ".swiper-image-nav-container .swiper-button-prev",
         },
     });
 
