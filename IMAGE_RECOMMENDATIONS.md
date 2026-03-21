@@ -1,5 +1,27 @@
 # Mythic Rx – Image & Visual Recommendations
 
+## Current status (implemented)
+
+- **Page hero / CTA banners:** All former `dummy-img-1920x900.jpg` backgrounds use the **`.hero-banner-mythic`** CSS gradient site-wide (no stock photo required for launch).
+- **Staff / “People you can actually reach”:** **Hidden** (`d-none` on `index.html` and `about.html`) until real, approved headshots are available. **To show again:** remove the `d-none` class from those sections and remove `aria-hidden="true"`. Replace `MaleDoctor1.png` / `FemaleDoc1.png` with your files (same filenames or update `src` in HTML).
+- **`team.html`:** Redirects to `about.html` (not `#team` while the block is hidden).
+
+---
+
+## Your image shopping list (priority order)
+
+| Priority | What to find | Size / notes | Where it’s used |
+|----------|----------------|--------------|-----------------|
+| **1** | **Homepage hero** (optional upgrade) | 1920×450+ landscape; lab/facility, no busy stock faces | `index.html` — `Modern_Lab_Equip.png` (replace when you have a real facility shot) |
+| **2** | **Two staff headshots** (when ready) | ~600×700 or 600×600; consistent lighting/background | Unhide team sections; use agreed filenames |
+| **3** | **Blog cards** (if you publish blog) | 900×600 landscape each | `blog.html`, `single_blog.html` |
+| **4** | **Location / misc** | 900×600, 600×600 as needed | `location.html` |
+| **5** | **Testimonials page** (if live) | 600×800 or 400×400 avatars | `testimonial.html` |
+
+**Filters that work well:** People (0–2), Orientation (landscape for heroes/cards), Main color **Green / Teal / Grey** for clinical feel. Format: **JPG or WebP**, ~80% quality.
+
+---
+
 Use this as a brief when sourcing or briefing a designer for replacement imagery. **Continuity and functionality** come first; gradients are already in place where they work best.
 
 ---
@@ -148,6 +170,6 @@ Use these specs when filtering in stock libraries (e.g. by **People**, **Orienta
   **Removed** the cutout; the Contact intro is now a simple rounded block (`rounded-4`), so it behaves consistently on all breakpoints.
 
 - **“About + Team combined?”**  
-  **Done.** One About page with “People you can actually reach” (2 people). `team.html` redirects to `about.html#team`. Team removed from nav.
+  **Done.** One About page with “People you can actually reach” (2 people, **hidden until real photos**). `team.html` redirects to `about.html`. Team removed from nav.
 
 If you want to add more filters (e.g. style, license) or page-specific notes, we can extend this doc.
