@@ -1,19 +1,14 @@
 $(function () {
     'use strict';
 
-    // Custom email validation: must have @ and .domain
     function validateEmail(email) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     }
 
-    // Custom phone validation: numbers only, 9 chars unless starts with 1
-    // Mobile-friendly: accepts various formats (with/without dashes, spaces, parentheses)
     function validatePhone(phone) {
         if (!phone) return false;
-        // Remove all non-numeric characters
         const digitsOnly = phone.replace(/\D/g, '');
-        // Must be 9 digits, or 10 digits if starts with 1
         if (digitsOnly.length === 9) {
             return true;
         } else if (digitsOnly.length === 10 && digitsOnly[0] === '1') {
@@ -21,8 +16,7 @@ $(function () {
         }
         return false;
     }
-    
-    // Format phone number for display (mobile-friendly)
+
     function formatPhoneInput(input) {
         let value = input.value.replace(/\D/g, '');
         if (value.length > 0) {
@@ -38,7 +32,6 @@ $(function () {
         }
     }
 
-    // Add custom validation to email inputs
     $('input[type="email"]').on('blur', function() {
         const email = $(this).val();
         if (email && !validateEmail(email)) {
@@ -48,11 +41,10 @@ $(function () {
         }
     });
 
-    // Add custom validation to phone inputs with mobile-friendly formatting
     $('input[type="tel"]').on('input', function() {
         formatPhoneInput(this);
     });
-    
+
     $('input[type="tel"]').on('blur', function() {
         const phone = $(this).val();
         if (phone && !validatePhone(phone)) {
@@ -63,30 +55,26 @@ $(function () {
             $(this).removeClass('is-invalid');
         }
     });
-    
-    // Clear validation on input for better UX
+
     $('input[type="tel"]').on('input', function() {
         if ($(this).hasClass('is-invalid')) {
             $(this).removeClass('is-invalid');
         }
     });
-    
+
     $('input[type="email"]').on('input', function() {
         if ($(this).hasClass('is-invalid')) {
             $(this).removeClass('is-invalid');
         }
     });
 
-    // Ambil semua formulir yang ingin kita terapkan gaya validasi kustom Bootstrap
     const forms = $('.needs-validation');
 
-    // Loop melalui formulir dan mencegah pengiriman
     forms.on('submit', function (event) {
         const form = $(this);
 
         var actionInput = $(this).find("input[name='action']");
 
-        // Validate email and phone before standard validation
         let isValid = true;
         form.find('input[type="email"]').each(function() {
             const email = $(this).val();
@@ -113,48 +101,76 @@ $(function () {
             event.stopPropagation();
         } else {
             event.preventDefault();
-            $('.submit_form').html('Sending...');
-            $('.submit_subscribe').html('Sending...');
-            const toast = new bootstrap.Toast($('.success_msg')[0]);
-            const errtoast = new bootstrap.Toast($('.error_msg')[0]);
+            event.stopPropagation();
+
+            const $submit = form.find('.submit_form');
+            const defaultBtnHtml = $submit.data('defaultHtml') || $submit.html();
+            $submit.data('defaultHtml', defaultBtnHtml);
+            $submit.html('Sending...');
+
+            $('.submit_subscribe').not('.submit_form').each(function () {
+                const $s = $(this);
+                const d = $s.data('defaultHtml') || $s.html();
+                $s.data('defaultHtml', d);
+                $s.html('Sending...');
+            });
+
             var formData = form.serialize();
+
+            // Toasts live in the same column wrapper as the form (sibling to form)
+            const $toastScope = form.parent();
+            const successEl = $toastScope.find('.success_msg').get(0);
+            const errEl = $toastScope.find('.error_msg').get(0);
+            const toast = successEl ? new bootstrap.Toast(successEl) : null;
+            const errtoast = errEl ? new bootstrap.Toast(errEl) : null;
+
             $.ajax({
                 type: "POST",
                 url: "php/form_process.php",
                 data: formData,
+                dataType: 'text',
                 success: function (response) {
-                    if (response === 'success') {
-                        if (actionInput.length > 0) {
-                            if (actionInput.val() === 'subscribe') {
-                                $('.submit_subscribe').html('Subscribe');
-                                const toast_comment = new bootstrap.Toast($('.success_msg_subscribe')[0]);
-                                toast_comment.show();
+                    const ok = String(response).trim() === 'success';
+                    $submit.html($submit.data('defaultHtml') || defaultBtnHtml);
+                    $('.submit_subscribe').each(function () {
+                        const $s = $(this);
+                        $s.html($s.data('defaultHtml') || 'Subscribe');
+                    });
+
+                    if (ok) {
+                        if (actionInput.length > 0 && actionInput.val() === 'subscribe') {
+                            const subEl = $('.success_msg_subscribe')[0];
+                            if (subEl) {
+                                new bootstrap.Toast(subEl).show();
                             }
-
                         } else {
-                            toast.show()
-                            $('.submit_form').html('Send Message');
+                            if (toast) {
+                                toast.show();
+                            } else if (successEl) {
+                                successEl.classList.add('show');
+                            }
+                            form[0].reset();
+                            form.removeClass('was-validated');
                         }
-
                     } else {
-                        // Show error toast with improved messaging
                         if (errtoast) {
                             errtoast.show();
                         }
                         console.error('Form submission error:', response);
-                        $('.submit_form').html('Send Message');
-                        $('.submit_subscribe').html('Subscribe');
                     }
                 },
-                error: function(xhr, status, error) {
-                    // Enhanced error handling for network/server errors
-                    console.error('AJAX error:', status, error);
+                error: function (xhr, status, error) {
+                    console.error('AJAX error:', status, error, xhr.status);
+                    $submit.html($submit.data('defaultHtml') || defaultBtnHtml);
+                    $('.submit_subscribe').each(function () {
+                        const $s = $(this);
+                        $s.html($s.data('defaultHtml') || 'Subscribe');
+                    });
                     if (errtoast) {
                         errtoast.show();
+                    } else {
+                        alert('Could not send. Check your connection, or email info@mythic-rx.com directly.');
                     }
-                    $('.submit_form').html('Send Message');
-                    $('.submit_subscribe').html('Subscribe');
-                }
                 }
             });
         }
