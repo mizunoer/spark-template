@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mythic-RX — Image Selector</title>
+<meta name="description" content="Internal Mythic-RX asset preview. Inspect every logo lockup, favicon, OG image, and marketing export side-by-side before approving them for external use.">
+<meta name="theme-color" content="#1E6B3A">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="stylesheet" href="assets/css/mythic-rx.css">
+<style>
+  body { margin: 0; }
+  .is-shell { max-width: 1200px; margin: 0 auto; padding: 28px 24px 80px 24px; }
+
+  .is-hero {
+    background: var(--mrx-gradient);
+    color: var(--mrx-white);
+    padding: 26px 30px;
+    border-radius: var(--mrx-radius-lg);
+    margin-bottom: 24px;
+    box-shadow: var(--mrx-shadow);
+  }
+  .is-hero h1 { margin: 6px 0 4px 0; font-size: 1.7rem; }
+  .is-hero p { margin: 0; color: rgba(255,255,255,0.92); max-width: 720px; }
+  .is-hero .is-eyebrow {
+    text-transform: uppercase; letter-spacing: 0.14em;
+    font-size: 0.78rem; font-weight: 700; color: var(--mrx-mint);
+  }
+
+  .is-section { margin-bottom: 32px; }
+  .is-section h2 { margin: 0 0 4px 0; color: var(--mrx-heading); font-size: 1.2rem; }
+  .is-section p.is-hint { color: var(--mrx-text-muted); margin: 0 0 14px 0; font-size: 0.92rem; }
+
+  .is-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+  }
+  .is-card {
+    background: var(--mrx-white);
+    border: 1px solid var(--mrx-border);
+    border-radius: var(--mrx-radius);
+    overflow: hidden;
+    box-shadow: var(--mrx-shadow-soft);
+    transition: var(--mrx-transition);
+  }
+  .is-card:hover { box-shadow: var(--mrx-shadow); transform: translateY(-1px); }
+  .is-card .is-canvas {
+    height: 160px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--mrx-offwhite);
+    border-bottom: 1px solid var(--mrx-border);
+  }
+  .is-card .is-canvas.dark { background: var(--mrx-navy); }
+  .is-card .is-canvas.mint { background: var(--mrx-mint); }
+  .is-card .is-canvas img { max-width: 85%; max-height: 80%; }
+  .is-card .is-canvas img.tiny { width: 48px; height: 48px; padding: 6px; background: var(--mrx-white); border-radius: 8px; border: 1px solid var(--mrx-border); }
+  .is-card .is-meta { padding: 12px 14px; font-size: 0.88rem; }
+  .is-card .is-meta strong { color: var(--mrx-heading); display: block; margin-bottom: 2px; }
+  .is-card .is-meta code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.78rem;
+    color: var(--mrx-text-muted);
+    word-break: break-all;
+  }
+
+  .is-favicons {
+    background: var(--mrx-white);
+    border: 1px solid var(--mrx-border);
+    border-radius: var(--mrx-radius);
+    padding: 18px;
+    display: flex; flex-wrap: wrap; gap: 24px;
+    align-items: center;
+  }
+  .is-favicons .is-fav { text-align: center; }
+  .is-favicons .is-fav img {
+    width: 56px; height: 56px;
+    border: 1px solid var(--mrx-border);
+    border-radius: 10px;
+    background: var(--mrx-white);
+    padding: 6px;
+    margin-bottom: 6px;
+    display: block;
+  }
+  .is-favicons .is-fav span {
+    display: block; font-size: 0.78rem; color: var(--mrx-text-muted);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  .is-tabbar {
+    display: inline-flex;
+    background: var(--mrx-mint); color: var(--mrx-cyan);
+    padding: 4px; border-radius: 999px; gap: 4px;
+    font-size: 0.82rem; font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .is-tabbar button {
+    background: transparent; border: none; cursor: pointer;
+    padding: 6px 14px; border-radius: 999px; color: inherit; font: inherit;
+  }
+  .is-tabbar button.active {
+    background: var(--mrx-white); color: var(--mrx-primary);
+    box-shadow: var(--mrx-shadow-soft);
+  }
+</style>
+</head>
+<body class="mrx-page">
+
+<div class="is-shell">
+
+  <div class="is-hero">
+    <div class="is-eyebrow">Internal · Asset QA</div>
+    <h1>Mythic-RX image selector</h1>
+    <p>Every logo lockup, favicon, OG image, and marketing export is rendered below at the same scale and on representative backgrounds. Approve assets here before they go into a deck, an ad, or onto a partner-facing page.</p>
+  </div>
+
+  <!-- Logo lockups -->
+  <section class="is-section">
+    <h2>Logo lockups</h2>
+    <p class="is-hint">SVGs are the source of truth. PNGs are produced from the same files for use in tools that can't render SVG (email, decks, slide masters).</p>
+
+    <div class="is-tabbar" role="tablist">
+      <button type="button" data-bg="light" class="active">Light</button>
+      <button type="button" data-bg="mint">Mint</button>
+      <button type="button" data-bg="dark">Dark</button>
+    </div>
+
+    <div class="is-grid" id="is-logos">
+      <div class="is-card" data-supports="light dark mint">
+        <div class="is-canvas is-canvas-light"><img src="mythic_rx_brand_kit/svg/mythic-rx-primary-horizontal.svg" alt="Primary horizontal"></div>
+        <div class="is-meta">
+          <strong>Primary horizontal</strong>
+          <code>mythic_rx_brand_kit/svg/mythic-rx-primary-horizontal.svg</code>
+        </div>
+      </div>
+      <div class="is-card" data-supports="light dark mint">
+        <div class="is-canvas is-canvas-light"><img src="mythic_rx_brand_kit/svg/mythic-rx-mark-only.svg" alt="Mark only"></div>
+        <div class="is-meta">
+          <strong>Mark only</strong>
+          <code>mythic_rx_brand_kit/svg/mythic-rx-mark-only.svg</code>
+        </div>
+      </div>
+      <div class="is-card" data-supports="dark">
+        <div class="is-canvas is-canvas-light dark"><img src="mythic_rx_brand_kit/svg/mythic-rx-reversed-horizontal.svg" alt="Reversed horizontal"></div>
+        <div class="is-meta">
+          <strong>Reversed horizontal (dark BG only)</strong>
+          <code>mythic_rx_brand_kit/svg/mythic-rx-reversed-horizontal.svg</code>
+        </div>
+      </div>
+      <div class="is-card" data-supports="light mint">
+        <div class="is-canvas is-canvas-light"><img src="mythic_rx_brand_kit/transparent-png/mythic-rx-primary-horizontal.png" alt="Primary PNG"></div>
+        <div class="is-meta">
+          <strong>Primary horizontal · PNG</strong>
+          <code>mythic_rx_brand_kit/transparent-png/mythic-rx-primary-horizontal.png</code>
+        </div>
+      </div>
+      <div class="is-card" data-supports="light mint">
+        <div class="is-canvas is-canvas-light"><img src="mythic_rx_brand_kit/transparent-png/mythic-rx-mark-only.png" alt="Mark PNG"></div>
+        <div class="is-meta">
+          <strong>Mark · PNG</strong>
+          <code>mythic_rx_brand_kit/transparent-png/mythic-rx-mark-only.png</code>
+        </div>
+      </div>
+      <div class="is-card" data-supports="dark">
+        <div class="is-canvas is-canvas-light dark"><img src="mythic_rx_brand_kit/transparent-png/mythic-rx-reversed-horizontal.png" alt="Reversed PNG"></div>
+        <div class="is-meta">
+          <strong>Reversed horizontal · PNG</strong>
+          <code>mythic_rx_brand_kit/transparent-png/mythic-rx-reversed-horizontal.png</code>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Favicons -->
+  <section class="is-section">
+    <h2>Favicons (production)</h2>
+    <p class="is-hint">Deployed copies under <code>assets/img/</code>. Mirror the brand-kit <code>web/</code> originals; if they ever differ, the brand kit wins.</p>
+    <div class="is-favicons">
+      <div class="is-fav"><img src="assets/img/favicon.svg" alt=""><span>favicon.svg</span></div>
+      <div class="is-fav"><img src="assets/img/favicon-16x16.png" alt=""><span>16×16</span></div>
+      <div class="is-fav"><img src="assets/img/favicon-32x32.png" alt=""><span>32×32</span></div>
+      <div class="is-fav"><img src="assets/img/favicon-48x48.png" alt=""><span>48×48</span></div>
+      <div class="is-fav"><img src="assets/img/apple-touch-icon.png" alt=""><span>apple-touch</span></div>
+      <div class="is-fav"><img src="assets/img/android-chrome-192x192.png" alt=""><span>android 192</span></div>
+      <div class="is-fav"><img src="assets/img/android-chrome-512x512.png" alt=""><span>android 512</span></div>
+    </div>
+  </section>
+
+  <!-- Social / OG -->
+  <section class="is-section">
+    <h2>Social &amp; OG</h2>
+    <p class="is-hint">1:1 square avatar for LinkedIn / X / Substack. 1200×630 OG image for shared links on LinkedIn for HCPs and partner emails.</p>
+    <div class="is-grid">
+      <div class="is-card" data-supports="light mint dark">
+        <div class="is-canvas is-canvas-light"><img src="mythic_rx_brand_kit/social/mythic-rx-social-avatar.png" alt="Social avatar"></div>
+        <div class="is-meta">
+          <strong>Social avatar (1024×1024)</strong>
+          <code>mythic_rx_brand_kit/social/mythic-rx-social-avatar.png</code>
+        </div>
+      </div>
+      <div class="is-card" data-supports="light mint dark">
+        <div class="is-canvas is-canvas-light"><img src="mythic_rx_brand_kit/social/mythic-rx-og-image.png" alt="OG image"></div>
+        <div class="is-meta">
+          <strong>OG image (1200×630)</strong>
+          <code>mythic_rx_brand_kit/social/mythic-rx-og-image.png</code>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marketing / Email -->
+  <section class="is-section">
+    <h2>Marketing &amp; email</h2>
+    <p class="is-hint">For sales decks, conference posters, and partner email signatures.</p>
+    <div class="is-grid">
+      <div class="is-card" data-supports="light mint dark">
+        <div class="is-canvas is-canvas-light"><img src="mythic_rx_brand_kit/marketing/mythic-rx-website-header.png" alt="Website header"></div>
+        <div class="is-meta">
+          <strong>Website hero / header</strong>
+          <code>mythic_rx_brand_kit/marketing/mythic-rx-website-header.png</code>
+        </div>
+      </div>
+      <div class="is-card" data-supports="light mint dark">
+        <div class="is-canvas is-canvas-light"><img src="mythic_rx_brand_kit/marketing/mythic-rx-app-icon.png" alt="App icon" class="tiny"></div>
+        <div class="is-meta">
+          <strong>App icon (1024×1024)</strong>
+          <code>mythic_rx_brand_kit/marketing/mythic-rx-app-icon.png</code>
+        </div>
+      </div>
+      <div class="is-card" data-supports="light mint">
+        <div class="is-canvas is-canvas-light"><img src="mythic_rx_brand_kit/email/mythic-rx-email-signature.png" alt="Email signature"></div>
+        <div class="is-meta">
+          <strong>Email signature</strong>
+          <code>mythic_rx_brand_kit/email/mythic-rx-email-signature.png</code>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var BG_CLASS = { light: "", mint: "mint", dark: "dark" };
+
+  function applyBg(mode) {
+    var canvases = document.querySelectorAll(".is-canvas-light");
+    canvases.forEach(function (c) {
+      c.classList.remove("dark", "mint");
+      if (BG_CLASS[mode]) c.classList.add(BG_CLASS[mode]);
+    });
+
+    var cards = document.querySelectorAll("[data-supports]");
+    cards.forEach(function (card) {
+      var supported = (card.getAttribute("data-supports") || "").split(/\s+/);
+      card.style.opacity = supported.indexOf(mode) === -1 ? "0.4" : "1";
+    });
+  }
+
+  document.querySelectorAll(".is-tabbar button").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      document.querySelectorAll(".is-tabbar button").forEach(function (b) {
+        b.classList.remove("active");
+      });
+      btn.classList.add("active");
+      applyBg(btn.getAttribute("data-bg"));
+    });
+  });
+})();
+</script>
+</body>
+</html>

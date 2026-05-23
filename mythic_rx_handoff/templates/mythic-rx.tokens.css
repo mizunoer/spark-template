@@ -1,0 +1,63 @@
+/**
+ * mythic-rx.com — Brand design tokens
+ * ==========================================================
+ * Drop this :root block at the top of `assets/css/mythic-rx.css`.
+ * Replace the placeholder hex values once the Mythic-RX brand
+ * palette is finalized. Then port the rest of the body styles
+ * from Nume's `assets/css/nume-health.css`, renaming every
+ * `--nume-*` variable to `--mrx-*`.
+ *
+ * Keep the structure intact: components elsewhere in the
+ * codebase (landing.css, nume-health.css overrides, the
+ * onboarding form) reference these names.
+ * ========================================================== */
+
+:root {
+  /* --- Core brand palette (replace with Mythic-RX values) --- */
+  --mrx-blue:       #000000; /* TODO: Mythic-RX primary */
+  --mrx-cyan:       #000000; /* TODO: Mythic-RX secondary / hover, gradient mid */
+  --mrx-teal:       #000000; /* TODO: Mythic-RX accent, gradient end */
+  --mrx-navy:       #000000; /* TODO: Dark backgrounds, headers */
+  --mrx-slate-gray: #7A8794; /* Muted UI text, dividers (default OK) */
+
+  /* --- Supporting tones --- */
+  --mrx-mint:     #D8F7F2;  /* Soft tinted backgrounds, badges */
+  --mrx-offwhite: #F7FAFC;  /* Page background, light surfaces */
+  --mrx-slate:    #2E3E50;  /* Body text */
+  --mrx-white:    #ffffff;
+
+  /* --- Semantic aliases used by components --- */
+  --mrx-primary:        var(--mrx-blue);
+  --mrx-primary-dark:   #000000; /* TODO: darker variant of --mrx-blue for hover */
+  --mrx-accent:         var(--mrx-teal);
+  --mrx-accent-dark:    #000000; /* TODO: darker variant of --mrx-teal */
+  --mrx-link:           var(--mrx-blue);
+  --mrx-link-hover:     var(--mrx-cyan);
+  --mrx-heading:        var(--mrx-navy);
+  --mrx-text:           var(--mrx-slate);
+  --mrx-text-muted:     var(--mrx-slate-gray);
+  --mrx-light:          var(--mrx-offwhite);
+  --mrx-border:         #E2E8F0;
+
+  /* --- Brand gradient (use for hero/CTA backgrounds) --- */
+  --mrx-gradient:      linear-gradient(135deg, var(--mrx-blue) 0%, var(--mrx-cyan) 50%, var(--mrx-teal) 100%);
+  --mrx-gradient-dark: linear-gradient(135deg, var(--mrx-navy) 0%, #000000 50%, var(--mrx-navy) 100%);
+    /* TODO: replace #000000 mid-stop in --mrx-gradient-dark with a slightly
+       lighter navy variant once palette is final */
+
+  /* --- Shadows / radii / motion --- */
+  --mrx-shadow:        0 4px 24px rgba(0, 0, 0, 0.10); /* TODO: tint with primary RGB */
+  --mrx-shadow-hover:  0 8px 32px rgba(0, 0, 0, 0.18); /* TODO: tint */
+  --mrx-shadow-soft:   0 2px 12px rgba(16, 29, 49, 0.06);
+  --mrx-radius:        12px;
+  --mrx-radius-lg:     20px;
+  --mrx-transition:    0.3s ease;
+
+  /* --- Override Suxnix template variables to brand --- */
+  /* These keep the third-party `--tg-*` names (do NOT rename) but point
+     them at the new Mythic-RX values so cart/shop/etc. inherit branding. */
+  --tg-primary-color:      var(--mrx-blue);
+  --tg-secondary-color:    var(--mrx-teal);
+  /* ...add the rest of the --tg-* overrides from nume-health.css when
+     porting the full file body. */
+}

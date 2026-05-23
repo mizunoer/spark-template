@@ -1,0 +1,287 @@
+/**
+ * Landing page shared styles — `lp-*` system
+ * ==========================================================
+ * Brand-NEUTRAL class names. The visual identity comes from
+ * the `--mrx-*` design tokens declared in
+ * /assets/css/mythic-rx.css. If you want to repaint the
+ * landing pages, edit the tokens — not these rules.
+ *
+ * Class prefix legend:
+ *   lp-page        page-level wrapper / typography reset
+ *   lp-section     vertical-rhythm container
+ *   lp-container   1100px max-width centered column
+ *   lp-hero        full-bleed hero block
+ *   lp-eyebrow     small caps eyebrow above an H1
+ *   lp-trust       inline trust-bar
+ *   lp-card        bordered card surface
+ *   lp-btn         primary pill button
+ *   lp-btn-outline secondary outlined pill button
+ *   lp-list        inline list of bullets/chips
+ *   lp-disclosure  fine-print legal block
+ *   lp-faq         FAQ accordion-shaped list
+ *   lp-footer      footer band
+ *   lp-placeholder yellow [CLIENT TO CONFIRM] highlight
+ * ========================================================== */
+
+.lp-page {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+  color: var(--mrx-text);
+  background: var(--mrx-offwhite);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+}
+
+.lp-page * { box-sizing: border-box; }
+
+.lp-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.lp-section { padding: 64px 0; }
+.lp-section--tight { padding: 32px 0; }
+
+/* --- Hero --------------------------------------------- */
+.lp-hero {
+  background: var(--mrx-gradient);
+  color: var(--mrx-white);
+  padding: 80px 0 96px 0;
+  position: relative;
+  overflow: hidden;
+}
+.lp-hero .lp-eyebrow { color: var(--mrx-mint); }
+.lp-hero h1 {
+  font-size: clamp(2rem, 4.4vw, 3.4rem);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin: 8px 0 16px 0;
+  color: var(--mrx-white);
+}
+.lp-hero p.lp-subhead {
+  font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+  max-width: 720px;
+  color: rgba(255,255,255,0.92);
+  margin: 0 0 28px 0;
+}
+.lp-hero .lp-cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* --- Buttons ------------------------------------------ */
+.lp-btn,
+.lp-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--mrx-transition);
+  border: 2px solid transparent;
+}
+.lp-btn {
+  background: var(--mrx-white);
+  color: var(--mrx-primary);
+}
+.lp-btn:hover { background: var(--mrx-mint); box-shadow: var(--mrx-shadow-hover); }
+.lp-btn-outline {
+  background: transparent;
+  color: var(--mrx-white);
+  border-color: rgba(255,255,255,0.6);
+}
+.lp-btn-outline:hover { background: rgba(255,255,255,0.12); border-color: var(--mrx-white); }
+
+/* On light sections, swap defaults */
+.lp-section .lp-btn {
+  background: var(--mrx-primary);
+  color: var(--mrx-white);
+}
+.lp-section .lp-btn:hover { background: var(--mrx-primary-dark); }
+.lp-section .lp-btn-outline {
+  background: transparent;
+  color: var(--mrx-primary);
+  border-color: var(--mrx-primary);
+}
+.lp-section .lp-btn-outline:hover { background: var(--mrx-primary); color: var(--mrx-white); }
+
+/* --- Eyebrow + headings ------------------------------- */
+.lp-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--mrx-primary);
+  display: inline-block;
+}
+.lp-section h2 {
+  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+  color: var(--mrx-heading);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0 0 12px 0;
+}
+.lp-section h3 {
+  font-size: clamp(1.15rem, 1.6vw, 1.35rem);
+  color: var(--mrx-heading);
+  margin: 0 0 6px 0;
+}
+
+/* --- Trust bar ---------------------------------------- */
+.lp-trust {
+  background: var(--mrx-white);
+  border-top: 1px solid var(--mrx-border);
+  border-bottom: 1px solid var(--mrx-border);
+  padding: 18px 0;
+}
+.lp-trust ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.lp-trust li {
+  color: var(--mrx-text-muted);
+  font-size: 0.92rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.lp-trust li::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--mrx-primary);
+}
+
+/* --- Cards -------------------------------------------- */
+.lp-card {
+  background: var(--mrx-white);
+  border: 1px solid var(--mrx-border);
+  border-radius: var(--mrx-radius);
+  box-shadow: var(--mrx-shadow-soft);
+  padding: 24px;
+}
+.lp-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+/* --- Lists -------------------------------------------- */
+.lp-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.lp-list li {
+  padding-left: 28px;
+  position: relative;
+  color: var(--mrx-text);
+}
+.lp-list li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 8px;
+  width: 16px; height: 16px;
+  background: var(--mrx-mint);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 4px var(--mrx-primary);
+}
+
+.lp-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.lp-chips li {
+  background: var(--mrx-mint);
+  color: var(--mrx-cyan);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  list-style: none;
+}
+
+/* --- Pricing ------------------------------------------ */
+.lp-price {
+  font-size: clamp(2.2rem, 3.8vw, 2.8rem);
+  color: var(--mrx-heading);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.lp-price-unit { font-size: 1rem; color: var(--mrx-text-muted); font-weight: 500; }
+
+/* --- FAQ ---------------------------------------------- */
+.lp-faq { display: grid; gap: 10px; }
+.lp-faq details {
+  background: var(--mrx-white);
+  border: 1px solid var(--mrx-border);
+  border-radius: var(--mrx-radius);
+  padding: 14px 18px;
+}
+.lp-faq summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--mrx-heading);
+  list-style: none;
+}
+.lp-faq summary::-webkit-details-marker { display: none; }
+.lp-faq details[open] summary { margin-bottom: 8px; }
+
+/* --- Disclosure --------------------------------------- */
+.lp-disclosure {
+  background: var(--mrx-white);
+  border: 1px solid var(--mrx-border);
+  border-radius: var(--mrx-radius);
+  padding: 18px;
+  font-size: 0.85rem;
+  color: var(--mrx-text-muted);
+  line-height: 1.55;
+}
+.lp-disclosure p { margin: 0 0 8px 0; }
+.lp-disclosure p:last-child { margin-bottom: 0; }
+
+/* --- Footer ------------------------------------------- */
+.lp-footer {
+  background: var(--mrx-navy);
+  color: var(--mrx-white);
+  padding: 48px 0 32px 0;
+}
+.lp-footer a { color: var(--mrx-mint); text-decoration: underline; text-underline-offset: 3px; }
+.lp-footer a:hover { color: var(--mrx-white); }
+.lp-footer .lp-footer-cols {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 32px;
+}
+@media (max-width: 720px) {
+  .lp-footer .lp-footer-cols { grid-template-columns: 1fr; }
+}
+
+/* --- Placeholder for [CLIENT TO CONFIRM] -------------- */
+.lp-placeholder {
+  background: #FFF4C2;
+  color: #6B4F00;
+  padding: 1px 8px;
+  border-radius: 4px;
+  outline: 1px dashed #C9A227;
+  font-weight: 600;
+}
+
+/* --- Utility ------------------------------------------ */
+.lp-mt-12 { margin-top: 12px; }
+.lp-mt-24 { margin-top: 24px; }
+.lp-mb-12 { margin-bottom: 12px; }
+.lp-mb-24 { margin-bottom: 24px; }
+.lp-text-muted { color: var(--mrx-text-muted); }
+.lp-text-center { text-align: center; }
+
+/* --- Responsive --------------------------------------- */
+@media (max-width: 600px) {
+  .lp-section { padding: 48px 0; }
+  .lp-hero { padding: 64px 0 72px 0; }
+  .lp-trust ul { gap: 14px; }
+}

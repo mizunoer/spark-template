@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mythic-RX — Partner Program Onboarding</title>
+<meta name="description" content="Internal intake form for Mythic-RX partner program. Fills in every field used by the partner-facing landing pages and exports a drop-in landing-config.js for engineering.">
+<meta name="theme-color" content="#1E6B3A">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+<link rel="stylesheet" href="assets/css/mythic-rx.css">
+<style>
+  body { margin: 0; }
+  .ob-shell { max-width: 980px; margin: 0 auto; padding: 28px 24px 80px 24px; }
+
+  .ob-header {
+    background: var(--mrx-gradient);
+    color: var(--mrx-white);
+    padding: 28px 32px;
+    border-radius: var(--mrx-radius-lg);
+    margin-bottom: 24px;
+    box-shadow: var(--mrx-shadow);
+  }
+  .ob-header h1 { margin: 6px 0 4px 0; font-size: 1.7rem; line-height: 1.2; }
+  .ob-header p { margin: 0; color: rgba(255,255,255,0.92); max-width: 720px; }
+  .ob-header .ob-eyebrow {
+    text-transform: uppercase; letter-spacing: 0.14em;
+    font-size: 0.78rem; font-weight: 700; color: var(--mrx-mint);
+  }
+
+  .ob-progress-wrap {
+    position: sticky; top: 0; z-index: 20;
+    background: var(--mrx-offwhite);
+    padding: 14px 0 10px 0;
+    margin-top: -14px;
+  }
+  .ob-progress {
+    height: 8px; background: var(--mrx-mint);
+    border-radius: 999px; overflow: hidden;
+  }
+  .ob-progress-fill {
+    height: 100%; width: 0%;
+    background: var(--mrx-primary);
+    transition: width 0.4s ease;
+  }
+  .ob-progress-meta {
+    display: flex; justify-content: space-between;
+    font-size: 0.82rem; color: var(--mrx-text-muted);
+    margin-top: 6px;
+  }
+
+  details.ob-section {
+    background: var(--mrx-white);
+    border: 1px solid var(--mrx-border);
+    border-radius: var(--mrx-radius);
+    box-shadow: var(--mrx-shadow-soft);
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  details.ob-section[open] { box-shadow: var(--mrx-shadow); }
+  details.ob-section > summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 18px 22px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px;
+    font-weight: 700;
+    color: var(--mrx-heading);
+  }
+  details.ob-section > summary::-webkit-details-marker { display: none; }
+  details.ob-section > summary .ob-section-title {
+    display: flex; align-items: center; gap: 10px;
+  }
+  details.ob-section > summary .ob-section-num {
+    display: inline-flex;
+    width: 28px; height: 28px;
+    background: var(--mrx-mint);
+    color: var(--mrx-cyan);
+    border-radius: 999px;
+    align-items: center; justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+  details.ob-section > summary .ob-section-status {
+    font-size: 0.82rem;
+    color: var(--mrx-text-muted);
+    font-weight: 500;
+  }
+  details.ob-section .ob-body {
+    padding: 0 22px 22px 22px;
+    border-top: 1px solid var(--mrx-border);
+    padding-top: 18px;
+  }
+
+  .ob-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+  .ob-field label { font-weight: 600; color: var(--mrx-heading); font-size: 0.92rem; }
+  .ob-field .ob-hint { font-size: 0.82rem; color: var(--mrx-text-muted); }
+  .ob-field input,
+  .ob-field select,
+  .ob-field textarea {
+    font: inherit;
+    padding: 10px 12px;
+    border: 1px solid var(--mrx-border);
+    border-radius: 8px;
+    background: var(--mrx-white);
+    color: var(--mrx-text);
+    width: 100%;
+  }
+  .ob-field input:focus,
+  .ob-field select:focus,
+  .ob-field textarea:focus {
+    outline: 2px solid var(--mrx-primary);
+    outline-offset: 1px;
+    border-color: var(--mrx-primary);
+  }
+  .ob-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 640px) { .ob-row { grid-template-columns: 1fr; } }
+
+  .ob-list-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr auto;
+    gap: 8px; align-items: center;
+    margin-bottom: 8px;
+  }
+  .ob-list-row input { padding: 8px 10px; }
+  .ob-list-row button { padding: 6px 10px; }
+  @media (max-width: 720px) { .ob-list-row { grid-template-columns: 1fr; } }
+
+  .ob-pill-list { display: flex; flex-wrap: wrap; gap: 6px; padding: 6px 0; }
+  .ob-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--mrx-mint); color: var(--mrx-cyan);
+    padding: 4px 10px; border-radius: 999px;
+    font-size: 0.82rem; font-weight: 600;
+  }
+  .ob-pill button {
+    background: transparent; border: none; color: var(--mrx-cyan); cursor: pointer;
+    font-size: 1rem; line-height: 1; padding: 0;
+  }
+
+  .ob-actions {
+    position: sticky; bottom: 0;
+    background: var(--mrx-offwhite);
+    padding: 12px 0;
+    margin-top: 24px;
+    display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+    border-top: 1px solid var(--mrx-border);
+  }
+  .ob-spacer { flex: 1; }
+  .ob-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 18px; border-radius: 999px;
+    border: 1px solid var(--mrx-primary);
+    background: var(--mrx-primary); color: var(--mrx-white);
+    font-weight: 600; cursor: pointer; font: inherit;
+  }
+  .ob-btn:hover { background: var(--mrx-primary-dark); }
+  .ob-btn-ghost {
+    background: transparent; color: var(--mrx-primary);
+  }
+  .ob-btn-ghost:hover { background: var(--mrx-mint); }
+  .ob-status {
+    font-size: 0.82rem; color: var(--mrx-text-muted);
+  }
+  .ob-preview {
+    background: #0b201a; color: #c7e8c3;
+    padding: 16px; border-radius: var(--mrx-radius);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.8rem;
+    max-height: 360px; overflow: auto;
+    white-space: pre;
+    margin-top: 8px;
+  }
+  .ob-callout {
+    background: var(--mrx-mint);
+    color: var(--mrx-cyan);
+    border-radius: var(--mrx-radius);
+    padding: 14px 16px;
+    font-size: 0.92rem;
+    margin-bottom: 14px;
+  }
+  .ob-callout strong { color: var(--mrx-cyan); }
+
+  .ob-toast {
+    position: fixed; bottom: 20px; right: 20px;
+    background: var(--mrx-heading); color: var(--mrx-white);
+    padding: 12px 18px; border-radius: var(--mrx-radius);
+    box-shadow: var(--mrx-shadow-hover);
+    transform: translateY(20px); opacity: 0;
+    transition: 0.3s ease;
+    z-index: 50; pointer-events: none;
+    font-size: 0.9rem;
+  }
+  .ob-toast.show { transform: translateY(0); opacity: 1; }
+</style>
+</head>
+<body class="mrx-page">
+
+<div class="ob-shell">
+
+  <div class="ob-header">
+    <div class="ob-eyebrow">Internal · Partner-program onboarding</div>
+    <h1>Mythic-RX partner intake</h1>
+    <p>Fill in every section the client owns. The "Export config" button at the bottom generates a drop-in <code style="background:rgba(255,255,255,0.15); padding: 1px 6px; border-radius: 4px;">assets/js/landing-config.js</code>. Engineering replaces the current file with the export and pushes — every partner-facing page picks up the change on next load. Drafts autosave to your browser; nothing leaves this device until you export.</p>
+  </div>
+
+  <div class="ob-progress-wrap">
+    <div class="ob-progress"><div class="ob-progress-fill" id="ob-progress-fill"></div></div>
+    <div class="ob-progress-meta">
+      <span><strong id="ob-progress-count">0</strong> of <span id="ob-progress-total">0</span> fields complete</span>
+      <span id="ob-progress-status">Draft autosaves to this browser</span>
+    </div>
+  </div>
+
+  <div class="ob-callout">
+    <strong>Audience reminder:</strong> Every field here is read by partner-facing pages. Do not put patient-targeted CTAs, patient pricing, or patient testimonials in this form — Mythic-RX is a B2B partner-program site. Use the formulary fields, fee-structure summary, and partner-program copy instead.
+  </div>
+
+  <form id="ob-form" autocomplete="off">
+
+    <!-- 1. Brand contact ----------------------------------------------------->
+    <details class="ob-section" open>
+      <summary>
+        <span class="ob-section-title"><span class="ob-section-num">1</span> Partner-support contact</span>
+        <span class="ob-section-status" data-status-for="brand">—</span>
+      </summary>
+      <div class="ob-body">
+        <div class="ob-row">
+          <div class="ob-field">
+            <label for="brand-partnerSupportEmail">Partner-support email</label>
+            <div class="ob-hint">Where partner clinics reach onboarding / account management.</div>
+            <input type="email" id="brand-partnerSupportEmail" data-path="brand.partnerSupportEmail" placeholder="partners@mythic-rx.com">
+          </div>
+          <div class="ob-field">
+            <label for="brand-partnerSupportPhone">Partner-support phone</label>
+            <div class="ob-hint">Direct line. Patients should not be routed here.</div>
+            <input type="tel" id="brand-partnerSupportPhone" data-path="brand.partnerSupportPhone" placeholder="(385) 584-6620">
+          </div>
+        </div>
+        <div class="ob-field">
+          <label for="brand-partnerSupportHours">Partner-support hours</label>
+          <div class="ob-hint">Time zone included. Example: <em>Mon–Fri, 8a–6p MT</em>.</div>
+          <input type="text" id="brand-partnerSupportHours" data-path="brand.partnerSupportHours" placeholder="Mon–Fri, 8a–6p MT">
+        </div>
+      </div>
+    </details>
+
+    <!-- 2. Partnership program ---------------------------------------------->
+    <details class="ob-section">
+      <summary>
+        <span class="ob-section-title"><span class="ob-section-num">2</span> Partnership program</span>
+        <span class="ob-section-status" data-status-for="partnership">—</span>
+      </summary>
+      <div class="ob-body">
+        <div class="ob-field">
+          <label for="partnership-propositionShort">One-line value proposition</label>
+          <div class="ob-hint">Counsel-reviewed. Used on the partners page hero. Avoid clinical-claim language.</div>
+          <input type="text" id="partnership-propositionShort" data-path="partnership.propositionShort" placeholder="A precision compounding partner for clinics that need predictable fulfillment.">
+        </div>
+        <div class="ob-row">
+          <div class="ob-field">
+            <label for="partnership-onboardingTimeline">Onboarding timeline</label>
+            <div class="ob-hint">Average from signed agreement to first prescription.</div>
+            <input type="text" id="partnership-onboardingTimeline" data-path="partnership.onboardingTimeline" placeholder="Most clinics fully onboarded in 7–10 business days">
+          </div>
+          <div class="ob-field">
+            <label for="partnership-referralModel">Referral / fulfillment model</label>
+            <input type="text" id="partnership-referralModel" data-path="partnership.referralModel" placeholder="Direct fulfillment (clinic-owned prescription, Mythic-RX dispenses)">
+          </div>
+        </div>
+        <div class="ob-field">
+          <label for="partnership-feeStructureSummary">Public-safe fee-structure summary</label>
+          <div class="ob-hint">A short, partner-facing summary. The full fee schedule lives behind authentication.</div>
+          <textarea id="partnership-feeStructureSummary" data-path="partnership.feeStructureSummary" rows="3" placeholder="No partner onboarding fee. Per-prescription pricing varies by formulation. Full fee schedule available under NDA."></textarea>
+        </div>
+        <div class="ob-row">
+          <div class="ob-field">
+            <label for="partnership-feeScheduleUrl">Full fee-schedule URL (gated)</label>
+            <input type="url" id="partnership-feeScheduleUrl" data-path="partnership.feeScheduleUrl" placeholder="https://partners.mythic-rx.com/fee-schedule.pdf">
+          </div>
+          <div class="ob-field">
+            <label for="partnership-whiteLabelAvailable">White-label availability</label>
+            <select id="partnership-whiteLabelAvailable" data-path="partnership.whiteLabelAvailable" data-type="tristate">
+              <option value="">Not specified</option>
+              <option value="true">Yes — available</option>
+              <option value="false">No — not offered</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="ob-field">
+          <label>Partnership tiers <span class="ob-hint" style="font-weight: 400;">(optional)</span></label>
+          <div class="ob-hint">Add a row per tier. Each row: tier name, ideal-for description, and a comma-separated "includes" list.</div>
+          <div id="partnership-tiers-rows"></div>
+          <button type="button" class="ob-btn ob-btn-ghost" data-add-row="partnership-tiers" style="margin-top: 6px;">+ Add tier</button>
+        </div>
+      </div>
+    </details>
+
+    <!-- 3. Formulary ------------------------------------------------------ -->
+    <details class="ob-section">
+      <summary>
+        <span class="ob-section-title"><span class="ob-section-num">3</span> Formulary</span>
+        <span class="ob-section-status" data-status-for="formulary">—</span>
+      </summary>
+      <div class="ob-body">
+        <div class="ob-field">
+          <label for="formulary-categories">Categories</label>
+          <div class="ob-hint">Comma-separated. Public-safe high-level groupings (e.g., "Weight care, Hormone health, Pain &amp; inflammation").</div>
+          <input type="text" id="formulary-categories" data-path="formulary.categories" data-type="csv" placeholder="Weight care, Hormone health, Pain & inflammation">
+        </div>
+
+        <div class="ob-field">
+          <label>Medications</label>
+          <div class="ob-hint">One row per medication. Counsel must approve indication wording. Off-label / compounded items require the off-label disclosure (set in section 7).</div>
+          <div id="formulary-medications-rows"></div>
+          <button type="button" class="ob-btn ob-btn-ghost" data-add-row="formulary-medications" style="margin-top: 6px;">+ Add medication</button>
+        </div>
+
+        <div class="ob-field">
+          <label for="formulary-formularyRequestUrl">Gated formulary request URL</label>
+          <div class="ob-hint">Link to the full formulary PDF or the partner-portal request form.</div>
+          <input type="url" id="formulary-formularyRequestUrl" data-path="formulary.formularyRequestUrl" placeholder="https://partners.mythic-rx.com/formulary">
+        </div>
+      </div>
+    </details>
+
+    <!-- 4. Clinical governance --------------------------------------------- -->
+    <details class="ob-section">
+      <summary>
+        <span class="ob-section-title"><span class="ob-section-num">4</span> Clinical governance</span>
+        <span class="ob-section-status" data-status-for="clinical">—</span>
+      </summary>
+      <div class="ob-body">
+        <div class="ob-field">
+          <label for="clinical-medicalDirector">Medical director (name + credentials)</label>
+          <div class="ob-hint">Required before any "physician-directed" or "MD-led" claim ships. Example: <em>Jane Smith, PharmD; David Lee, MD</em>.</div>
+          <input type="text" id="clinical-medicalDirector" data-path="clinical.medicalDirector" placeholder="Jane Smith, PharmD &amp; David Lee, MD">
+        </div>
+        <div class="ob-field">
+          <label for="clinical-clinicalAdvisoryNote">Clinical advisory / governance note</label>
+          <div class="ob-hint">1–2 sentence description of clinical oversight and pharmacist review process.</div>
+          <textarea id="clinical-clinicalAdvisoryNote" data-path="clinical.clinicalAdvisoryNote" rows="3" placeholder="Mythic-RX maintains a clinical advisory board of licensed pharmacists and prescribing clinicians who review the formulary quarterly and approve every new compounded protocol."></textarea>
+        </div>
+        <div class="ob-field">
+          <label for="clinical-pharmacyPartners">Pharmacy partners (licensure-attested)</label>
+          <input type="text" id="clinical-pharmacyPartners" data-path="clinical.pharmacyPartners" placeholder="Mythic-RX Pharmacy, 503A licensed in the states below.">
+        </div>
+        <div class="ob-field">
+          <label for="clinical-statesLicensed">States licensed (two-letter)</label>
+          <div class="ob-hint">Comma-separated, two-letter codes. Used by the partner-intake state gate.</div>
+          <input type="text" id="clinical-statesLicensed" data-path="clinical.statesLicensed" data-type="csv-upper" placeholder="UT, ID, AZ, CO, WY, HI, MT">
+        </div>
+        <div class="ob-row">
+          <div class="ob-field">
+            <label for="clinical-intakeSLA">Intake SLA</label>
+            <input type="text" id="clinical-intakeSLA" data-path="clinical.intakeSLA" placeholder="Most intakes reviewed within 1 business day">
+          </div>
+          <div class="ob-field">
+            <label for="clinical-fulfillmentSLA">Fulfillment SLA</label>
+            <input type="text" id="clinical-fulfillmentSLA" data-path="clinical.fulfillmentSLA" placeholder="Most orders ship within 2–3 business days after approval">
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- 5. Integrations ---------------------------------------------------- -->
+    <details class="ob-section">
+      <summary>
+        <span class="ob-section-title"><span class="ob-section-num">5</span> Integrations</span>
+        <span class="ob-section-status" data-status-for="integrations">—</span>
+      </summary>
+      <div class="ob-body">
+        <div class="ob-field">
+          <label for="integrations-emrIntegrations">EMR integrations</label>
+          <div class="ob-hint">Comma-separated. Only list integrations Mythic-RX can actually fulfill today.</div>
+          <input type="text" id="integrations-emrIntegrations" data-path="integrations.emrIntegrations" data-type="csv" placeholder="Athenahealth, DrChrono">
+        </div>
+        <div class="ob-row">
+          <div class="ob-field">
+            <label for="integrations-apiAvailable">API available?</label>
+            <select id="integrations-apiAvailable" data-path="integrations.apiAvailable" data-type="tristate">
+              <option value="">Not specified</option>
+              <option value="true">Yes</option>
+              <option value="false">No</option>
+            </select>
+          </div>
+          <div class="ob-field">
+            <label for="integrations-integrationContact">Integration contact email</label>
+            <input type="email" id="integrations-integrationContact" data-path="integrations.integrationContact" placeholder="integrations@mythic-rx.com">
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- 6. Legal / compliance ---------------------------------------------- -->
+    <details class="ob-section">
+      <summary>
+        <span class="ob-section-title"><span class="ob-section-num">6</span> Legal &amp; compliance</span>
+        <span class="ob-section-status" data-status-for="legal">—</span>
+      </summary>
+      <div class="ob-body">
+        <div class="ob-row">
+          <div class="ob-field">
+            <label for="legal-baaProvided">Business Associate Agreement available?</label>
+            <select id="legal-baaProvided" data-path="legal.baaProvided" data-type="tristate">
+              <option value="">Not specified</option>
+              <option value="true">Yes — BAA on partner agreement</option>
+              <option value="false">No</option>
+            </select>
+          </div>
+          <div class="ob-field">
+            <label for="legal-hipaaContact">HIPAA / privacy contact</label>
+            <input type="email" id="legal-hipaaContact" data-path="legal.hipaaContact" placeholder="privacy@mythic-rx.com">
+          </div>
+        </div>
+        <div class="ob-field">
+          <label for="legal-partnerAgreementUrl">Partner-agreement URL (gated / NDA)</label>
+          <input type="url" id="legal-partnerAgreementUrl" data-path="legal.partnerAgreementUrl" placeholder="https://partners.mythic-rx.com/agreement.pdf">
+        </div>
+        <div class="ob-row">
+          <div class="ob-field">
+            <label for="legal-privacyPolicyUrl">Privacy-policy URL</label>
+            <input type="text" id="legal-privacyPolicyUrl" data-path="legal.privacyPolicyUrl" placeholder="privacy-policy.html">
+          </div>
+          <div class="ob-field">
+            <label for="legal-termsUrl">Terms URL</label>
+            <input type="text" id="legal-termsUrl" data-path="legal.termsUrl" placeholder="terms-and-conditions.html">
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- 7. Disclosures ----------------------------------------------------- -->
+    <details class="ob-section">
+      <summary>
+        <span class="ob-section-title"><span class="ob-section-num">7</span> Disclosures (counsel-approved)</span>
+        <span class="ob-section-status" data-status-for="disclosures">—</span>
+      </summary>
+      <div class="ob-body">
+        <div class="ob-callout"><strong>Sign-off required:</strong> Each disclosure here is shown on partner-facing pages. Healthcare counsel must approve every wording before the value moves out of placeholder state, even if the language matches a sister site's.</div>
+        <div class="ob-field">
+          <label for="disclosures-offLabelClaim">Off-label / compounded claim language</label>
+          <textarea id="disclosures-offLabelClaim" data-path="disclosures.offLabelClaim" rows="3" placeholder="Counsel-approved off-label / compounded language."></textarea>
+        </div>
+        <div class="ob-field">
+          <label for="disclosures-notMedicalAdvice">Not-medical-advice language</label>
+          <textarea id="disclosures-notMedicalAdvice" data-path="disclosures.notMedicalAdvice" rows="3" placeholder="Counsel-approved 'informational only; prescribing decisions remain with the clinician' language."></textarea>
+        </div>
+        <div class="ob-field">
+          <label for="disclosures-compoundedMedication">Compounded-medication disclosure</label>
+          <textarea id="disclosures-compoundedMedication" data-path="disclosures.compoundedMedication" rows="3" placeholder="503A scope, patient-specific Rx requirement, not FDA-approved."></textarea>
+        </div>
+        <div class="ob-field">
+          <label for="disclosures-safetyShort">Short safety statement (fair-balance)</label>
+          <textarea id="disclosures-safetyShort" data-path="disclosures.safetyShort" rows="3" placeholder="Short partner-facing safety statement (contraindications, GI / pancreatitis / MEN2 / pregnancy where applicable)."></textarea>
+        </div>
+      </div>
+    </details>
+
+    <!-- 8. Trust assets ---------------------------------------------------- -->
+    <details class="ob-section">
+      <summary>
+        <span class="ob-section-title"><span class="ob-section-num">8</span> Trust assets</span>
+        <span class="ob-section-status" data-status-for="trust">—</span>
+      </summary>
+      <div class="ob-body">
+        <div class="ob-field">
+          <label for="trust-badges">Trust-bar chips</label>
+          <div class="ob-hint">Comma-separated. Partner-relevant only. Examples: <em>HIPAA-aligned, 503A licensed pharmacy, USP 797/795-aligned workflows, Same-state clinical support</em>. Counsel must approve each.</div>
+          <input type="text" id="trust-badges" data-path="trust.badges" data-type="csv" placeholder="HIPAA-aligned, 503A licensed pharmacy, USP 797/795-aligned workflows, Same-state clinical support">
+        </div>
+
+        <div class="ob-field">
+          <label>Case studies (anonymized, with consent)</label>
+          <div class="ob-hint">One row per case. Practice type, region, short outcome. No PHI; no clinic names without a written release on file.</div>
+          <div id="trust-caseStudies-rows"></div>
+          <button type="button" class="ob-btn ob-btn-ghost" data-add-row="trust-caseStudies" style="margin-top: 6px;">+ Add case study</button>
+        </div>
+
+        <div class="ob-field">
+          <label>Press mentions</label>
+          <div class="ob-hint">One row per mention. Outlet, headline, URL.</div>
+          <div id="trust-pressMentions-rows"></div>
+          <button type="button" class="ob-btn ob-btn-ghost" data-add-row="trust-pressMentions" style="margin-top: 6px;">+ Add press mention</button>
+        </div>
+      </div>
+    </details>
+
+    <!-- 9. Page-level copy overrides --------------------------------------- -->
+    <details class="ob-section">
+      <summary>
+        <span class="ob-section-title"><span class="ob-section-num">9</span> Page-level copy overrides</span>
+        <span class="ob-section-status" data-status-for="pages">—</span>
+      </summary>
+      <div class="ob-body">
+        <p class="ob-hint" style="margin-top: 0;">Leave any field blank to keep the page's authored fallback. Only change a value here when you want to override what the page currently says.</p>
+
+        <h4 style="margin: 18px 0 8px 0; color: var(--mrx-heading);">Home (index.html)</h4>
+        <div class="ob-row">
+          <div class="ob-field"><label for="pages-home-eyebrow">Eyebrow</label><input id="pages-home-eyebrow" data-path="pages.home.eyebrow"></div>
+          <div class="ob-field"><label for="pages-home-h1">H1</label><input id="pages-home-h1" data-path="pages.home.h1"></div>
+        </div>
+        <div class="ob-field"><label for="pages-home-subhead">Subhead</label><textarea id="pages-home-subhead" data-path="pages.home.subhead" rows="2"></textarea></div>
+        <div class="ob-row">
+          <div class="ob-field"><label for="pages-home-ctaPrimary">Primary CTA</label><input id="pages-home-ctaPrimary" data-path="pages.home.ctaPrimary"></div>
+          <div class="ob-field"><label for="pages-home-ctaSecondary">Secondary CTA</label><input id="pages-home-ctaSecondary" data-path="pages.home.ctaSecondary"></div>
+        </div>
+
+        <h4 style="margin: 18px 0 8px 0; color: var(--mrx-heading);">Become a Partner (get-started.html)</h4>
+        <div class="ob-row">
+          <div class="ob-field"><label for="pages-becomePartner-eyebrow">Eyebrow</label><input id="pages-becomePartner-eyebrow" data-path="pages.becomePartner.eyebrow"></div>
+          <div class="ob-field"><label for="pages-becomePartner-h1">H1</label><input id="pages-becomePartner-h1" data-path="pages.becomePartner.h1"></div>
+        </div>
+        <div class="ob-field"><label for="pages-becomePartner-subhead">Subhead</label><textarea id="pages-becomePartner-subhead" data-path="pages.becomePartner.subhead" rows="2"></textarea></div>
+        <div class="ob-field"><label for="pages-becomePartner-ctaPrimary">Primary CTA</label><input id="pages-becomePartner-ctaPrimary" data-path="pages.becomePartner.ctaPrimary"></div>
+
+        <h4 style="margin: 18px 0 8px 0; color: var(--mrx-heading);">Formulary</h4>
+        <div class="ob-row">
+          <div class="ob-field"><label for="pages-formulary-eyebrow">Eyebrow</label><input id="pages-formulary-eyebrow" data-path="pages.formulary.eyebrow"></div>
+          <div class="ob-field"><label for="pages-formulary-h1">H1</label><input id="pages-formulary-h1" data-path="pages.formulary.h1"></div>
+        </div>
+        <div class="ob-field"><label for="pages-formulary-subhead">Subhead</label><textarea id="pages-formulary-subhead" data-path="pages.formulary.subhead" rows="2"></textarea></div>
+
+        <h4 style="margin: 18px 0 8px 0; color: var(--mrx-heading);">Contact</h4>
+        <div class="ob-row">
+          <div class="ob-field"><label for="pages-contact-eyebrow">Eyebrow</label><input id="pages-contact-eyebrow" data-path="pages.contact.eyebrow"></div>
+          <div class="ob-field"><label for="pages-contact-h1">H1</label><input id="pages-contact-h1" data-path="pages.contact.h1"></div>
+        </div>
+        <div class="ob-field"><label for="pages-contact-subhead">Subhead</label><textarea id="pages-contact-subhead" data-path="pages.contact.subhead" rows="2"></textarea></div>
+
+        <h4 style="margin: 18px 0 8px 0; color: var(--mrx-heading);">Provider portal</h4>
+        <div class="ob-row">
+          <div class="ob-field"><label for="pages-providerPortal-eyebrow">Eyebrow</label><input id="pages-providerPortal-eyebrow" data-path="pages.providerPortal.eyebrow"></div>
+          <div class="ob-field"><label for="pages-providerPortal-h1">H1</label><input id="pages-providerPortal-h1" data-path="pages.providerPortal.h1"></div>
+        </div>
+        <div class="ob-field"><label for="pages-providerPortal-subhead">Subhead</label><textarea id="pages-providerPortal-subhead" data-path="pages.providerPortal.subhead" rows="2"></textarea></div>
+        <div class="ob-field"><label for="pages-providerPortal-ctaPrimary">Primary CTA</label><input id="pages-providerPortal-ctaPrimary" data-path="pages.providerPortal.ctaPrimary"></div>
+
+        <h4 style="margin: 18px 0 8px 0; color: var(--mrx-heading);">FAQ</h4>
+        <div class="ob-row">
+          <div class="ob-field"><label for="pages-faq-eyebrow">Eyebrow</label><input id="pages-faq-eyebrow" data-path="pages.faq.eyebrow"></div>
+          <div class="ob-field"><label for="pages-faq-h1">H1</label><input id="pages-faq-h1" data-path="pages.faq.h1"></div>
+        </div>
+        <div class="ob-field"><label for="pages-faq-subhead">Subhead</label><textarea id="pages-faq-subhead" data-path="pages.faq.subhead" rows="2"></textarea></div>
+      </div>
+    </details>
+
+  </form>
+
+  <div class="ob-actions">
+    <button type="button" class="ob-btn" id="ob-export">Export config (.js)</button>
+    <button type="button" class="ob-btn ob-btn-ghost" id="ob-preview">Preview output</button>
+    <button type="button" class="ob-btn ob-btn-ghost" id="ob-clear">Clear draft</button>
+    <span class="ob-spacer"></span>
+    <span class="ob-status" id="ob-savestate">Loading…</span>
+  </div>
+
+  <pre class="ob-preview" id="ob-output" hidden></pre>
+</div>
+
+<div class="ob-toast" id="ob-toast">Saved</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ------------------------------------------------------------------
+     Storage helpers (key prevents collision with sister-site drafts)
+     ------------------------------------------------------------------ */
+  var STORAGE_KEY = "mrx_onboarding_v1";
+
+  function loadDraft() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) { return {}; }
+  }
+  function saveDraft(state) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+  }
+
+  /* ------------------------------------------------------------------
+     Dynamic list-row schemas (sections 2, 3, 8)
+     ------------------------------------------------------------------ */
+  var ROW_SCHEMAS = {
+    "partnership-tiers": {
+      cols: [
+        { key: "name",      ph: "Tier name (e.g. Core)" },
+        { key: "idealFor",  ph: "Ideal for (e.g. Single-site clinics)" },
+        { key: "includes",  ph: "Includes (comma-separated)" }
+      ]
+    },
+    "formulary-medications": {
+      cols: [
+        { key: "name",            ph: "Medication name" },
+        { key: "category",        ph: "Category" },
+        { key: "indication",      ph: "Indication (counsel-approved)" },
+        { key: "fulfillmentNote", ph: "Fulfillment note" }
+      ]
+    },
+    "trust-caseStudies": {
+      cols: [
+        { key: "practiceType",  ph: "Practice type" },
+        { key: "region",        ph: "Region / state(s)" },
+        { key: "outcomeShort",  ph: "Outcome (no PHI)" }
+      ]
+    },
+    "trust-pressMentions": {
+      cols: [
+        { key: "outlet",   ph: "Outlet" },
+        { key: "headline", ph: "Headline" },
+        { key: "url",      ph: "URL" }
+      ]
+    }
+  };
+
+  /* ------------------------------------------------------------------
+     Field discovery
+     ------------------------------------------------------------------ */
+  var fieldEls = Array.prototype.slice.call(document.querySelectorAll("[data-path]"));
+  var rowMounts = Object.keys(ROW_SCHEMAS);
+
+  /* ------------------------------------------------------------------
+     Add / remove dynamic row helpers
+     ------------------------------------------------------------------ */
+  function makeRow(schemaKey, values) {
+    var schema = ROW_SCHEMAS[schemaKey];
+    var row = document.createElement("div");
+    row.className = "ob-list-row";
+    row.dataset.row = schemaKey;
+    schema.cols.forEach(function (col) {
+      var input = document.createElement("input");
+      input.type = "text";
+      input.placeholder = col.ph;
+      input.dataset.col = col.key;
+      if (values && values[col.key] !== undefined) input.value = values[col.key];
+      input.addEventListener("input", scheduleSave);
+      row.appendChild(input);
+    });
+    var rm = document.createElement("button");
+    rm.type = "button";
+    rm.className = "ob-btn ob-btn-ghost";
+    rm.textContent = "Remove";
+    rm.addEventListener("click", function () {
+      row.remove();
+      scheduleSave();
+    });
+    row.appendChild(rm);
+    return row;
+  }
+
+  function readRows(schemaKey) {
+    var mount = document.getElementById(schemaKey + "-rows");
+    if (!mount) return [];
+    var out = [];
+    var rows = mount.querySelectorAll(".ob-list-row");
+    rows.forEach(function (row) {
+      var obj = {};
+      var any = false;
+      row.querySelectorAll("input[data-col]").forEach(function (inp) {
+        var v = inp.value.trim();
+        if (v) {
+          // "includes" stays comma-separated in source row, but flatten to array
+          if (schemaKey === "partnership-tiers" && inp.dataset.col === "includes") {
+            obj.includes = v.split(",").map(function (s) { return s.trim(); }).filter(Boolean);
+          } else {
+            obj[inp.dataset.col] = v;
+          }
+          any = true;
+        }
+      });
+      if (any) out.push(obj);
+    });
+    return out;
+  }
+
+  function mountRowAdders() {
+    document.querySelectorAll("[data-add-row]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var key = btn.getAttribute("data-add-row");
+        var mount = document.getElementById(key + "-rows");
+        mount.appendChild(makeRow(key));
+      });
+    });
+  }
+
+  /* ------------------------------------------------------------------
+     Read all simple fields into a flat dictionary keyed by dotted path
+     ------------------------------------------------------------------ */
+  function readSimpleFields() {
+    var dict = {};
+    fieldEls.forEach(function (el) {
+      var path = el.getAttribute("data-path");
+      var type = el.getAttribute("data-type");
+      var raw = el.value;
+
+      if (type === "tristate") {
+        if (raw === "true") dict[path] = true;
+        else if (raw === "false") dict[path] = false;
+        else dict[path] = null;
+      } else if (type === "csv" || type === "csv-upper") {
+        var parts = String(raw).split(",").map(function (s) { return s.trim(); }).filter(Boolean);
+        if (type === "csv-upper") parts = parts.map(function (s) { return s.toUpperCase(); });
+        dict[path] = parts;
+      } else {
+        var v = String(raw || "").trim();
+        dict[path] = v;
+      }
+    });
+    return dict;
+  }
+
+  /* ------------------------------------------------------------------
+     Reverse: write a flat dict into the form (used on load)
+     ------------------------------------------------------------------ */
+  function writeSimpleFields(dict) {
+    fieldEls.forEach(function (el) {
+      var path = el.getAttribute("data-path");
+      var type = el.getAttribute("data-type");
+      if (!(path in dict)) return;
+      var v = dict[path];
+      if (type === "tristate") {
+        if (v === true) el.value = "true";
+        else if (v === false) el.value = "false";
+        else el.value = "";
+      } else if (type === "csv" || type === "csv-upper") {
+        el.value = Array.isArray(v) ? v.join(", ") : "";
+      } else {
+        el.value = v == null ? "" : String(v);
+      }
+    });
+  }
+
+  /* ------------------------------------------------------------------
+     Assemble the MRX_CONFIG object from the current form state
+     ------------------------------------------------------------------ */
+  function buildConfig() {
+    var flat = readSimpleFields();
+
+    function get(path) { return flat[path]; }
+
+    function strOrPlaceholder(path) {
+      var v = get(path);
+      if (typeof v === "string" && v.length) return v;
+      return "[CLIENT TO CONFIRM]";
+    }
+
+    function strOrNull(path) {
+      var v = get(path);
+      if (typeof v === "string" && v.length) return v;
+      return null;
+    }
+
+    function arrOrPlaceholder(path) {
+      var v = get(path);
+      if (Array.isArray(v) && v.length) return v;
+      return ["[CLIENT TO CONFIRM]"];
+    }
+
+    function arrOr(path, fallback) {
+      var v = get(path);
+      if (Array.isArray(v) && v.length) return v;
+      return fallback;
+    }
+
+    function triOrNull(path) {
+      var v = get(path);
+      return (v === true || v === false) ? v : null;
+    }
+
+    var trustBadges = arrOr("trust.badges", []);
+    if (!trustBadges.length) {
+      trustBadges = [
+        "[CLIENT TO CONFIRM]",
+        "[CLIENT TO CONFIRM]",
+        "[CLIENT TO CONFIRM]",
+        "[CLIENT TO CONFIRM]"
+      ];
+    }
+
+    return {
+      brand: {
+        name: "Mythic-RX",
+        domain: "mythic-rx.com",
+        partnerSupportEmail: strOrPlaceholder("brand.partnerSupportEmail"),
+        partnerSupportPhone: strOrPlaceholder("brand.partnerSupportPhone"),
+        partnerSupportHours: strOrPlaceholder("brand.partnerSupportHours")
+      },
+      partnership: {
+        audience: "Independent and group-practice physicians, NPs, PAs",
+        propositionShort: strOrPlaceholder("partnership.propositionShort"),
+        onboardingTimeline: strOrPlaceholder("partnership.onboardingTimeline"),
+        feeStructureSummary: strOrPlaceholder("partnership.feeStructureSummary"),
+        feeScheduleUrl: strOrPlaceholder("partnership.feeScheduleUrl"),
+        whiteLabelAvailable: triOrNull("partnership.whiteLabelAvailable"),
+        referralModel: strOrPlaceholder("partnership.referralModel"),
+        tiers: readRows("partnership-tiers")
+      },
+      formulary: {
+        categories: arrOr("formulary.categories", []),
+        medications: readRows("formulary-medications"),
+        formularyRequestUrl: strOrPlaceholder("formulary.formularyRequestUrl")
+      },
+      clinical: {
+        medicalDirector: strOrPlaceholder("clinical.medicalDirector"),
+        clinicalAdvisoryNote: strOrPlaceholder("clinical.clinicalAdvisoryNote"),
+        pharmacyPartners: strOrPlaceholder("clinical.pharmacyPartners"),
+        statesLicensed: arrOrPlaceholder("clinical.statesLicensed"),
+        intakeSLA: strOrPlaceholder("clinical.intakeSLA"),
+        fulfillmentSLA: strOrPlaceholder("clinical.fulfillmentSLA")
+      },
+      integrations: {
+        emrIntegrations: arrOr("integrations.emrIntegrations", []),
+        apiAvailable: triOrNull("integrations.apiAvailable"),
+        integrationContact: strOrPlaceholder("integrations.integrationContact")
+      },
+      legal: {
+        baaProvided: triOrNull("legal.baaProvided"),
+        partnerAgreementUrl: strOrPlaceholder("legal.partnerAgreementUrl"),
+        privacyPolicyUrl: strOrNull("legal.privacyPolicyUrl") || "privacy-policy.html",
+        termsUrl: strOrNull("legal.termsUrl") || "terms-and-conditions.html",
+        hipaaContact: strOrPlaceholder("legal.hipaaContact")
+      },
+      trust: {
+        badges: trustBadges,
+        caseStudies: readRows("trust-caseStudies"),
+        pressMentions: readRows("trust-pressMentions")
+      },
+      disclosures: {
+        offLabelClaim: strOrPlaceholder("disclosures.offLabelClaim"),
+        notMedicalAdvice: strOrPlaceholder("disclosures.notMedicalAdvice"),
+        compoundedMedication: strOrPlaceholder("disclosures.compoundedMedication"),
+        safetyShort: strOrPlaceholder("disclosures.safetyShort")
+      },
+      pages: {
+        home: {
+          eyebrow: strOrNull("pages.home.eyebrow"),
+          h1: strOrNull("pages.home.h1"),
+          subhead: strOrNull("pages.home.subhead"),
+          ctaPrimary: strOrNull("pages.home.ctaPrimary"),
+          ctaSecondary: strOrNull("pages.home.ctaSecondary")
+        },
+        becomePartner: {
+          eyebrow: strOrNull("pages.becomePartner.eyebrow"),
+          h1: strOrNull("pages.becomePartner.h1"),
+          subhead: strOrNull("pages.becomePartner.subhead"),
+          ctaPrimary: strOrNull("pages.becomePartner.ctaPrimary")
+        },
+        formulary: {
+          eyebrow: strOrNull("pages.formulary.eyebrow"),
+          h1: strOrNull("pages.formulary.h1"),
+          subhead: strOrNull("pages.formulary.subhead")
+        },
+        contact: {
+          eyebrow: strOrNull("pages.contact.eyebrow"),
+          h1: strOrNull("pages.contact.h1"),
+          subhead: strOrNull("pages.contact.subhead")
+        },
+        providerPortal: {
+          eyebrow: strOrNull("pages.providerPortal.eyebrow"),
+          h1: strOrNull("pages.providerPortal.h1"),
+          subhead: strOrNull("pages.providerPortal.subhead"),
+          ctaPrimary: strOrNull("pages.providerPortal.ctaPrimary")
+        },
+        faq: {
+          eyebrow: strOrNull("pages.faq.eyebrow"),
+          h1: strOrNull("pages.faq.h1"),
+          subhead: strOrNull("pages.faq.subhead")
+        }
+      }
+    };
+  }
+
+  /* ------------------------------------------------------------------
+     Stringify the config to a drop-in JS file
+     ------------------------------------------------------------------ */
+  function formatConfig(cfg) {
+    var json = JSON.stringify(cfg, null, 2);
+    var header = [
+      "/**",
+      " * Mythic-RX — Partner-program Landing Page configuration",
+      " * Generated by Client_Onboarding.html · " + new Date().toISOString(),
+      " *",
+      " * Any value reading [CLIENT TO CONFIRM] is unfilled and will render",
+      " * as a yellow placeholder on the page.",
+      " */"
+    ].join("\n");
+    return header + "\nwindow.MRX_CONFIG = " + json + ";\n";
+  }
+
+  /* ------------------------------------------------------------------
+     Section status indicator (count filled vs. total per section)
+     ------------------------------------------------------------------ */
+  function refreshStatuses() {
+    var sections = {};
+    fieldEls.forEach(function (el) {
+      var path = el.getAttribute("data-path");
+      var topKey = path.split(".")[0];
+      sections[topKey] = sections[topKey] || { total: 0, filled: 0 };
+      sections[topKey].total++;
+      if (el.value && String(el.value).trim().length) sections[topKey].filled++;
+    });
+
+    var totalFields = 0, filledFields = 0;
+    Object.keys(sections).forEach(function (k) {
+      totalFields += sections[k].total;
+      filledFields += sections[k].filled;
+      var el = document.querySelector('[data-status-for="' + k + '"]');
+      if (el) {
+        if (sections[k].filled === 0) el.textContent = "Not started";
+        else if (sections[k].filled === sections[k].total) el.textContent = "Complete";
+        else el.textContent = sections[k].filled + "/" + sections[k].total + " fields";
+      }
+    });
+
+    document.getElementById("ob-progress-count").textContent = filledFields;
+    document.getElementById("ob-progress-total").textContent = totalFields;
+    var pct = totalFields ? Math.round((filledFields / totalFields) * 100) : 0;
+    document.getElementById("ob-progress-fill").style.width = pct + "%";
+  }
+
+  /* ------------------------------------------------------------------
+     Toast + autosave
+     ------------------------------------------------------------------ */
+  var toastEl = document.getElementById("ob-toast");
+  var toastT;
+  function toast(msg) {
+    toastEl.textContent = msg;
+    toastEl.classList.add("show");
+    clearTimeout(toastT);
+    toastT = setTimeout(function () { toastEl.classList.remove("show"); }, 1400);
+  }
+
+  var saveT;
+  function scheduleSave() {
+    refreshStatuses();
+    clearTimeout(saveT);
+    saveT = setTimeout(function () {
+      var state = {
+        flat: readSimpleFields(),
+        rows: {}
+      };
+      rowMounts.forEach(function (key) {
+        state.rows[key] = readRows(key);
+      });
+      saveDraft(state);
+      document.getElementById("ob-savestate").textContent =
+        "Saved · " + new Date().toLocaleTimeString();
+    }, 250);
+  }
+
+  /* ------------------------------------------------------------------
+     Restore draft on load
+     ------------------------------------------------------------------ */
+  function restoreDraft() {
+    var draft = loadDraft();
+    if (draft && draft.flat) writeSimpleFields(draft.flat);
+    if (draft && draft.rows) {
+      rowMounts.forEach(function (key) {
+        var mount = document.getElementById(key + "-rows");
+        if (!mount) return;
+        var rows = draft.rows[key] || [];
+        rows.forEach(function (vals) {
+          // 'includes' in tiers is stored as array → re-flatten for the input cell
+          if (key === "partnership-tiers" && Array.isArray(vals.includes)) {
+            vals = Object.assign({}, vals, { includes: vals.includes.join(", ") });
+          }
+          mount.appendChild(makeRow(key, vals));
+        });
+      });
+    }
+    refreshStatuses();
+    document.getElementById("ob-savestate").textContent =
+      draft && (draft.flat || draft.rows) ? "Draft restored" : "Draft autosaves to this browser";
+  }
+
+  /* ------------------------------------------------------------------
+     Wire up
+     ------------------------------------------------------------------ */
+  fieldEls.forEach(function (el) {
+    el.addEventListener("input", scheduleSave);
+    el.addEventListener("change", scheduleSave);
+  });
+  mountRowAdders();
+
+  document.getElementById("ob-export").addEventListener("click", function () {
+    var cfg = buildConfig();
+    var body = formatConfig(cfg);
+    var blob = new Blob([body], { type: "application/javascript" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = "landing-config.js";
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function () { URL.revokeObjectURL(url); a.remove(); }, 200);
+    toast("Exported landing-config.js");
+  });
+
+  document.getElementById("ob-preview").addEventListener("click", function () {
+    var pre = document.getElementById("ob-output");
+    var cfg = buildConfig();
+    pre.textContent = formatConfig(cfg);
+    pre.hidden = false;
+    pre.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  document.getElementById("ob-clear").addEventListener("click", function () {
+    if (!confirm("Clear this draft? This wipes the autosaved fields in this browser only.")) return;
+    localStorage.removeItem(STORAGE_KEY);
+    fieldEls.forEach(function (el) {
+      if (el.tagName === "SELECT") el.selectedIndex = 0;
+      else el.value = "";
+    });
+    rowMounts.forEach(function (key) {
+      var mount = document.getElementById(key + "-rows");
+      if (mount) mount.innerHTML = "";
+    });
+    refreshStatuses();
+    document.getElementById("ob-savestate").textContent = "Draft cleared";
+    toast("Draft cleared");
+  });
+
+  restoreDraft();
+})();
+</script>
+</body>
+</html>

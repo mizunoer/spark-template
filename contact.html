@@ -7,10 +7,14 @@
     <meta name="description" content="Contact Mythic Rx compounding pharmacy. Get in touch for new provider onboarding, prescription questions, formulation inquiries, shipping information, or general support. Phone: 385-584-6620.">
     <meta name="keywords" content="contact compounding pharmacy, pharmacy support, provider enrollment, prescription help, pharmacist consultation">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="assets/css/mythic-rx.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/shishirraven/animate-on-scroll@v1.2/animation_utility.css">
     <link rel="icon" type="image/x-icon" href="image/logo.png">
-    <title>Pharmed - Contact Us</title>
+    <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="theme-color" content="#1E6B3A">
+    <title>Mythic Rx - Contact</title>
 </head>
 
 <body>
@@ -89,8 +93,8 @@
             <div class="r-container h-100 position-relative" style="z-index: 2;">
                 <div class="d-flex flex-column w-100 h-100 justify-content-center mx-auto align-items-center text-white gap-3"
                     style="max-width: 895px;">
-                    <h2 class="m-0 text-white">Contact</h2>
-                <p class="m-0 text-white mt-2 banner-subtext">Questions about onboarding, orders, shipping, or formulations? Contact the team that handles clinic workflows.</p>
+                    <h2 class="m-0 text-white" data-bind="pages.contact.h1">Contact</h2>
+                <p class="m-0 text-white mt-2 banner-subtext" data-bind="pages.contact.subhead">Questions about onboarding, orders, shipping, or formulations? Contact the team that handles clinic workflows.</p>
                 </div>
             </div>
         </div>
@@ -196,11 +200,11 @@
                                 </div>
                                 <div class="d-flex flex-row align-items-center font-2 gap-3">
                                     <i class="rtmicon rtmicon-classic-phone  fs-4"></i>
-                                    <span>385-584-6620</span>
+                                    <span data-bind="brand.partnerSupportPhone">385-584-6620</span>
                                 </div>
                                 <div class="d-flex flex-row align-items-center font-2 gap-3">
                                     <i class="rtmicon rtmicon-envelope fs-4"></i>
-                                    <span>info@mythic-rx.com</span>
+                                    <span data-bind="brand.partnerSupportEmail">info@mythic-rx.com</span>
                                 </div>
                             </div>
                         </div>
@@ -265,11 +269,11 @@
                                     <div class="d-flex flex-column gap-3">
                                         <div class="d-flex flex-row align-items-center font-2 gap-3">
                                             <i class="rtmicon rtmicon-classic-phone  fs-4"></i>
-                                            <span>385-584-6620</span>
+                                            <span data-bind="brand.partnerSupportPhone">385-584-6620</span>
                                         </div>
                                         <div class="d-flex flex-row align-items-center font-2 gap-3">
                                             <i class="rtmicon rtmicon-envelope fs-4"></i>
-                                            <span>info@mythic-rx.com</span>
+                                            <span data-bind="brand.partnerSupportEmail">info@mythic-rx.com</span>
                                         </div>
                                     </div>
                                 </div>
@@ -324,6 +328,10 @@
             });
         });
     </script>
+
+    <!-- Mythic-RX config-driven content (reads window.MRX_CONFIG) -->
+    <script src="assets/js/landing-config.js"></script>
+    <script src="assets/js/landing-render.js"></script>
 </body>
 
 </html>

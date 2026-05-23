@@ -7,10 +7,14 @@
     <meta name="description" content="Sterile compounding services from Mythic Rx. Patient-specific sterile preparations aligned to your prescribing protocols with pharmacist collaboration and clear documentation. USP 797 compliant.">
     <meta name="keywords" content="sterile compounding, USP 797, sterile preparations, custom sterile formulations, pharmacy sterile compounding">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="assets/css/mythic-rx.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/shishirraven/animate-on-scroll@v1.2/animation_utility.css">
     <link rel="icon" type="image/x-icon" href="image/logo.png">
-    <title>Pharmed - Service Details</title>
+    <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="theme-color" content="#1E6B3A">
+    <title>Mythic Rx - Sterile Compounding</title>
 </head>
 
 <body>
@@ -167,14 +171,14 @@
                                                 <i class="rtmicon rtmicon-classic-phone" style="font-size: 50px;"></i>
                                                 <div class="d-flex flex-column">
                                                     <h5>Phone</h5>
-                                                    <span class="font-2">385-584-6620</span>
+                                                    <span class="font-2" data-bind="brand.partnerSupportPhone">385-584-6620</span>
                                                 </div>
                                             </div>
                                             <div class="d-flex flex-row align-items-center font-2 gap-3">
                                                 <i class="rtmicon rtmicon-envelope" style="font-size: 50px;"></i>
                                                 <div class="d-flex flex-column">
                                                     <h5>Email</h5>
-                                                    <span class="font-2">info@mythic-rx.com</span>
+                                                    <span class="font-2" data-bind="brand.partnerSupportEmail">info@mythic-rx.com</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -273,11 +277,11 @@
                                     <div class="d-flex flex-column gap-3">
                                         <div class="d-flex flex-row align-items-center font-2 gap-3">
                                             <i class="rtmicon rtmicon-classic-phone  fs-4"></i>
-                                            <span>385-584-6620</span>
+                                            <span data-bind="brand.partnerSupportPhone">385-584-6620</span>
                                         </div>
                                         <div class="d-flex flex-row align-items-center font-2 gap-3">
                                             <i class="rtmicon rtmicon-envelope fs-4"></i>
-                                            <span>info@mythic-rx.com</span>
+                                            <span data-bind="brand.partnerSupportEmail">info@mythic-rx.com</span>
                                         </div>
                                     </div>
                                 </div>
@@ -303,6 +307,10 @@
     <script src="js/vendor/isotope.pkgd.min.js"></script>
     <script src="js/video_embedded.js"></script>
     <script src="js/vendor/fslightbox.js"></script>
+
+    <!-- Mythic-RX config-driven content (reads window.MRX_CONFIG) -->
+    <script src="assets/js/landing-config.js"></script>
+    <script src="assets/js/landing-render.js"></script>
 </body>
 
 </html>

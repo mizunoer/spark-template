@@ -1,0 +1,48 @@
+/**
+ * mythic-rx.com — Brand CSS bundle (drop-in copy)
+ * ==========================================================
+ * Mirror of the `:root` token block from
+ * /assets/css/mythic-rx.css, packaged inside the brand kit
+ * so third-party teams (designers, agencies, integrators)
+ * can ship Mythic-RX-branded surfaces without pulling the
+ * whole site stylesheet.
+ *
+ * If you change a token here, ALSO change it in
+ * /assets/css/mythic-rx.css. They must stay in sync.
+ * ========================================================== */
+
+:root {
+  --mrx-blue:       #1E6B3A;
+  --mrx-cyan:       #0F4D2E;
+  --mrx-teal:       #0B3A20;
+  --mrx-navy:       #072517;
+  --mrx-slate-gray: #4A4A4A;
+
+  --mrx-mint:     #CFE3CC;
+  --mrx-offwhite: #F6FAF5;
+  --mrx-slate:    #2E2E2E;
+  --mrx-white:    #ffffff;
+  --mrx-gold:     #F8DE70;
+
+  --mrx-primary:        var(--mrx-blue);
+  --mrx-primary-dark:   #154D29;
+  --mrx-accent:         var(--mrx-teal);
+  --mrx-accent-dark:    #062012;
+  --mrx-link:           var(--mrx-blue);
+  --mrx-link-hover:     var(--mrx-cyan);
+  --mrx-heading:        var(--mrx-navy);
+  --mrx-text:           var(--mrx-slate);
+  --mrx-text-muted:     var(--mrx-slate-gray);
+  --mrx-light:          var(--mrx-offwhite);
+  --mrx-border:         #DADAD3;
+
+  --mrx-gradient:      linear-gradient(135deg, var(--mrx-blue) 0%, var(--mrx-cyan) 50%, var(--mrx-teal) 100%);
+  --mrx-gradient-dark: linear-gradient(135deg, var(--mrx-navy) 0%, var(--mrx-teal) 50%, var(--mrx-navy) 100%);
+
+  --mrx-shadow:        0 4px 24px rgba(15, 77, 46, 0.10);
+  --mrx-shadow-hover:  0 8px 32px rgba(11, 58, 32, 0.20);
+  --mrx-shadow-soft:   0 2px 12px rgba(15, 77, 46, 0.06);
+  --mrx-radius:        12px;
+  --mrx-radius-lg:     20px;
+  --mrx-transition:    0.3s ease;
+}

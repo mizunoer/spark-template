@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mythic-RX — Palette Picker</title>
+<meta name="description" content="Internal Mythic-RX palette picker. Preview brand tokens, copy hex values, and pressure-test color combinations before they ship.">
+<meta name="theme-color" content="#1E6B3A">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="stylesheet" href="assets/css/mythic-rx.css">
+<style>
+  body { margin: 0; }
+  .uc-shell { max-width: 1100px; margin: 0 auto; padding: 28px 24px 80px 24px; }
+
+  .uc-hero {
+    background: var(--mrx-gradient);
+    color: var(--mrx-white);
+    padding: 26px 30px;
+    border-radius: var(--mrx-radius-lg);
+    margin-bottom: 24px;
+    box-shadow: var(--mrx-shadow);
+  }
+  .uc-hero h1 { margin: 6px 0 4px 0; font-size: 1.7rem; }
+  .uc-hero p { margin: 0; color: rgba(255,255,255,0.92); max-width: 720px; }
+  .uc-hero .uc-eyebrow {
+    text-transform: uppercase; letter-spacing: 0.14em;
+    font-size: 0.78rem; font-weight: 700; color: var(--mrx-mint);
+  }
+
+  .uc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .uc-swatch {
+    background: var(--mrx-white);
+    border: 1px solid var(--mrx-border);
+    border-radius: var(--mrx-radius);
+    overflow: hidden;
+    box-shadow: var(--mrx-shadow-soft);
+    transition: var(--mrx-transition);
+    cursor: pointer;
+  }
+  .uc-swatch:hover { box-shadow: var(--mrx-shadow); transform: translateY(-1px); }
+  .uc-swatch .uc-chip { height: 112px; }
+  .uc-swatch .uc-meta { padding: 12px 14px; }
+  .uc-swatch .uc-name { color: var(--mrx-heading); font-weight: 700; }
+  .uc-swatch .uc-var  { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.82rem; color: var(--mrx-text-muted); }
+  .uc-swatch .uc-hex  { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.82rem; color: var(--mrx-text); }
+  .uc-swatch .uc-copy { font-size: 0.78rem; color: var(--mrx-primary); }
+
+  .uc-section { margin-bottom: 32px; }
+  .uc-section h2 { color: var(--mrx-heading); margin: 0 0 8px 0; font-size: 1.2rem; }
+  .uc-section p.uc-hint { color: var(--mrx-text-muted); margin: 0 0 14px 0; font-size: 0.92rem; }
+
+  .uc-combo {
+    background: var(--mrx-white);
+    border: 1px solid var(--mrx-border);
+    border-radius: var(--mrx-radius);
+    padding: 18px;
+    box-shadow: var(--mrx-shadow-soft);
+    margin-bottom: 14px;
+  }
+  .uc-combo .uc-combo-demo {
+    border-radius: var(--mrx-radius);
+    padding: 22px 24px;
+    margin-bottom: 12px;
+  }
+  .uc-combo .uc-combo-demo h3 { margin: 0 0 6px 0; }
+  .uc-combo .uc-combo-demo p  { margin: 0; }
+  .uc-combo .uc-combo-meta {
+    display: flex; flex-wrap: wrap; gap: 10px 18px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.82rem; color: var(--mrx-text-muted);
+  }
+  .uc-combo .uc-combo-meta strong { color: var(--mrx-heading); font-family: inherit; }
+
+  .uc-gradient-bar {
+    height: 80px; border-radius: var(--mrx-radius);
+    box-shadow: var(--mrx-shadow-soft);
+  }
+  .uc-toast {
+    position: fixed; bottom: 20px; right: 20px;
+    background: var(--mrx-heading); color: var(--mrx-white);
+    padding: 12px 18px; border-radius: var(--mrx-radius);
+    box-shadow: var(--mrx-shadow-hover);
+    transform: translateY(20px); opacity: 0;
+    transition: 0.3s ease;
+    pointer-events: none;
+    font-size: 0.9rem;
+  }
+  .uc-toast.show { transform: translateY(0); opacity: 1; }
+</style>
+</head>
+<body class="mrx-page">
+
+<div class="uc-shell">
+
+  <div class="uc-hero">
+    <div class="uc-eyebrow">Internal · Brand QA</div>
+    <h1>Mythic-RX palette picker</h1>
+    <p>Live preview of every brand token in <code style="background:rgba(255,255,255,0.18); padding: 1px 6px; border-radius: 4px;">assets/css/mythic-rx.css</code>. Click any swatch to copy the hex. Use the combinations panel to verify contrast on real surface treatments before shipping.</p>
+  </div>
+
+  <section class="uc-section">
+    <h2>Core palette</h2>
+    <p class="uc-hint">The canonical Mythic-RX colors. Update these in <code>assets/css/mythic-rx.css</code> and every page picks up the change.</p>
+    <div class="uc-grid" id="uc-core"></div>
+  </section>
+
+  <section class="uc-section">
+    <h2>Semantic aliases</h2>
+    <p class="uc-hint">Shorthand tokens used by components. Each is a reference to a core color above — change a core swatch and these update automatically.</p>
+    <div class="uc-grid" id="uc-semantic"></div>
+  </section>
+
+  <section class="uc-section">
+    <h2>Gradients</h2>
+    <div class="uc-grid">
+      <div class="uc-combo">
+        <div class="uc-gradient-bar" style="background: var(--mrx-gradient);"></div>
+        <div class="uc-combo-meta" style="margin-top:10px;"><strong>--mrx-gradient</strong> · primary hero / CTA</div>
+      </div>
+      <div class="uc-combo">
+        <div class="uc-gradient-bar" style="background: var(--mrx-gradient-dark);"></div>
+        <div class="uc-combo-meta" style="margin-top:10px;"><strong>--mrx-gradient-dark</strong> · footer / deep section</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="uc-section">
+    <h2>Recommended combinations</h2>
+    <p class="uc-hint">Pre-tested foreground/background pairs. Reads against the WCAG 4.5:1 minimum for body text and 3:1 for large headings.</p>
+
+    <div class="uc-combo">
+      <div class="uc-combo-demo" style="background: var(--mrx-primary); color: var(--mrx-white);">
+        <h3>Primary CTA on green</h3>
+        <p>Button label or callout copy lives here in white on Translucent Forest.</p>
+      </div>
+      <div class="uc-combo-meta"><strong>fg</strong> <code>#FFFFFF</code> · <strong>bg</strong> <code>#1E6B3A</code> · contrast ≈ 5.2:1</div>
+    </div>
+
+    <div class="uc-combo">
+      <div class="uc-combo-demo" style="background: var(--mrx-navy); color: var(--mrx-mint);">
+        <h3>Footer pattern</h3>
+        <p>Dark Evergreen background, Soft Mint text — used on the landing-page footer and dark hero variants.</p>
+      </div>
+      <div class="uc-combo-meta"><strong>fg</strong> <code>#CFE3CC</code> · <strong>bg</strong> <code>#072517</code> · contrast ≈ 10.4:1</div>
+    </div>
+
+    <div class="uc-combo">
+      <div class="uc-combo-demo" style="background: var(--mrx-mint); color: var(--mrx-cyan);">
+        <h3>Tinted badge / chip</h3>
+        <p>Soft Mint background with Deep Emerald type — the standard trust-bar treatment.</p>
+      </div>
+      <div class="uc-combo-meta"><strong>fg</strong> <code>#0F4D2E</code> · <strong>bg</strong> <code>#CFE3CC</code> · contrast ≈ 7.0:1</div>
+    </div>
+
+    <div class="uc-combo">
+      <div class="uc-combo-demo" style="background: var(--mrx-offwhite); color: var(--mrx-text);">
+        <h3>Body content</h3>
+        <p>Off-white surface with Charcoal type — the default partner-page reading combination.</p>
+      </div>
+      <div class="uc-combo-meta"><strong>fg</strong> <code>#2E2E2E</code> · <strong>bg</strong> <code>#F6FAF5</code> · contrast ≈ 12.8:1</div>
+    </div>
+  </section>
+
+</div>
+
+<div class="uc-toast" id="uc-toast">Copied</div>
+
+<script>
+(function () {
+  "use strict";
+
+  function readVar(name) {
+    return getComputedStyle(document.documentElement)
+      .getPropertyValue(name).trim();
+  }
+
+  function chip(name, varName) {
+    var hex = readVar(varName) || "#000";
+    // resolve var() chains (semantic → core)
+    if (hex.indexOf("var(") === 0) {
+      var inner = hex.match(/var\(([^)]+)\)/);
+      if (inner) hex = readVar(inner[1].trim());
+    }
+    var el = document.createElement("div");
+    el.className = "uc-swatch";
+    el.innerHTML =
+      '<div class="uc-chip" style="background:' + hex + ';"></div>' +
+      '<div class="uc-meta">' +
+        '<div class="uc-name">' + name + '</div>' +
+        '<div class="uc-var">' + varName + '</div>' +
+        '<div class="uc-hex">' + hex.toUpperCase() + '</div>' +
+        '<div class="uc-copy">Click to copy</div>' +
+      '</div>';
+    el.addEventListener("click", function () {
+      var text = hex.toUpperCase();
+      navigator.clipboard.writeText(text).then(function () { toast("Copied " + text); });
+    });
+    return el;
+  }
+
+  var core = [
+    ["Translucent Forest", "--mrx-blue"],
+    ["Deep Emerald",       "--mrx-cyan"],
+    ["Evergreen",          "--mrx-teal"],
+    ["Dark Evergreen",     "--mrx-navy"],
+    ["Soft Mint",          "--mrx-mint"],
+    ["Off-white",          "--mrx-offwhite"],
+    ["Charcoal",           "--mrx-slate"],
+    ["Stone",              "--mrx-slate-gray"],
+    ["Fog (border)",       "--mrx-border"],
+    ["Gold accent",        "--mrx-gold"],
+    ["White",              "--mrx-white"]
+  ];
+  var coreMount = document.getElementById("uc-core");
+  core.forEach(function (row) { coreMount.appendChild(chip(row[0], row[1])); });
+
+  var semantic = [
+    ["Primary",      "--mrx-primary"],
+    ["Primary dark", "--mrx-primary-dark"],
+    ["Accent",       "--mrx-accent"],
+    ["Accent dark",  "--mrx-accent-dark"],
+    ["Link",         "--mrx-link"],
+    ["Link hover",   "--mrx-link-hover"],
+    ["Heading",      "--mrx-heading"],
+    ["Text",         "--mrx-text"],
+    ["Text muted",   "--mrx-text-muted"],
+    ["Light surface","--mrx-light"]
+  ];
+  var semMount = document.getElementById("uc-semantic");
+  semantic.forEach(function (row) { semMount.appendChild(chip(row[0], row[1])); });
+
+  var toastEl = document.getElementById("uc-toast");
+  var toastT;
+  function toast(msg) {
+    toastEl.textContent = msg;
+    toastEl.classList.add("show");
+    clearTimeout(toastT);
+    toastT = setTimeout(function () { toastEl.classList.remove("show"); }, 1400);
+  }
+})();
+</script>
+</body>
+</html>

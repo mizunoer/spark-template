@@ -5,8 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="assets/css/mythic-rx.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
     <link rel="icon" type="image/x-icon" href="image/logo.png">
+    <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="theme-color" content="#1E6B3A">
     <title>Mythic Rx - Provider Portal</title>
     <style>
         .login-container {
@@ -115,8 +119,8 @@
                 <img src="image/logo.png" alt="Mythic Rx Compounding Pharmacy Logo">
             </div>
             <div class="login-title">
-                <h1>Provider Portal</h1>
-                <p>Sign in to submit prescriptions, track orders, and manage your clinic account.</p>
+                <h1 data-bind="pages.providerPortal.h1">Provider Portal</h1>
+                <p data-bind="pages.providerPortal.subhead">Sign in to submit prescriptions, track orders, and manage your clinic account.</p>
             </div>
             <form id="loginForm" onsubmit="event.preventDefault(); return false;">
                 <div class="form-group">
@@ -147,6 +151,10 @@
             console.log('Login form submitted (no action)');
         });
     </script>
+
+    <!-- Mythic-RX config-driven content (reads window.MRX_CONFIG) -->
+    <script src="assets/js/landing-config.js"></script>
+    <script src="assets/js/landing-render.js"></script>
 </body>
 
 </html>

@@ -7,10 +7,14 @@
     <meta name="description" content="Become a Mythic Rx provider partner. Set up your clinic account to submit prescriptions, track orders, and access pharmacist support. Simple onboarding for healthcare providers.">
     <meta name="keywords" content="provider enrollment, new provider, pharmacy partner, clinic account, provider portal, healthcare provider registration">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="assets/css/mythic-rx.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/shishirraven/animate-on-scroll@v1.2/animation_utility.css">
     <link rel="icon" type="image/x-icon" href="image/logo.png">
-    <title>Pharmed - Get Started</title>
+    <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="theme-color" content="#1E6B3A">
+    <title>Mythic Rx - Become a Provider Partner</title>
 </head>
 
 <body>
@@ -89,8 +93,8 @@
             <div class="r-container h-100 position-relative" style="z-index: 2;">
                 <div class="d-flex flex-column w-100 h-100 justify-content-center mx-auto align-items-center text-white gap-3"
                     style="max-width: 895px;">
-                    <h2 class="m-0 text-white">New Providers</h2>
-                <p class="m-0 text-white mt-2 banner-subtext">Set up a clinic account to submit prescriptions, track orders, and reach our pharmacists quickly.</p>
+                    <h2 class="m-0 text-white" data-bind="pages.becomePartner.h1">New Providers</h2>
+                <p class="m-0 text-white mt-2 banner-subtext" data-bind="pages.becomePartner.subhead">Set up a clinic account to submit prescriptions, track orders, and reach our pharmacists quickly.</p>
                 </div>
             </div>
         </div>
@@ -325,9 +329,9 @@
                             </p>
                             <div class="d-flex flex-column gap-2 mt-3">
                                 <p class="text-white mb-0"><strong>Address:</strong> 3920 S 1100 E STE 110, Millcreek, UT 84124-1213</p>
-                                <p class="text-white mb-0"><strong>Phone:</strong> 385-584-6620</p>
-                                <p class="text-white mb-0"><strong>Email:</strong> info@mythic-rx.com</p>
-                                <p class="text-white mb-0">Currently licensed in: Utah, Idaho, Arizona, Colorado, Wyoming, Hawaii, and Montana</p>
+                                <p class="text-white mb-0"><strong>Phone:</strong> <span data-bind="brand.partnerSupportPhone">385-584-6620</span></p>
+                                <p class="text-white mb-0"><strong>Email:</strong> <span data-bind="brand.partnerSupportEmail">info@mythic-rx.com</span></p>
+                                <p class="text-white mb-0">Currently licensed in: <span data-bind="clinical.statesLicensed">Utah, Idaho, Arizona, Colorado, Wyoming, Hawaii, and Montana</span></p>
                             </div>
                             <div class="d-flex flex-column gap-3 mt-3 p-4 bg-dark rounded-3" style="font-size: 0.85rem;">
                                 <p class="text-white mb-0"><strong>Important Notice:</strong> Compounded medications are prepared pursuant to a valid patient-specific prescription, are not FDA-approved, and must be prescribed/dispensed under the supervision of a licensed prescriber. Mythic Rx does not provide diagnosis, treatment decisions, or telehealth services. Mythic Rx dispenses only in states where it holds an active pharmacy license.</p>
@@ -384,6 +388,10 @@
             });
         });
     </script>
+
+    <!-- Mythic-RX config-driven content (reads window.MRX_CONFIG) -->
+    <script src="assets/js/landing-config.js"></script>
+    <script src="assets/js/landing-render.js"></script>
 </body>
 
 </html>

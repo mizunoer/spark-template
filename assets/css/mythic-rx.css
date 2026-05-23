@@ -1,0 +1,196 @@
+/**
+ * mythic-rx.com — Brand design tokens + base styles
+ * ==========================================================
+ * This file is the single source of truth for the Mythic-RX
+ * brand palette and component-agnostic primitives (gradients,
+ * shadows, radii, transitions). Every `--mrx-*` variable
+ * defined here is referenced from:
+ *
+ *   - assets/css/landing.css (lp-* landing-page components)
+ *   - assets/css/mrx-brand.css (brand-kit web bundle copy)
+ *   - templates and tracker pages (Client_Onboarding.html,
+ *     Marketing_Next_Steps.html, Update_Colors.html, etc.)
+ *
+ * Rules:
+ *   - Add new tokens here, not inline.
+ *   - Existing site pages keep loading css/style.css. This
+ *     file is additive — it does not override the legacy
+ *     palette in css/style.css. If you want a legacy page to
+ *     pick up the new tokens, include this stylesheet AFTER
+ *     css/style.css.
+ *   - Do NOT rename `lp-*`, `ob-*`, `ns-*`, `tg-*`, or
+ *     `pill-*` class prefixes — they're brand-neutral.
+ * ========================================================== */
+
+:root {
+  /* --- Core brand palette ------------------------------ */
+  --mrx-blue:       #1E6B3A; /* Translucent Forest — primary */
+  --mrx-cyan:       #0F4D2E; /* Deep Emerald — hover / gradient mid */
+  --mrx-teal:       #0B3A20; /* Evergreen — accent / gradient end */
+  --mrx-navy:       #072517; /* Darker evergreen — dark backgrounds */
+  --mrx-slate-gray: #4A4A4A; /* Stone — muted UI text / dividers */
+
+  /* --- Supporting tones -------------------------------- */
+  --mrx-mint:     #CFE3CC; /* Soft Mint — tinted surfaces, badges */
+  --mrx-offwhite: #F6FAF5; /* Page background, light surfaces */
+  --mrx-slate:    #2E2E2E; /* Charcoal — body text */
+  --mrx-white:    #ffffff;
+
+  /* --- Optional gold (use sparingly) ------------------- */
+  --mrx-gold:     #F8DE70; /* Star ratings, callouts. NOT a primary CTA. */
+
+  /* --- Semantic aliases -------------------------------- */
+  --mrx-primary:        var(--mrx-blue);
+  --mrx-primary-dark:   #154D29; /* darker variant of --mrx-blue for hover */
+  --mrx-accent:         var(--mrx-teal);
+  --mrx-accent-dark:    #062012; /* darker variant of --mrx-teal */
+  --mrx-link:           var(--mrx-blue);
+  --mrx-link-hover:     var(--mrx-cyan);
+  --mrx-heading:        var(--mrx-navy);
+  --mrx-text:           var(--mrx-slate);
+  --mrx-text-muted:     var(--mrx-slate-gray);
+  --mrx-light:          var(--mrx-offwhite);
+  --mrx-border:         #DADAD3; /* Fog — dividers / subtle borders */
+
+  /* --- Brand gradient (hero / CTA backgrounds) --------- */
+  --mrx-gradient:      linear-gradient(135deg, var(--mrx-blue) 0%, var(--mrx-cyan) 50%, var(--mrx-teal) 100%);
+  --mrx-gradient-dark: linear-gradient(135deg, var(--mrx-navy) 0%, var(--mrx-teal) 50%, var(--mrx-navy) 100%);
+
+  /* --- Shadows / radii / motion ------------------------ */
+  --mrx-shadow:        0 4px 24px rgba(15, 77, 46, 0.10);
+  --mrx-shadow-hover:  0 8px 32px rgba(11, 58, 32, 0.20);
+  --mrx-shadow-soft:   0 2px 12px rgba(15, 77, 46, 0.06);
+  --mrx-radius:        12px;
+  --mrx-radius-lg:     20px;
+  --mrx-transition:    0.3s ease;
+
+  /* --- Third-party template overrides ------------------ */
+  /* Suxnix/Pharmed templates use `--tg-*` names. Point them
+     at the Mythic-RX values so any inherited components
+     match the brand. Do NOT rename the --tg-* keys. */
+  --tg-primary-color:      var(--mrx-blue);
+  --tg-secondary-color:    var(--mrx-teal);
+  --tg-heading-color:      var(--mrx-heading);
+  --tg-text-color:         var(--mrx-text);
+  --tg-background-color:   var(--mrx-offwhite);
+  --tg-border-color:       var(--mrx-border);
+}
+
+/* ============================================================
+   Small brand-aware utility primitives
+   ------------------------------------------------------------
+   These do NOT override the existing legacy site (css/style.css
+   already styles its own buttons / sections). They are used by
+   the landing-system pages, the onboarding form, the tracker,
+   the color/image pickers, and the brand-kit preview.
+   ============================================================ */
+
+.mrx-page {
+  background: var(--mrx-offwhite);
+  color: var(--mrx-text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.mrx-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.mrx-h1 {
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+  color: var(--mrx-heading);
+  letter-spacing: -0.01em;
+  margin: 0 0 12px 0;
+  line-height: 1.15;
+}
+
+.mrx-h2 {
+  font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+  color: var(--mrx-heading);
+  margin: 0 0 8px 0;
+  line-height: 1.2;
+}
+
+.mrx-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--mrx-primary);
+}
+
+.mrx-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--mrx-primary);
+  color: var(--mrx-white);
+  border: 1px solid var(--mrx-primary);
+  border-radius: 999px;
+  padding: 12px 22px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--mrx-transition);
+}
+.mrx-btn:hover {
+  background: var(--mrx-primary-dark);
+  border-color: var(--mrx-primary-dark);
+  box-shadow: var(--mrx-shadow-hover);
+}
+
+.mrx-btn-outline {
+  background: transparent;
+  color: var(--mrx-primary);
+}
+.mrx-btn-outline:hover {
+  background: var(--mrx-primary);
+  color: var(--mrx-white);
+}
+
+.mrx-card {
+  background: var(--mrx-white);
+  border: 1px solid var(--mrx-border);
+  border-radius: var(--mrx-radius);
+  box-shadow: var(--mrx-shadow-soft);
+  padding: 22px;
+}
+
+.mrx-badge {
+  display: inline-block;
+  background: var(--mrx-mint);
+  color: var(--mrx-cyan);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.mrx-link {
+  color: var(--mrx-link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.mrx-link:hover { color: var(--mrx-link-hover); }
+
+hr.mrx-rule {
+  border: none;
+  border-top: 1px solid var(--mrx-border);
+  margin: 24px 0;
+}
+
+/* Placeholder highlight used by landing-render.js when a bound
+   value is still "[CLIENT TO CONFIRM]". Defined here so existing
+   pages can opt into the system without loading landing.css. */
+.lp-placeholder {
+  background: #FFF4C2;
+  color: #6B4F00;
+  padding: 1px 8px;
+  border-radius: 4px;
+  outline: 1px dashed #C9A227;
+  font-weight: 600;
+}
