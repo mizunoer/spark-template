@@ -194,3 +194,29 @@ hr.mrx-rule {
   outline: 1px dashed #C9A227;
   font-weight: 600;
 }
+
+/* ============================================================
+   Legacy layout fixes
+   ------------------------------------------------------------
+   The legacy template's `.bg-attach-fixed` utility declares
+   `height: 100%`, which Chromium resolves to a much-larger-than-
+   intended value when the element is used as a stand-alone CTA
+   section with no inline height (the parallax effect was only
+   meant for banners that already set `height: 40vh` inline).
+   The same `.swiper-wrapper { height: 100% }` rule from the
+   Swiper bundle causes the state slider to stretch its slides
+   into ~1200px columns of empty space.
+
+   Both behaviors render normal-looking sections as huge,
+   image-revealing blocks. Restore content-driven sizing here
+   so the only sections that get fixed-pixel heights are the
+   ones that explicitly opted in via inline `height: …`.
+   ============================================================ */
+.section.bg-attach-fixed:not([style*="height:"]) {
+  height: auto;
+}
+
+.swiperImage .swiper-wrapper,
+.swiperImage .swiper-slide {
+  height: auto;
+}
