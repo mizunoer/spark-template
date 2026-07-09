@@ -1,0 +1,34 @@
+<!doctype html>
+<!--
+  Canonical-URL redirect — keeps partner-program marketing emails and
+  decks linking to "become-a-partner.html" while the actual content
+  still lives at the existing site path (get-started.html).
+
+  Why a stub rather than a server redirect: the existing Mythic-RX
+  hosting tooling doesn't expose .htaccess / nginx config from the
+  agent's surface area. An HTML redirect resolves the same UX without
+  reaching into hosting config. Replace with a 301 when SSR / hosting
+  rules become available.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mythic Rx — Become a Provider Partner</title>
+<meta name="description" content="Become a Mythic Rx provider partner. Set up your clinic account for prescription submission, pharmacist collaboration, and dependable fulfillment.">
+<link rel="canonical" href="get-started.html">
+<meta http-equiv="refresh" content="0; url=get-started.html">
+<meta name="robots" content="noindex,follow">
+<meta name="theme-color" content="#1E6B3A">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="icon" type="image/x-icon" href="image/logo.png">
+<link rel="stylesheet" href="assets/css/mythic-rx.css">
+<script>window.location.replace("get-started.html");</script>
+</head>
+<body class="mrx-page">
+<div class="mrx-container" style="padding-top: 80px; text-align: center;">
+  <p class="mrx-eyebrow">Redirecting…</p>
+  <h1 class="mrx-h1">Become a Provider Partner</h1>
+  <p>If this page doesn't redirect automatically, <a class="mrx-link" href="get-started.html">continue to the provider onboarding page</a>.</p>
+</div>
+</body>
+</html>

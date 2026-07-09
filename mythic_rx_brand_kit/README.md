@@ -48,3 +48,20 @@ Open `brand-kit-preview.html` in a browser to see every lockup, palette, and fav
 - Prefixed `mythic-rx-` so files don't collide with template downloads.
 - Variant suffixes: `-horizontal`, `-stacked`, `-mark-only`, `-reversed`, `-app-icon`, `-website-header`, `-email-signature`, `-social-avatar`.
 - File extension reflects the export: `.svg` for vector, `.png` for raster.
+
+## Variant production status
+
+The kit now contains the eight canonical SVG variants required by `sister-sites-shared/shared/conventions/BRAND_KIT_STRUCTURE.md`, plus matching PNGs in `transparent-png/`. Three variants are real designer-produced artwork; the rest are **stopgap copies** of the closest existing lockup so the canonical filenames resolve. A designer should replace each stopgap with purpose-fit art before launch:
+
+| Variant | Status | Source |
+|---|---|---|
+| `mythic-rx-primary-horizontal.svg` | Designer-produced | `BrandGuideInstructions/Mythic Brand assets (1).svg` |
+| `mythic-rx-mark-only.svg` | Designer-produced | `BrandGuideInstructions/mythic-rx M.svg` |
+| `mythic-rx-reversed-horizontal.svg` | Designer-produced | `BrandGuideInstructions/Mythic - rx- white.svg` |
+| `mythic-rx-stacked.svg` | **Stopgap — needs design** | Copy of primary-horizontal |
+| `mythic-rx-app-icon.svg` | **Stopgap — needs design** | Copy of mark-only |
+| `mythic-rx-social-avatar.svg` | **Stopgap — needs design** | Copy of mark-only |
+| `mythic-rx-email-signature.svg` | **Stopgap — needs design** | Copy of primary-horizontal |
+| `mythic-rx-website-header.svg` | **Stopgap — needs design** | Copy of primary-horizontal |
+
+The favicon SVG in `web/favicon.svg` is currently the full-color mark. Single-color variants (primary-green, navy, black) are produced under `web/favicon-variants/` and can be previewed in `ImageSelection.html` — pick one and promote it to `web/favicon.svg` (and `assets/img/favicon.svg`).

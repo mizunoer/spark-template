@@ -103,6 +103,56 @@
     background: var(--mrx-white); color: var(--mrx-primary);
     box-shadow: var(--mrx-shadow-soft);
   }
+
+  /* Favicon variant picker */
+  .fp-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--mrx-white);
+    border: 1px solid var(--mrx-border);
+    border-radius: var(--mrx-radius);
+    overflow: hidden;
+  }
+  .fp-table th {
+    background: var(--mrx-offwhite);
+    color: var(--mrx-heading);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid var(--mrx-border);
+  }
+  .fp-table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--mrx-border);
+    font-size: 0.88rem;
+    vertical-align: middle;
+  }
+  .fp-table tr:last-child td { border-bottom: none; }
+  .fp-cell {
+    display: flex; flex-direction: column; gap: 4px; align-items: center;
+    padding: 8px 4px;
+    border-radius: 8px;
+  }
+  .fp-cell.on-white   { background: #FFFFFF; }
+  .fp-cell.on-offwhite{ background: var(--mrx-offwhite); }
+  .fp-cell.on-mint    { background: var(--mrx-mint); }
+  .fp-cell.on-navy    { background: var(--mrx-navy); }
+  .fp-cell img { display: block; }
+  .fp-cell img.s16 { width: 16px; height: 16px; }
+  .fp-cell img.s32 { width: 32px; height: 32px; }
+  .fp-cell img.s64 { width: 64px; height: 64px; }
+  .fp-name strong { color: var(--mrx-heading); display: block; }
+  .fp-name code  {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.78rem; color: var(--mrx-text-muted);
+  }
+  .fp-hex {
+    display: inline-block;
+    background: var(--mrx-mint); color: var(--mrx-cyan);
+    padding: 1px 6px; border-radius: 4px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.78rem;
+  }
 </style>
 </head>
 <body class="mrx-page">
@@ -187,6 +237,30 @@
     </div>
   </section>
 
+  <!-- Favicon variant picker -->
+  <section class="is-section">
+    <h2>Favicon variants — pick one for production</h2>
+    <p class="is-hint">The Mythic-RX "M" mark is monochromatic at the source. Four single-color variants below — see each rendered at 16, 32, and 64 pixels against the four background contexts a browser tab might present. The variant you pick becomes the canonical <code>web/favicon.svg</code> and <code>assets/img/favicon.svg</code>.</p>
+    <div id="fp-variants">
+      <table class="fp-table">
+        <thead>
+          <tr>
+            <th style="text-align:left; padding: 8px 12px;">Variant</th>
+            <th style="text-align:center; padding: 8px 12px;">On white</th>
+            <th style="text-align:center; padding: 8px 12px;">On off-white</th>
+            <th style="text-align:center; padding: 8px 12px;">On mint</th>
+            <th style="text-align:center; padding: 8px 12px;">On navy</th>
+            <th style="text-align:left; padding: 8px 12px;">File</th>
+          </tr>
+        </thead>
+        <tbody id="fp-rows"></tbody>
+      </table>
+    </div>
+    <p style="margin-top: 14px; font-size: 0.88rem; color: var(--mrx-text-muted);">
+      To promote a variant: tell the operator which filename to copy to <code>web/favicon.svg</code> and <code>assets/img/favicon.svg</code>. The PNG sizes will be regenerated from the chosen SVG.
+    </p>
+  </section>
+
   <!-- Social / OG -->
   <section class="is-section">
     <h2>Social &amp; OG</h2>
@@ -269,6 +343,30 @@
       applyBg(btn.getAttribute("data-bg"));
     });
   });
+
+  // ---- Favicon variant picker ----
+  var FAVICON_VARIANTS = [
+    { name: "Off-white (source)",  file: "favicon-mono-white.svg",   hex: "#f9f9f9", note: "Original source mark. Reads on dark only." },
+    { name: "Primary green",       file: "favicon-mono-primary.svg", hex: "#1E6B3A", note: "Translucent Forest — brand primary on transparent." },
+    { name: "Dark Evergreen",      file: "favicon-mono-navy.svg",    hex: "#072517", note: "Deep navy-green; max contrast on light tabs." },
+    { name: "Pure black",          file: "favicon-mono-black.svg",   hex: "#000000", note: "Most neutral; reads on any light surface." }
+  ];
+
+  var rows = document.getElementById("fp-rows");
+  if (rows) {
+    FAVICON_VARIANTS.forEach(function (v) {
+      var path = "mythic_rx_brand_kit/web/favicon-variants/" + v.file;
+      var tr = document.createElement("tr");
+      tr.innerHTML =
+        '<td class="fp-name"><strong>' + v.name + '</strong><span class="fp-hex">' + v.hex + '</span></td>' +
+        '<td><div class="fp-cell on-white"><img class="s16" src="' + path + '"><img class="s32" src="' + path + '"><img class="s64" src="' + path + '"></div></td>' +
+        '<td><div class="fp-cell on-offwhite"><img class="s16" src="' + path + '"><img class="s32" src="' + path + '"><img class="s64" src="' + path + '"></div></td>' +
+        '<td><div class="fp-cell on-mint"><img class="s16" src="' + path + '"><img class="s32" src="' + path + '"><img class="s64" src="' + path + '"></div></td>' +
+        '<td><div class="fp-cell on-navy"><img class="s16" src="' + path + '"><img class="s32" src="' + path + '"><img class="s64" src="' + path + '"></div></td>' +
+        '<td class="fp-name"><code>' + path + '</code><div style="margin-top:4px;color:var(--mrx-text-muted);font-size:0.78rem;">' + v.note + '</div></td>';
+      rows.appendChild(tr);
+    });
+  }
 })();
 </script>
 </body>

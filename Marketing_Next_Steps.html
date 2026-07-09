@@ -1,531 +1,404 @@
-<!DOCTYPE html>
+<!doctype html>
+<!--
+  Mythic-RX — Launch tracker
+  ------------------------------------------------------------------
+  Built from sister-sites-shared/shared/templates/Marketing_Next_Steps.template.html
+  (consumed v2026.05.22.1).
+
+  Section 2 gates populated from sister-sites-shared/per-site/mythic-rx/COMPLIANCE_GATES.md
+  Section 6 channel guardrails populated from the B2B column of
+  sister-sites-shared/AUDIENCE_MATRIX.md.
+
+  Every status pill defaults to its day-zero state per
+  shared/conventions/STATUS_PILLS.md (pill-blocked / pill-client / pill-todo).
+  Mythic-RX has no green status yet — flip a pill only on documented sign-off.
+-->
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mythic-RX — Launch Tracker</title>
-<meta name="description" content="Internal launch tracker for the Mythic-RX partner program. Six-section action board covering what's shipped, compliance gates, client deliverables, partner-rollout sequence, open dev tasks, and channel guardrails.">
-<meta name="theme-color" content="#1E6B3A">
+<meta charset="utf-8">
+<title>Mythic-RX — Launch · Next Steps</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#1E6B3A">
 <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
 <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
 <link rel="stylesheet" href="assets/css/mythic-rx.css">
+<link rel="stylesheet" href="assets/css/landing.css">
 <style>
-  body { margin: 0; }
-  .ns-shell { max-width: 1200px; margin: 0 auto; padding: 28px 24px 80px 24px; }
+  body { background: var(--site-offwhite); font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; margin: 0; }
 
-  .ns-hero {
-    background: var(--mrx-gradient);
-    color: var(--mrx-white);
-    padding: 28px 32px;
-    border-radius: var(--mrx-radius-lg);
-    margin-bottom: 24px;
-    box-shadow: var(--mrx-shadow);
-  }
-  .ns-hero h1 { margin: 6px 0 4px 0; font-size: 1.7rem; }
-  .ns-hero p { margin: 0; color: rgba(255,255,255,0.92); max-width: 780px; }
-  .ns-hero .ns-eyebrow {
-    text-transform: uppercase; letter-spacing: 0.14em;
-    font-size: 0.78rem; font-weight: 700; color: var(--mrx-mint);
-  }
+  .ns-hero { background: var(--site-gradient-dark); color: #fff; padding: 56px 24px 40px; }
+  .ns-hero::after { content:""; display:block; height:5px; background: var(--site-gradient); margin: 40px -24px -40px; }
+  .ns-hero h1 { color:#fff; font-size: clamp(1.6rem, 3vw, 2.2rem); margin: 0 0 .3em; }
+  .ns-hero p { color: rgba(255,255,255,.85); max-width:800px; margin:0; font-size:1.05rem; }
+  .ns-meta { color: rgba(255,255,255,.6); font-size:.85rem; margin-bottom:8px; }
 
-  /* Stat cards ------------------------------------------- */
-  .ns-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 14px;
-    margin-bottom: 28px;
-  }
-  .ns-stat {
-    background: var(--mrx-white);
-    border: 1px solid var(--mrx-border);
-    border-radius: var(--mrx-radius);
-    padding: 18px 20px;
-    box-shadow: var(--mrx-shadow-soft);
-  }
-  .ns-stat .ns-stat-num {
-    font-size: 2.4rem; font-weight: 800;
-    color: var(--mrx-primary); letter-spacing: -0.02em; line-height: 1;
-  }
-  .ns-stat .ns-stat-label {
-    color: var(--mrx-text-muted);
-    text-transform: uppercase; letter-spacing: 0.1em;
-    font-size: 0.78rem; font-weight: 600;
-    margin-bottom: 8px;
-  }
-  .ns-stat .ns-stat-sub {
-    font-size: 0.85rem; color: var(--mrx-text-muted);
-    margin-top: 6px;
+  .ns-wrap { max-width: 1180px; margin: 0 auto; padding: 32px 24px 80px; }
+  .ns-cards { display: grid; gap: 18px; grid-template-columns: 1fr; margin-bottom: 24px; }
+  @media (min-width:720px) { .ns-cards { grid-template-columns: repeat(4, 1fr); } }
+  .ns-card { background:#fff; border:1px solid var(--site-border); border-radius: var(--site-radius-lg); padding: 18px 20px; }
+  .ns-card__count { font-size: 1.8rem; font-weight: 800; color: var(--site-navy); line-height: 1; margin-bottom: 6px; }
+  .ns-card__label { font-size: .85rem; color: var(--site-slate-gray); text-transform: uppercase; letter-spacing: .04em; font-weight: 700; }
+  .ns-card--blocked { border-left: 4px solid #dc2626; }
+  .ns-card--ready   { border-left: 4px solid #16a34a; }
+  .ns-card--client  { border-left: 4px solid #f59e0b; }
+  .ns-card--us      { border-left: 4px solid var(--site-primary); }
+
+  .ns-section { margin-top: 36px; }
+  .ns-section h2 { color: var(--site-navy); font-size: 1.4rem; margin: 0 0 14px; display: flex; align-items: center; gap: 10px; }
+  .ns-section__num {
+    width: 30px; height: 30px; border-radius: 50%;
+    background: var(--site-gradient); color: #fff;
+    font-size: .9rem; font-weight: 800;
+    display: inline-flex; align-items: center; justify-content: center;
   }
 
-  /* Sections --------------------------------------------- */
-  .ns-section {
-    background: var(--mrx-white);
-    border: 1px solid var(--mrx-border);
-    border-radius: var(--mrx-radius);
-    margin-bottom: 18px;
-    box-shadow: var(--mrx-shadow-soft);
-    overflow: hidden;
-  }
-  .ns-section-head {
-    padding: 18px 22px;
-    border-bottom: 1px solid var(--mrx-border);
-    background: linear-gradient(to bottom, var(--mrx-offwhite), var(--mrx-white));
-  }
-  .ns-section-head h2 {
-    margin: 0; font-size: 1.15rem; color: var(--mrx-heading);
-    display: flex; align-items: center; gap: 10px;
-  }
-  .ns-section-head .ns-num {
-    display: inline-flex;
-    width: 30px; height: 30px;
-    border-radius: 999px;
-    background: var(--mrx-primary); color: var(--mrx-white);
-    align-items: center; justify-content: center;
-    font-size: 0.9rem; font-weight: 700;
-  }
-  .ns-section-head p { margin: 6px 0 0 42px; color: var(--mrx-text-muted); font-size: 0.92rem; }
-  .ns-section-body { padding: 8px 22px 18px 22px; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: var(--site-radius); overflow: hidden; box-shadow: var(--site-shadow); margin-bottom: 18px; }
+  th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--site-border); vertical-align: top; font-size: .92rem; }
+  th { background: var(--site-offwhite); color: var(--site-navy); font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+  tr:last-child td { border-bottom: 0; }
+  code { background: var(--site-mint); color: var(--site-navy); padding: 1px 6px; border-radius: 4px; font-size: .78rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
 
-  /* Shipped tiles ---------------------------------------- */
-  .ns-shipped-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 12px;
-    padding: 14px 0 8px 0;
-  }
-  .ns-shipped-tile {
-    border: 1px solid var(--mrx-border);
-    border-radius: 10px;
+  /* Canonical pill grammar — see shared/conventions/STATUS_PILLS.md */
+  .pill { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: .72rem; font-weight: 700; letter-spacing: .03em; text-transform: uppercase; }
+  .pill-done    { background: #DCFCE7; color: #166534; }
+  .pill-prog    { background: #DBEAFE; color: #1E3A8A; }
+  .pill-blocked { background: #FEE2E2; color: #991B1B; }
+  .pill-client  { background: #FEF3C7; color: #92400E; }
+  .pill-todo    { background: #E2E8F0; color: #334155; }
+
+  .ns-link-grid { display: grid; gap: 12px; grid-template-columns: 1fr; }
+  @media (min-width:720px) { .ns-link-grid { grid-template-columns: repeat(2, 1fr); } }
+  .ns-link {
+    display: flex; flex-direction: column; gap: 4px;
     padding: 14px 16px;
-    background: var(--mrx-offwhite);
-    text-decoration: none;
-    color: inherit;
-    transition: var(--mrx-transition);
+    background: #fff; border: 1px solid var(--site-border);
+    border-radius: var(--site-radius); text-decoration: none;
+    color: inherit; transition: 0.2s ease;
   }
-  .ns-shipped-tile:hover {
-    box-shadow: var(--mrx-shadow);
-    transform: translateY(-1px);
-  }
-  .ns-shipped-tile h4 { margin: 0 0 6px 0; color: var(--mrx-heading); font-size: 1rem; }
-  .ns-shipped-tile p { margin: 0; color: var(--mrx-text-muted); font-size: 0.85rem; }
-  .ns-shipped-tile code {
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 0.78rem;
-    background: var(--mrx-mint);
-    color: var(--mrx-cyan);
-    padding: 1px 6px; border-radius: 4px;
-  }
+  .ns-link:hover { border-color: var(--site-primary); transform: translateY(-2px); box-shadow: var(--site-shadow); }
+  .ns-link strong { color: var(--site-navy); font-size: 1rem; }
+  .ns-link span { color: var(--site-slate-gray); font-size: .85rem; }
 
-  /* Tables ----------------------------------------------- */
-  .ns-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.92rem;
-  }
-  .ns-table th, .ns-table td {
-    padding: 10px 12px;
-    text-align: left;
-    vertical-align: top;
-    border-bottom: 1px solid var(--mrx-border);
-  }
-  .ns-table th {
-    color: var(--mrx-text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-size: 0.72rem;
-    font-weight: 700;
-    background: var(--mrx-offwhite);
-  }
-  .ns-table tr:last-child td { border-bottom: none; }
-  .ns-table td.col-status { white-space: nowrap; width: 1%; }
-  .ns-table td.col-owner { white-space: nowrap; color: var(--mrx-text-muted); }
+  .ns-callout { background: var(--site-mint); color: var(--site-navy); border-left: 4px solid var(--site-primary); padding: 14px 18px; border-radius: var(--site-radius); margin-bottom: 18px; }
+  .ns-callout--warn { background: #fef3c7; border-left-color: #92400e; color: #78350f; }
+  .ns-callout strong { color: var(--site-navy); }
+  .ns-callout--warn strong { color: #78350f; }
 
-  /* Pills ------------------------------------------------ */
-  .pill {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 3px 10px;
-    border-radius: 999px;
-    font-size: 0.78rem;
-    font-weight: 700;
-    line-height: 1.6;
-    border: 1px solid transparent;
-  }
-  .pill::before {
-    content: ""; width: 6px; height: 6px; border-radius: 50%;
-    background: currentColor; opacity: 0.85;
-  }
-  .pill-done    { background: #DCFCE7; color: #065F46; border-color: #BBF7D0; }
-  .pill-prog    { background: #DBEAFE; color: #1E40AF; border-color: #BFDBFE; }
-  .pill-blocked { background: #FEE2E2; color: #991B1B; border-color: #FECACA; }
-  .pill-client  { background: #FEF3C7; color: #92400E; border-color: #FDE68A; }
-  .pill-todo    { background: #E5E7EB; color: #374151; border-color: #D1D5DB; }
+  .ns-week-grid { display: grid; gap: 14px; grid-template-columns: 1fr; }
+  @media (min-width:720px) { .ns-week-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width:980px) { .ns-week-grid { grid-template-columns: repeat(4, 1fr); } }
+  .ns-day { background: #fff; border: 1px solid var(--site-border); border-radius: var(--site-radius); padding: 16px 18px; }
+  .ns-day h3 { font-size: 1rem; margin: 0 0 8px; color: var(--site-navy); }
+  .ns-day ul { margin: 0; padding-left: 18px; font-size: .9rem; }
+  .ns-day li { margin-bottom: 4px; color: var(--site-slate); }
 
-  /* Launch sequence -------------------------------------- */
-  .ns-launch {
-    display: grid;
-    grid-template-columns: 140px 1fr;
-    gap: 4px 18px;
-  }
-  .ns-launch dt {
-    font-weight: 700; color: var(--mrx-heading);
-    padding: 12px 0 4px 0;
-    border-bottom: 1px solid var(--mrx-border);
-  }
-  .ns-launch dd {
-    margin: 0;
-    padding: 12px 0 4px 0;
-    border-bottom: 1px solid var(--mrx-border);
-    color: var(--mrx-text);
-  }
-
-  /* Channel guardrails ----------------------------------- */
-  .ns-channels {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 16px;
-  }
-  @media (max-width: 900px) { .ns-channels { grid-template-columns: 1fr; } }
-  .ns-channel {
-    border: 1px solid var(--mrx-border);
-    border-radius: 10px;
-    padding: 14px 16px;
-    background: var(--mrx-offwhite);
-  }
-  .ns-channel h4 { margin: 0 0 8px 0; color: var(--mrx-heading); font-size: 1rem; }
-  .ns-channel .do, .ns-channel .dont {
-    font-size: 0.88rem;
-    color: var(--mrx-text);
-    margin: 0 0 6px 0;
-    padding-left: 22px;
-    position: relative;
-  }
-  .ns-channel .do::before  { content: "✓"; position: absolute; left: 4px; top: 0; color: #16A34A; font-weight: 700; }
-  .ns-channel .dont::before{ content: "×"; position: absolute; left: 5px; top: -2px; color: #DC2626; font-weight: 800; font-size: 1.1em; }
-
-  /* Footer / legend -------------------------------------- */
   .ns-legend {
     display: flex; flex-wrap: wrap; gap: 8px 14px;
-    padding: 10px 0 0 0;
-    color: var(--mrx-text-muted);
-    font-size: 0.82rem;
+    padding: 12px 0; color: var(--site-slate-gray); font-size: .82rem;
     align-items: center;
   }
-  .ns-legend strong { color: var(--mrx-heading); font-weight: 700; margin-right: 4px; }
-
-  .ns-foot {
-    margin-top: 24px;
-    background: var(--mrx-offwhite);
-    border: 1px dashed var(--mrx-border);
-    border-radius: var(--mrx-radius);
-    padding: 16px 18px;
-    color: var(--mrx-text-muted);
-    font-size: 0.85rem;
-  }
-  .ns-foot a.mrx-link { font-weight: 600; }
+  .ns-legend strong { color: var(--site-navy); font-weight: 700; margin-right: 4px; }
 </style>
 </head>
-<body class="mrx-page">
+<body>
 
-<div class="ns-shell">
+<header class="ns-hero">
+  <div style="max-width:1180px; margin:0 auto;">
+    <div class="ns-meta">Internal · Mythic-RX · Partner program · Launch tracker</div>
+    <h1>Partner-program launch — Next Steps</h1>
+    <p>Six-section action board. Every status starts at the day-zero default (blocking / awaiting client / open) — flip a pill only when the underlying gate, deliverable, or task is actually complete and reviewed for Mythic-RX specifically. No status carries over from sister brands.</p>
+  </div>
+</header>
 
-  <div class="ns-hero">
-    <div class="ns-eyebrow">Internal · Partner program · Launch tracker</div>
-    <h1>Mythic-RX launch tracker</h1>
-    <p>Six-section action board for the Mythic-RX partner program. Every status starts at the day-zero default (blocking / awaiting client / open) — flip a pill only after the underlying gate, deliverable, or task is actually complete and reviewed.</p>
+<main class="ns-wrap">
+
+  <!-- ============= Stat cards ============= -->
+  <div class="ns-cards">
+    <div class="ns-card ns-card--ready"><div class="ns-card__count">7</div><div class="ns-card__label">Pages built &amp; ready</div></div>
+    <div class="ns-card ns-card--client"><div class="ns-card__count">9</div><div class="ns-card__label">Client values needed</div></div>
+    <div class="ns-card ns-card--blocked"><div class="ns-card__count">4</div><div class="ns-card__label">Compliance gates blocking launch</div></div>
+    <div class="ns-card ns-card--us"><div class="ns-card__count">3</div><div class="ns-card__label">Open dev tasks (post-config)</div></div>
   </div>
 
-  <!-- Stat cards ------------------------------------------ -->
-  <div class="ns-stats">
-    <div class="ns-stat">
-      <div class="ns-stat-label">Shipped today</div>
-      <div class="ns-stat-num">7</div>
-      <div class="ns-stat-sub">Brand kit, tokens, landing system, onboarding form, tracker, palette &amp; image pickers</div>
-    </div>
-    <div class="ns-stat">
-      <div class="ns-stat-label">Compliance gates</div>
-      <div class="ns-stat-num">8</div>
-      <div class="ns-stat-sub">All blocking / awaiting client until counsel-reviewed</div>
-    </div>
-    <div class="ns-stat">
-      <div class="ns-stat-label">Client deliverables</div>
-      <div class="ns-stat-num">9</div>
-      <div class="ns-stat-sub">Partner-program fields the client owes via the onboarding form</div>
-    </div>
-    <div class="ns-stat">
-      <div class="ns-stat-label">Open dev tasks</div>
-      <div class="ns-stat-num">3</div>
-      <div class="ns-stat-sub">Partner intake, GA4/LinkedIn tagging, state-availability gate</div>
-    </div>
+  <div class="ns-callout ns-callout--warn">
+    <strong>Hard gate:</strong> No partner-facing page goes live to outreach until counsel review of all claims is complete, the BAA template is approved, the per-state licensing list is confirmed (including <strong>Utah DOPL</strong> home-state pharmacy licensure and each expansion state attested), and a medical director is appointed. Inbound partner-portal demos can run earlier with appropriate gating, but public partner pages cannot.
   </div>
 
-  <!-- Section 1: What we shipped -------------------------- -->
+  <div class="ns-callout ns-callout--info">
+    <strong>503A pharmacy · counsel · DOPL workflow:</strong>
+    Mythic-RX is a <strong>503A compounding pharmacy</strong> (B2B partner program—not DTC patient marketing).
+    All partner-facing claims, disclosures, and state-licensure copy require a <strong>healthcare-counsel decision-of-record</strong> before launch.
+    Primary licensure is through the <strong>Utah Division of Professional Licensing (DOPL)</strong>; each additional fulfillment state must be attested separately.
+    See <a href="docs/COMPLIANCE_NOTES.md"><strong>docs/COMPLIANCE_NOTES.md</strong></a> for the full workflow. Engineering does not treat <code>[CLIENT TO CONFIRM]</code> placeholders as approved copy.
+  </div>
+
+  <!-- ============= 1. Shipped ============= -->
   <section class="ns-section">
-    <div class="ns-section-head">
-      <h2><span class="ns-num">1</span> What we shipped today</h2>
-      <p>Everything below is in this repo and reviewable in a browser. No external services were added.</p>
+    <h2><span class="ns-section__num">1</span>What we shipped</h2>
+    <p style="color: var(--site-slate); margin-bottom: 18px">Mythic-RX has adopted the canonical sister-sites-shared launch system at v2026.05.22.1. All artifacts below live in this repo.</p>
+    <div class="ns-link-grid">
+      <a class="ns-link" href="mythic_rx_brand_kit/brand-kit-preview.html" data-track="shipped_brandkit">
+        <strong>Brand kit</strong>
+        <span><code>mythic_rx_brand_kit/</code> — eight canonical lockups, favicons, manifest, preview.</span>
+      </a>
+      <a class="ns-link" href="assets/css/mythic-rx.css" data-track="shipped_tokens">
+        <strong>Design tokens</strong>
+        <span><code>assets/css/mythic-rx.css</code> — every <code>--mrx-*</code> + <code>--site-*</code> alias per DESIGN_TOKEN_NAMES.md.</span>
+      </a>
+      <a class="ns-link" href="assets/css/landing.css" data-track="shipped_landing_css">
+        <strong>Shared landing CSS</strong>
+        <span><code>assets/css/landing.css</code> — byte-for-byte from sister-sites-shared v2026.05.22.1.</span>
+      </a>
+      <a class="ns-link" href="assets/js/landing-render.js" data-track="shipped_renderer">
+        <strong>Shared renderer</strong>
+        <span><code>assets/js/landing-render.js</code> — reads <code>window.SITE_CONFIG</code>, emits <code>window.siteTrack</code>.</span>
+      </a>
+      <a class="ns-link" href="assets/js/landing-config.js" data-track="shipped_config">
+        <strong>Partner-program config</strong>
+        <span><code>assets/js/landing-config.js</code> — B2B schema; <code>window.SITE_CONFIG = window.MRX_CONFIG = {...}</code>; every value <code>[CLIENT TO CONFIRM]</code>.</span>
+      </a>
+      <a class="ns-link" href="Client_Onboarding.html" data-track="shipped_onboarding">
+        <strong>Client onboarding form</strong>
+        <span><code>Client_Onboarding.html</code> — autosaves to <code>mrx_onboarding_v1</code>; export emits a drop-in <code>landing-config.js</code>.</span>
+      </a>
+      <a class="ns-link" href="Update_Colors.html" data-track="shipped_colors">
+        <strong>Palette picker</strong>
+        <span><code>Update_Colors.html</code> — live preview of <code>--mrx-*</code> tokens with contrast pairings.</span>
+      </a>
+      <a class="ns-link" href="ImageSelection.html" data-track="shipped_images">
+        <strong>Image selector + favicon picker</strong>
+        <span><code>ImageSelection.html</code> — every lockup and the four favicon-variant comparison.</span>
+      </a>
     </div>
-    <div class="ns-section-body">
-      <div class="ns-shipped-grid">
-        <a class="ns-shipped-tile" href="mythic_rx_brand_kit/brand-kit-preview.html" data-track="cta_click_shipped_brandkit">
-          <h4>Mythic-RX brand kit</h4>
-          <p><code>mythic_rx_brand_kit/</code> — logos, palette, favicons, manifest, preview page.</p>
-        </a>
-        <a class="ns-shipped-tile" href="assets/css/mythic-rx.css" data-track="cta_click_shipped_tokens">
-          <h4>Design tokens</h4>
-          <p><code>assets/css/mythic-rx.css</code> — every <code>--mrx-*</code> color, gradient, shadow, and radius.</p>
-        </a>
-        <a class="ns-shipped-tile" href="assets/css/landing.css" data-track="cta_click_shipped_lpcss">
-          <h4>Landing-page CSS</h4>
-          <p><code>assets/css/landing.css</code> — brand-neutral <code>lp-*</code> components for partner pages.</p>
-        </a>
-        <a class="ns-shipped-tile" href="assets/js/landing-render.js" data-track="cta_click_shipped_renderer">
-          <h4>Config-driven renderer</h4>
-          <p><code>assets/js/landing-render.js</code> — hydrates pages from <code>MRX_CONFIG</code> via <code>data-bind</code>.</p>
-        </a>
-        <a class="ns-shipped-tile" href="assets/js/landing-config.js" data-track="cta_click_shipped_config">
-          <h4>Partner-program config</h4>
-          <p><code>assets/js/landing-config.js</code> — partner-physician schema, every value <code>[CLIENT TO CONFIRM]</code>.</p>
-        </a>
-        <a class="ns-shipped-tile" href="Client_Onboarding.html" data-track="cta_click_shipped_onboarding">
-          <h4>Client onboarding form</h4>
-          <p><code>Client_Onboarding.html</code> — single intake form that exports the config.</p>
-        </a>
-        <a class="ns-shipped-tile" href="Update_Colors.html" data-track="cta_click_shipped_colors">
-          <h4>Palette picker</h4>
-          <p><code>Update_Colors.html</code> — live preview of the Mythic-RX palette.</p>
-        </a>
-        <a class="ns-shipped-tile" href="ImageSelection.html" data-track="cta_click_shipped_images">
-          <h4>Image selector</h4>
-          <p><code>ImageSelection.html</code> — logo / favicon / OG preview tool.</p>
-        </a>
+  </section>
+
+  <!-- ============= 2. Compliance gates ============= -->
+  <section class="ns-section">
+    <h2><span class="ns-section__num">2</span>Launch gates (compliance &amp; approvals)</h2>
+    <p style="color: var(--site-slate); margin-bottom: 12px">Per <code>sister-sites-shared/per-site/mythic-rx/COMPLIANCE_GATES.md</code> and <a href="docs/COMPLIANCE_NOTES.md">docs/COMPLIANCE_NOTES.md</a>. Mythic-RX is a <strong>503A</strong> compounding pharmacy; Utah <strong>DOPL</strong> is the home-state regulator. Counsel must clear every gate on a Mythic-RX-specific decision-of-record. Promotion path: <span class="pill pill-blocked">Blocking</span> → <span class="pill pill-prog">In progress</span> → <span class="pill pill-done">Done</span>.</p>
+    <table>
+      <thead>
+        <tr><th style="width:50%">Gate</th><th>Who owns it</th><th style="width:14%">Status</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Healthcare counsel review of all partner-facing claims and off-label / compounded language (503A-appropriate)</td>
+          <td>Client / counsel</td>
+          <td><span class="pill pill-blocked">Blocking</span></td>
+        </tr>
+        <tr>
+          <td>Utah DOPL pharmacy license current; per-state licensure list confirmed for every state Mythic-RX fulfills</td>
+          <td>Client / ops + counsel</td>
+          <td><span class="pill pill-blocked">Blocking</span></td>
+        </tr>
+        <tr>
+          <td>Business Associate Agreement (BAA) template approved + signing process documented</td>
+          <td>Client / counsel</td>
+          <td><span class="pill pill-blocked">Blocking</span></td>
+        </tr>
+        <tr>
+          <td>Partner agreement / SOW template approved</td>
+          <td>Client / counsel</td>
+          <td><span class="pill pill-blocked">Blocking</span></td>
+        </tr>
+        <tr>
+          <td>Medical director appointed; clinical-governance language approved</td>
+          <td>Client</td>
+          <td><span class="pill pill-client">Awaiting client</span></td>
+        </tr>
+        <tr>
+          <td>Privacy policy, terms, HIPAA notice, partner-data-handling policy live</td>
+          <td>Client / counsel</td>
+          <td><span class="pill pill-client">Awaiting client</span></td>
+        </tr>
+        <tr>
+          <td>EMR integration security review (if any integrations are claimed)</td>
+          <td>Client</td>
+          <td><span class="pill pill-client">Awaiting client</span></td>
+        </tr>
+        <tr>
+          <td>Marketing-claim substantiation file (peer-reviewed citations, fair-balance language)</td>
+          <td>Client / counsel</td>
+          <td><span class="pill pill-client">Awaiting client</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============= 3. Client deliverables ============= -->
+  <section class="ns-section">
+    <h2><span class="ns-section__num">3</span>What the client owes us</h2>
+    <p style="color: var(--site-slate); margin-bottom: 12px">Each row is a <code>SITE_CONFIG</code> field that is currently <code>[CLIENT TO CONFIRM]</code>. Fastest path to "complete" is filling the matching section in <a href="Client_Onboarding.html" style="color: var(--site-link);"><strong>Client_Onboarding.html</strong></a> and re-exporting the config.</p>
+    <table>
+      <thead><tr><th>Field</th><th>Why</th><th style="width:14%">Status</th></tr></thead>
+      <tbody>
+        <tr><td><code>brand.*</code></td><td>Partner-support email / phone / hours shown in footers and contact blocks</td><td><span class="pill pill-client">Pending</span></td></tr>
+        <tr><td><code>partnership.propositionShort</code> + <code>partnership.*</code></td><td>Counsel-reviewed value prop, onboarding timeline, fee-structure summary, referral model</td><td><span class="pill pill-client">Pending</span></td></tr>
+        <tr><td><code>formulary.*</code></td><td>Public-safe categories, gated formulary URL, optional medication rows (counsel-approved indications)</td><td><span class="pill pill-client">Pending</span></td></tr>
+        <tr><td><code>clinical.medicalDirector</code> + <code>clinical.clinicalAdvisoryNote</code> + <code>clinical.pharmacyPartners</code></td><td>Required before any "MD-led" or "physician-directed" claim ships</td><td><span class="pill pill-client">Pending</span></td></tr>
+        <tr><td><code>clinical.statesLicensed</code> + <code>clinical.intakeSLA</code> + <code>clinical.fulfillmentSLA</code></td><td>State gate in partner intake; ops-attested SLAs</td><td><span class="pill pill-client">Pending</span></td></tr>
+        <tr><td><code>integrations.*</code></td><td>Only what Mythic-RX can fulfill today; gated by EMR security review</td><td><span class="pill pill-client">Pending</span></td></tr>
+        <tr><td><code>legal.baaProvided</code> + <code>legal.partnerAgreementUrl</code> + <code>legal.hipaaContact</code></td><td>BAA availability flag, gated agreement URL, privacy contact</td><td><span class="pill pill-client">Pending</span></td></tr>
+        <tr><td><code>trust.badges</code> + <code>trust.caseStudies</code> + <code>trust.pressMentions</code></td><td>Partner-relevant only; case studies require written consent on file</td><td><span class="pill pill-client">Pending</span></td></tr>
+        <tr><td><code>disclosures.*</code></td><td>Off-label, not-medical-advice, compounded, fair-balance — counsel-approved wordings</td><td><span class="pill pill-client">Pending</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============= 4. Launch sequence ============= -->
+  <section class="ns-section">
+    <h2><span class="ns-section__num">4</span>Partner-rollout launch sequence (after gates clear)</h2>
+    <p style="color: var(--site-slate); margin-bottom: 18px">Per the B2B column of <code>AUDIENCE_MATRIX.md</code>: counsel → direct outreach → society/KOL → inbound HCP → conversion review → trust assets → scale. This is <em>not</em> a paid-media launch. Refine to Mythic-RX's actual conference calendar and KOL list.</p>
+    <div class="ns-week-grid">
+      <div class="ns-day">
+        <h3>Pre-launch</h3>
+        <ul>
+          <li>Counsel review of all claims and off-label / compounded language</li>
+          <li>BAA template approved</li>
+          <li>Formulary frozen for the launch window</li>
+          <li>Sales-enablement deck (pricing, BAA, formulary, SLAs) approved</li>
+        </ul>
+      </div>
+      <div class="ns-day">
+        <h3>Day 1 — Foundation</h3>
+        <ul>
+          <li>Partner pages live with counsel-approved copy</li>
+          <li>Partner-portal / intake form live</li>
+          <li>Sales team trained on objection handling, pricing-under-NDA, BAA workflow</li>
+        </ul>
+      </div>
+      <div class="ns-day">
+        <h3>Day 2 — Direct outreach</h3>
+        <ul>
+          <li>Founder + medical-director outreach to named clinic target list</li>
+          <li>LinkedIn for HCPs activations to physicians and clinic operators</li>
+          <li>No patient targeting</li>
+        </ul>
+      </div>
+      <div class="ns-day">
+        <h3>Day 3 — Society / KOL</h3>
+        <ul>
+          <li>Outreach to relevant medical societies and KOLs</li>
+          <li>Co-marketing inquiries</li>
+          <li>Sponsorship conversations with disclosed funding</li>
+        </ul>
+      </div>
+      <div class="ns-day">
+        <h3>Day 4 — Inbound channels</h3>
+        <ul>
+          <li>LinkedIn for HCPs ads with HCP-only targeting</li>
+          <li>Search ads against HCP-intent keywords only</li>
+          <li>Creative aimed at clinicians, never patients</li>
+        </ul>
+      </div>
+      <div class="ns-day">
+        <h3>Day 5 — Conversion review</h3>
+        <ul>
+          <li>Demo-booked rate, qualified-clinic rate, partner-intake dropoff</li>
+          <li>Patch friction points</li>
+          <li>Re-train sales on the top objections from the first 96 hours</li>
+        </ul>
+      </div>
+      <div class="ns-day">
+        <h3>Weekend — Trust assets</h3>
+        <ul>
+          <li>Publish case studies (with written consent on file)</li>
+          <li>Clinical FAQ for partners</li>
+          <li>Formulary 1-pager</li>
+          <li>Tighten copy where placeholders surfaced during demos</li>
+        </ul>
+      </div>
+      <div class="ns-day">
+        <h3>Week 2 — Scale</h3>
+        <ul>
+          <li>Conference outreach + booth planning</li>
+          <li>Referral program activation</li>
+          <li>Second-tier partnership tier rollout (if structured)</li>
+          <li>White-label conversations gated behind NDA</li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <!-- Section 2: Compliance / launch gates ---------------- -->
+  <!-- ============= 5. Open dev tasks ============= -->
   <section class="ns-section">
-    <div class="ns-section-head">
-      <h2><span class="ns-num">2</span> Compliance &amp; launch gates</h2>
-      <p>Nothing is launch-ready until each gate is reviewed and cleared by the responsible owner. Defaults are conservative — flip a pill only on documented sign-off.</p>
-    </div>
-    <div class="ns-section-body">
-      <table class="ns-table">
-        <thead>
-          <tr><th>Gate</th><th>Owner</th><th class="col-status">Status</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Healthcare counsel review of all partner-facing claims (off-label / compounded language, marketing substantiation)</td>
-            <td class="col-owner">Client / counsel</td>
-            <td class="col-status"><span class="pill pill-blocked">Blocking</span></td>
-          </tr>
-          <tr>
-            <td>Per-state pharmacy and clinician licensing list confirmed for every state Mythic-RX fulfills</td>
-            <td class="col-owner">Client</td>
-            <td class="col-status"><span class="pill pill-blocked">Blocking</span></td>
-          </tr>
-          <tr>
-            <td>Business Associate Agreement (BAA) template approved and signing process documented</td>
-            <td class="col-owner">Client / counsel</td>
-            <td class="col-status"><span class="pill pill-blocked">Blocking</span></td>
-          </tr>
-          <tr>
-            <td>Partner agreement / SOW template approved</td>
-            <td class="col-owner">Client / counsel</td>
-            <td class="col-status"><span class="pill pill-blocked">Blocking</span></td>
-          </tr>
-          <tr>
-            <td>Medical director appointed and clinical-governance language approved</td>
-            <td class="col-owner">Client</td>
-            <td class="col-status"><span class="pill pill-client">Awaiting client</span></td>
-          </tr>
-          <tr>
-            <td>Privacy policy, terms, HIPAA notice, and partner-data-handling policy live</td>
-            <td class="col-owner">Client / counsel</td>
-            <td class="col-status"><span class="pill pill-client">Awaiting client</span></td>
-          </tr>
-          <tr>
-            <td>EMR integration security review (only if any integrations are publicly claimed)</td>
-            <td class="col-owner">Client</td>
-            <td class="col-status"><span class="pill pill-client">Awaiting client</span></td>
-          </tr>
-          <tr>
-            <td>Marketing-claim substantiation file (peer-reviewed citations, fair-balance language)</td>
-            <td class="col-owner">Client / counsel</td>
-            <td class="col-status"><span class="pill pill-client">Awaiting client</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <h2><span class="ns-section__num">5</span>Open dev tasks (after config lands)</h2>
+    <p style="color: var(--site-slate); margin-bottom: 12px">What engineering owns between now and Day 1. Each task starts <span class="pill pill-todo">Open</span> and flips to <span class="pill pill-done">Done</span> only when merged and verified in this repo.</p>
+    <table>
+      <thead><tr><th>Task</th><th>Notes</th><th style="width:14%">Status</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Build the partner-intake form (multi-step, file attachments for licensure docs, save-state per step)</td>
+          <td>Lives at <code>partner-intake.html</code>. Reuse the <code>ob-*</code> autosave pattern from <code>Client_Onboarding.html</code>. Submissions land in the partner portal — never email — and never include PHI.</td>
+          <td><span class="pill pill-todo">Open</span></td>
+        </tr>
+        <tr>
+          <td>Wire <code>siteTrack</code> events to GA4 (and optional LinkedIn Insight Tag)</td>
+          <td>Allowed events per <code>ANALYTICS_EVENTS.md</code>: <code>page_view</code>, <code>cta_click</code>, <code>cta_click_*</code>, <code>partner_intake_started</code>, <code>partner_intake_step_completed</code>, <code>partner_intake_completed</code>, <code>formulary_request</code>, <code>demo_requested</code>. <strong>No PHI, no clinic-identifying payload.</strong></td>
+          <td><span class="pill pill-todo">Open</span></td>
+        </tr>
+        <tr>
+          <td>State-availability gate in the partner intake</td>
+          <td>Read <code>SITE_CONFIG.clinical.statesLicensed</code>. If the clinic's state isn't listed, show the "we'll let you know when we serve your state" capture — never silently fail.</td>
+          <td><span class="pill pill-todo">Open</span></td>
+        </tr>
+      </tbody>
+    </table>
   </section>
 
-  <!-- Section 3: Client deliverables ---------------------- -->
+  <!-- ============= 6. Channel guardrails ============= -->
   <section class="ns-section">
-    <div class="ns-section-head">
-      <h2><span class="ns-num">3</span> Client deliverables</h2>
-      <p>Each row is a <code>MRX_CONFIG</code> field the client owes. The fastest path to "complete" is filling the matching section in <a class="mrx-link" href="Client_Onboarding.html" data-track="cta_click_deliverables_form">Client_Onboarding.html</a> and re-exporting the config.</p>
-    </div>
-    <div class="ns-section-body">
-      <table class="ns-table">
-        <thead>
-          <tr><th>Deliverable</th><th>Config path</th><th class="col-status">Status</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Partner-support email, phone, hours</td><td><code>brand.partnerSupport*</code></td><td class="col-status"><span class="pill pill-client">Pending</span></td></tr>
-          <tr><td>Partnership value proposition (counsel-reviewed)</td><td><code>partnership.propositionShort</code></td><td class="col-status"><span class="pill pill-client">Pending</span></td></tr>
-          <tr><td>Onboarding timeline, fee-structure summary, referral model</td><td><code>partnership.*</code></td><td class="col-status"><span class="pill pill-client">Pending</span></td></tr>
-          <tr><td>Formulary categories &amp; medications (with counsel-approved indications)</td><td><code>formulary.*</code></td><td class="col-status"><span class="pill pill-client">Pending</span></td></tr>
-          <tr><td>Medical director, clinical advisory note, pharmacy partners</td><td><code>clinical.medicalDirector</code> · <code>clinical.clinicalAdvisoryNote</code> · <code>clinical.pharmacyPartners</code></td><td class="col-status"><span class="pill pill-client">Pending</span></td></tr>
-          <tr><td>States licensed list, intake SLA, fulfillment SLA</td><td><code>clinical.statesLicensed</code> · <code>clinical.intakeSLA</code> · <code>clinical.fulfillmentSLA</code></td><td class="col-status"><span class="pill pill-client">Pending</span></td></tr>
-          <tr><td>EMR integrations list, API availability, integration contact</td><td><code>integrations.*</code></td><td class="col-status"><span class="pill pill-client">Pending</span></td></tr>
-          <tr><td>BAA flag, partner-agreement URL, HIPAA contact</td><td><code>legal.*</code></td><td class="col-status"><span class="pill pill-client">Pending</span></td></tr>
-          <tr><td>Disclosures (off-label, not-medical-advice, compounded, fair-balance)</td><td><code>disclosures.*</code></td><td class="col-status"><span class="pill pill-client">Pending</span></td></tr>
-        </tbody>
-      </table>
-    </div>
+    <h2><span class="ns-section__num">6</span>Channel guardrails</h2>
+    <p style="color: var(--site-slate); margin-bottom: 12px">B2B channels only, per the right column of <code>AUDIENCE_MATRIX.md</code>. Mythic-RX does not run patient-targeted creative. If a question is between "more reach" and "is this aimed at patients?" — choose the latter.</p>
+    <table>
+      <thead><tr><th>Channel</th><th>Do</th><th>Don't</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>LinkedIn for HCPs</strong></td>
+          <td>HCP-targeted, professional voice, peer-reviewed citations, fair-balance language. Job-title / specialty targeting (MD, DO, NP, PA, clinic operator).</td>
+          <td>No patient targeting. No weight-loss-result claims. No before/after content.</td>
+        </tr>
+        <tr>
+          <td><strong>Direct outreach / sales</strong></td>
+          <td>Named clinic accounts. BAA + partner agreement attached early. Pricing under NDA only. Demo &amp; SLA conversations recorded in CRM, not email.</td>
+          <td>No cold patient lists. No unsolicited PHI in any inbound or outbound channel.</td>
+        </tr>
+        <tr>
+          <td><strong>Conferences / societies</strong></td>
+          <td>Sponsorships with disclosed funding. Peer-reviewed posters. MD-level CME content. Booth conversations follow the partner-intake script.</td>
+          <td>No patient leads collected at the booth. No consumer-style signage at clinical events.</td>
+        </tr>
+        <tr>
+          <td><strong>HCP-intent search</strong></td>
+          <td>Brand campaigns. HCP-intent keywords ("compounding pharmacy partner", "how to add weight care to my practice", "503A pharmacy for [specialty]"). Creative aimed at clinicians; landing pages bound to partner copy.</td>
+          <td>No patient-keyword campaigns. Those belong on the DTC sister site, not Mythic-RX.</td>
+        </tr>
+        <tr>
+          <td><strong>Content / SEO</strong></td>
+          <td>Clinical evidence reviews. Formulary explainers. Regulatory-update articles. Anonymized case studies (with written consent on file).</td>
+          <td>No patient testimonials. No transformation imagery. No drug-equivalency claims.</td>
+        </tr>
+      </tbody>
+    </table>
   </section>
 
-  <!-- Section 4: Launch sequence -------------------------- -->
-  <section class="ns-section">
-    <div class="ns-section-head">
-      <h2><span class="ns-num">4</span> Partner-rollout launch sequence</h2>
-      <p>A starter B2B GTM rhythm. Refine to Mythic-RX's actual conference calendar, society relationships, and KOL list. This is <em>not</em> a paid-media launch plan.</p>
-    </div>
-    <div class="ns-section-body">
-      <dl class="ns-launch">
-        <dt>Pre-launch</dt>
-        <dd>Counsel review of all claims and off-label / compounded language. BAA template approved. Formulary frozen for the launch window. Sales-enablement deck (pricing, BAA, formulary, SLAs) approved.</dd>
-
-        <dt>Day 1 — Foundation</dt>
-        <dd>Partner pages live with counsel-approved copy. Partner-portal / intake form live. Sales team trained on objection handling, pricing-under-NDA, and the BAA workflow.</dd>
-
-        <dt>Day 2 — Direct outreach</dt>
-        <dd>Founder and medical-director outreach to a named target list of clinics. LinkedIn for HCPs activations to physicians and clinic operators. No patient targeting.</dd>
-
-        <dt>Day 3 — Society / KOL</dt>
-        <dd>Outreach to relevant medical societies and KOLs. Co-marketing inquiries. Sponsorship conversations with disclosed funding.</dd>
-
-        <dt>Day 4 — Inbound channels</dt>
-        <dd>LinkedIn for HCPs ads with HCP-only targeting. Search ads against HCP-intent keywords (e.g. "compounding pharmacy partner", "how to add weight care to my practice"). Creative aimed at clinicians, never patients.</dd>
-
-        <dt>Day 5 — Conversion review</dt>
-        <dd>Review demo-booked rate, qualified-clinic rate, and dropoff inside the partner intake. Patch friction points; re-train sales on the most common objections seen in the first 96 hours.</dd>
-
-        <dt>Weekend — Trust assets</dt>
-        <dd>Publish case studies (with written consent on file), clinical FAQ for partners, and a formulary 1-pager. Tighten copy on whatever fields surfaced "[CLIENT TO CONFIRM]" placeholders during demos.</dd>
-
-        <dt>Week 2 — Scale</dt>
-        <dd>Conference outreach and booth planning. Referral program activation. Roll out second-tier partnership tier (if structured) and any white-label conversations gated behind NDA.</dd>
-      </dl>
-    </div>
-  </section>
-
-  <!-- Section 5: Open dev tasks --------------------------- -->
-  <section class="ns-section">
-    <div class="ns-section-head">
-      <h2><span class="ns-num">5</span> Open dev tasks</h2>
-      <p>What engineering owns between now and Day 1. Each task starts as <span class="pill pill-todo">Open</span> and only flips to <span class="pill pill-done">Done</span> when the corresponding code is merged and verified in this repo.</p>
-    </div>
-    <div class="ns-section-body">
-      <table class="ns-table">
-        <thead>
-          <tr><th>Task</th><th>Notes</th><th class="col-status">Status</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Build the partner-intake form (multi-step, file attachments for licensure docs, save-state on each step)</td>
-            <td>Should live at <code>partner-intake.html</code>. Reuse the <code>ob-*</code> autosave pattern from <code>Client_Onboarding.html</code>. Submissions land in the partner portal — never email — and never include PHI.</td>
-            <td class="col-status"><span class="pill pill-todo">Open</span></td>
-          </tr>
-          <tr>
-            <td>Wire <code>mrxTrack</code> events to GA4 (and optional LinkedIn Insight Tag)</td>
-            <td>Allowed events only: <code>page_view</code>, <code>cta_click</code>, <code>cta_click_*</code>, <code>partner_intake_started</code>, <code>partner_intake_completed</code>, <code>formulary_request</code>. <strong>No PHI, no clinic-identifying payload</strong>.</td>
-            <td class="col-status"><span class="pill pill-todo">Open</span></td>
-          </tr>
-          <tr>
-            <td>State-availability gate in the partner intake</td>
-            <td>Read <code>MRX_CONFIG.clinical.statesLicensed</code>. If the clinic's state isn't listed, show the "we'll let you know when we serve your state" capture — never silently fail. Same gate pattern used on consumer-side sites, applied here to clinic state rather than patient state.</td>
-            <td class="col-status"><span class="pill pill-todo">Open</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- Section 6: Channel guardrails ----------------------- -->
-  <section class="ns-section">
-    <div class="ns-section-head">
-      <h2><span class="ns-num">6</span> Channel guardrails</h2>
-      <p>B2B channels only. Mythic-RX does not run patient-targeted creative. If a question is between "more reach" and "is this aimed at patients?" — choose the latter.</p>
-    </div>
-    <div class="ns-section-body">
-      <div class="ns-channels">
-
-        <div class="ns-channel">
-          <h4>LinkedIn for HCPs</h4>
-          <p class="do">HCP-targeted, professional voice, peer-reviewed citations, fair-balance language.</p>
-          <p class="do">Job-title / specialty targeting (MD, DO, NP, PA, clinic operator).</p>
-          <p class="dont">No patient targeting, no weight-loss-result claims, no before/after content.</p>
-        </div>
-
-        <div class="ns-channel">
-          <h4>Direct outreach / sales</h4>
-          <p class="do">Named clinic accounts. BAA and partner-agreement attached early in the cycle. Pricing only under NDA.</p>
-          <p class="do">Demo &amp; SLA conversations recorded in CRM, not email.</p>
-          <p class="dont">No cold patient lists. No unsolicited PHI in any inbound or outbound channel.</p>
-        </div>
-
-        <div class="ns-channel">
-          <h4>Conferences / societies</h4>
-          <p class="do">Sponsorships with disclosed funding. Peer-reviewed posters. MD-level CME content.</p>
-          <p class="do">Booth conversations follow the partner-intake script.</p>
-          <p class="dont">No patient leads collected at the booth. No consumer-style signage at clinical events.</p>
-        </div>
-
-        <div class="ns-channel">
-          <h4>Search (HCP-intent)</h4>
-          <p class="do">Brand campaigns. HCP-intent keywords: "compounding pharmacy partner", "how to add weight care to my practice", "503A pharmacy for [specialty]".</p>
-          <p class="do">Creative aimed at clinicians; landing pages bound to partner copy.</p>
-          <p class="dont">No patient-keyword campaigns ("Ozempic near me"). Those belong on a DTC site, not Mythic-RX.</p>
-        </div>
-
-        <div class="ns-channel">
-          <h4>Content / SEO</h4>
-          <p class="do">Clinical evidence reviews. Formulary explainers. Regulatory-update articles. Case studies (with written consent on file).</p>
-          <p class="dont">No patient testimonials. No transformation imagery. No drug-equivalency claims ("generic Ozempic").</p>
-        </div>
-
-        <div class="ns-channel">
-          <h4>Email (B2B)</h4>
-          <p class="do">Partner newsletter to opt-in clinics. Formulary changes, regulatory updates, conference recaps.</p>
-          <p class="do">List hygiene + double-opt-in for all clinic operators added via the partner intake.</p>
-          <p class="dont">No co-mingling of any patient-acquisition list with the partner list. Ever.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Legend / footer ------------------------------------ -->
-  <div class="ns-foot">
-    <div class="ns-legend">
-      <strong>Status legend:</strong>
-      <span class="pill pill-done">Done</span>
-      <span class="pill pill-prog">In progress</span>
-      <span class="pill pill-blocked">Blocking</span>
-      <span class="pill pill-client">Awaiting client</span>
-      <span class="pill pill-todo">Open</span>
-    </div>
-    <p style="margin-top: 10px;">
-      Compliance carries over <em>conceptually</em>, not factually. Mythic-RX is its own legal entity — every gate above must be cleared on a Mythic-RX-specific decision-of-record, even when the wording mirrors a sister brand's. See the handoff brief in
-      <code>mythic_rx_handoff/AGENT_BRIEF.md</code> for the audience-specific reasoning.
-    </p>
+  <div class="ns-legend">
+    <strong>Status legend:</strong>
+    <span class="pill pill-done">Done</span>
+    <span class="pill pill-prog">In progress</span>
+    <span class="pill pill-blocked">Blocking</span>
+    <span class="pill pill-client">Awaiting client</span>
+    <span class="pill pill-todo">Open</span>
   </div>
 
-</div>
+  <p style="margin-top: 10px; color: var(--site-slate-gray); font-size: .85rem;">
+    Mythic-RX is a <strong>503A compounding pharmacy</strong>. Compliance carries over <em>conceptually</em>, not factually, from sister brands — every gate requires Mythic-RX counsel and ops sign-off (Utah <strong>DOPL</strong> home license + attested expansion states). See
+    <code>docs/COMPLIANCE_NOTES.md</code> and
+    <code>sister-sites-shared/per-site/mythic-rx/COMPLIANCE_GATES.md</code>.
+  </p>
 
-<script src="assets/js/landing-config.js"></script>
-<script src="assets/js/landing-render.js"></script>
+</main>
+
 </body>
 </html>

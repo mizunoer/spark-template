@@ -1,49 +1,52 @@
 /**
- * mythic-rx.com — Brand design tokens + base styles
+ * mythic-rx.com — Brand stylesheet
  * ==========================================================
- * This file is the single source of truth for the Mythic-RX
- * brand palette and component-agnostic primitives (gradients,
- * shadows, radii, transitions). Every `--mrx-*` variable
- * defined here is referenced from:
+ * Two-layer design-token model per
+ * sister-sites-shared/shared/conventions/DESIGN_TOKEN_NAMES.md
+ * (consumed v2026.05.22.1):
  *
- *   - assets/css/landing.css (lp-* landing-page components)
- *   - assets/css/mrx-brand.css (brand-kit web bundle copy)
- *   - templates and tracker pages (Client_Onboarding.html,
- *     Marketing_Next_Steps.html, Update_Colors.html, etc.)
+ *   Layer 1 — brand-prefixed `--mrx-*` variables. Site-owned.
+ *             Use these inside this file and inside any
+ *             Mythic-RX-only CSS.
  *
- * Rules:
- *   - Add new tokens here, not inline.
- *   - Existing site pages keep loading css/style.css. This
- *     file is additive — it does not override the legacy
- *     palette in css/style.css. If you want a legacy page to
- *     pick up the new tokens, include this stylesheet AFTER
- *     css/style.css.
- *   - Do NOT rename `lp-*`, `ob-*`, `ns-*`, `tg-*`, or
- *     `pill-*` class prefixes — they're brand-neutral.
+ *   Layer 2 — site-neutral `--site-*` aliases. The shared
+ *             `assets/css/landing.css` reads from these.
+ *             Every required `--site-*` listed in the
+ *             convention must alias to a `--mrx-*` value.
+ *
+ * Load order (mandatory):
+ *   1. <link rel="stylesheet" href="css/style.css">           legacy
+ *   2. <link rel="stylesheet" href="assets/css/mythic-rx.css"> defines --mrx-* + --site-*
+ *   3. <link rel="stylesheet" href="assets/css/landing.css">   reads --site-*
+ *
+ * Class-prefix policy (per CSS_CLASS_NAMESPACES.md):
+ *   - Do NOT rename `lp-*`, `ob-*`, `ns-*`, `pill-*`, or
+ *     third-party `tg-*` prefixes.
+ *   - Site-local components use `mrx-*` and live in this file.
  * ========================================================== */
 
 :root {
-  /* --- Core brand palette ------------------------------ */
+  /* ============ Layer 1 — brand-prefixed (--mrx-*) ============ */
+
+  /* Core brand palette */
   --mrx-blue:       #1E6B3A; /* Translucent Forest — primary */
   --mrx-cyan:       #0F4D2E; /* Deep Emerald — hover / gradient mid */
   --mrx-teal:       #0B3A20; /* Evergreen — accent / gradient end */
   --mrx-navy:       #072517; /* Darker evergreen — dark backgrounds */
   --mrx-slate-gray: #4A4A4A; /* Stone — muted UI text / dividers */
 
-  /* --- Supporting tones -------------------------------- */
+  /* Supporting tones */
   --mrx-mint:     #CFE3CC; /* Soft Mint — tinted surfaces, badges */
   --mrx-offwhite: #F6FAF5; /* Page background, light surfaces */
   --mrx-slate:    #2E2E2E; /* Charcoal — body text */
   --mrx-white:    #ffffff;
+  --mrx-gold:     #F8DE70; /* Sparingly. Star ratings, callouts. NOT a CTA color. */
 
-  /* --- Optional gold (use sparingly) ------------------- */
-  --mrx-gold:     #F8DE70; /* Star ratings, callouts. NOT a primary CTA. */
-
-  /* --- Semantic aliases -------------------------------- */
+  /* Semantic aliases */
   --mrx-primary:        var(--mrx-blue);
-  --mrx-primary-dark:   #154D29; /* darker variant of --mrx-blue for hover */
+  --mrx-primary-dark:   #154D29;
   --mrx-accent:         var(--mrx-teal);
-  --mrx-accent-dark:    #062012; /* darker variant of --mrx-teal */
+  --mrx-accent-dark:    #062012;
   --mrx-link:           var(--mrx-blue);
   --mrx-link-hover:     var(--mrx-cyan);
   --mrx-heading:        var(--mrx-navy);
@@ -52,11 +55,11 @@
   --mrx-light:          var(--mrx-offwhite);
   --mrx-border:         #DADAD3; /* Fog — dividers / subtle borders */
 
-  /* --- Brand gradient (hero / CTA backgrounds) --------- */
+  /* Brand gradients (used for hero / CTA backgrounds) */
   --mrx-gradient:      linear-gradient(135deg, var(--mrx-blue) 0%, var(--mrx-cyan) 50%, var(--mrx-teal) 100%);
   --mrx-gradient-dark: linear-gradient(135deg, var(--mrx-navy) 0%, var(--mrx-teal) 50%, var(--mrx-navy) 100%);
 
-  /* --- Shadows / radii / motion ------------------------ */
+  /* Shadows / radii / motion */
   --mrx-shadow:        0 4px 24px rgba(15, 77, 46, 0.10);
   --mrx-shadow-hover:  0 8px 32px rgba(11, 58, 32, 0.20);
   --mrx-shadow-soft:   0 2px 12px rgba(15, 77, 46, 0.06);
@@ -64,10 +67,46 @@
   --mrx-radius-lg:     20px;
   --mrx-transition:    0.3s ease;
 
-  /* --- Third-party template overrides ------------------ */
-  /* Suxnix/Pharmed templates use `--tg-*` names. Point them
-     at the Mythic-RX values so any inherited components
-     match the brand. Do NOT rename the --tg-* keys. */
+  /* ============ Layer 2 — site-neutral (--site-*) aliases ============ */
+  /* These are the names the shared landing.css reads.                  */
+  /* Every variable listed in DESIGN_TOKEN_NAMES.md must be defined.    */
+
+  --site-blue:          var(--mrx-blue);
+  --site-cyan:          var(--mrx-cyan);
+  --site-teal:          var(--mrx-teal);
+  --site-navy:          var(--mrx-navy);
+  --site-slate-gray:    var(--mrx-slate-gray);
+
+  --site-mint:          var(--mrx-mint);
+  --site-offwhite:      var(--mrx-offwhite);
+  --site-slate:         var(--mrx-slate);
+  --site-white:         var(--mrx-white);
+  --site-border:        var(--mrx-border);
+
+  --site-primary:       var(--mrx-primary);
+  --site-primary-dark:  var(--mrx-primary-dark);
+  --site-accent:        var(--mrx-accent);
+  --site-accent-dark:   var(--mrx-accent-dark);
+  --site-link:          var(--mrx-link);
+  --site-link-hover:    var(--mrx-link-hover);
+  --site-heading:       var(--mrx-heading);
+  --site-text:          var(--mrx-text);
+  --site-text-muted:    var(--mrx-text-muted);
+  --site-light:         var(--mrx-light);
+
+  --site-gradient:      var(--mrx-gradient);
+  --site-gradient-dark: var(--mrx-gradient-dark);
+  --site-shadow:        var(--mrx-shadow);
+  --site-shadow-hover:  var(--mrx-shadow-hover);
+  --site-shadow-soft:   var(--mrx-shadow-soft);
+  --site-radius:        var(--mrx-radius);
+  --site-radius-lg:     var(--mrx-radius-lg);
+  --site-transition:    var(--mrx-transition);
+
+  /* ============ Third-party template overrides ============ */
+  /* Suxnix/Pharmed template uses `--tg-*` names. Point them at
+     Mythic-RX values so any inherited components match the brand.
+     Do NOT rename the --tg-* keys (per CSS_CLASS_NAMESPACES.md). */
   --tg-primary-color:      var(--mrx-blue);
   --tg-secondary-color:    var(--mrx-teal);
   --tg-heading-color:      var(--mrx-heading);
@@ -77,12 +116,12 @@
 }
 
 /* ============================================================
-   Small brand-aware utility primitives
+   Site-local utility primitives (mrx-* prefix)
    ------------------------------------------------------------
-   These do NOT override the existing legacy site (css/style.css
-   already styles its own buttons / sections). They are used by
-   the landing-system pages, the onboarding form, the tracker,
-   the color/image pickers, and the brand-kit preview.
+   Used by the brand-kit preview, color picker, image selector,
+   onboarding form, and tracker. Do NOT use these on the legacy
+   public pages — the legacy site has its own button/section
+   styling in css/style.css.
    ============================================================ */
 
 .mrx-page {
@@ -94,11 +133,7 @@
   -webkit-font-smoothing: antialiased;
 }
 
-.mrx-container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 24px;
-}
+.mrx-container { max-width: 1100px; margin: 0 auto; padding: 24px; }
 
 .mrx-h1 {
   font-size: clamp(1.8rem, 3.2vw, 2.6rem);
@@ -107,14 +142,12 @@
   margin: 0 0 12px 0;
   line-height: 1.15;
 }
-
 .mrx-h2 {
   font-size: clamp(1.3rem, 2.2vw, 1.7rem);
   color: var(--mrx-heading);
   margin: 0 0 8px 0;
   line-height: 1.2;
 }
-
 .mrx-eyebrow {
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -124,17 +157,12 @@
 }
 
 .mrx-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--mrx-primary);
-  color: var(--mrx-white);
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--mrx-primary); color: var(--mrx-white);
   border: 1px solid var(--mrx-primary);
   border-radius: 999px;
   padding: 12px 22px;
-  font-weight: 600;
-  text-decoration: none;
-  cursor: pointer;
+  font-weight: 600; text-decoration: none; cursor: pointer;
   transition: var(--mrx-transition);
 }
 .mrx-btn:hover {
@@ -142,15 +170,8 @@
   border-color: var(--mrx-primary-dark);
   box-shadow: var(--mrx-shadow-hover);
 }
-
-.mrx-btn-outline {
-  background: transparent;
-  color: var(--mrx-primary);
-}
-.mrx-btn-outline:hover {
-  background: var(--mrx-primary);
-  color: var(--mrx-white);
-}
+.mrx-btn-outline { background: transparent; color: var(--mrx-primary); }
+.mrx-btn-outline:hover { background: var(--mrx-primary); color: var(--mrx-white); }
 
 .mrx-card {
   background: var(--mrx-white);
@@ -162,30 +183,24 @@
 
 .mrx-badge {
   display: inline-block;
-  background: var(--mrx-mint);
-  color: var(--mrx-cyan);
+  background: var(--mrx-mint); color: var(--mrx-cyan);
   padding: 4px 12px;
   border-radius: 999px;
-  font-size: 0.78rem;
-  font-weight: 600;
+  font-size: 0.78rem; font-weight: 600;
 }
 
-.mrx-link {
-  color: var(--mrx-link);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
+.mrx-link { color: var(--mrx-link); text-decoration: underline; text-underline-offset: 3px; }
 .mrx-link:hover { color: var(--mrx-link-hover); }
 
-hr.mrx-rule {
-  border: none;
-  border-top: 1px solid var(--mrx-border);
-  margin: 24px 0;
-}
+hr.mrx-rule { border: none; border-top: 1px solid var(--mrx-border); margin: 24px 0; }
 
-/* Placeholder highlight used by landing-render.js when a bound
-   value is still "[CLIENT TO CONFIRM]". Defined here so existing
-   pages can opt into the system without loading landing.css. */
+/* ============================================================
+   Placeholder highlight
+   ------------------------------------------------------------
+   Applied by landing-render.js when a bound value is still
+   "[CLIENT TO CONFIRM]". Defined here so pages that include
+   mythic-rx.css get the visual without needing landing.css.
+   ============================================================ */
 .lp-placeholder {
   background: #FFF4C2;
   color: #6B4F00;
@@ -196,22 +211,24 @@ hr.mrx-rule {
 }
 
 /* ============================================================
-   Legacy layout fixes
+   Legacy layout fixes (Mythic-RX only — site-local concern)
    ------------------------------------------------------------
-   The legacy template's `.bg-attach-fixed` utility declares
-   `height: 100%`, which Chromium resolves to a much-larger-than-
-   intended value when the element is used as a stand-alone CTA
-   section with no inline height (the parallax effect was only
-   meant for banners that already set `height: 40vh` inline).
-   The same `.swiper-wrapper { height: 100% }` rule from the
-   Swiper bundle causes the state slider to stretch its slides
-   into ~1200px columns of empty space.
+   The legacy template's `.bg-attach-fixed` utility in
+   `css/style.css` declares `height: 100%`, which Chromium
+   resolves to a much-larger-than-intended value when applied
+   to stand-alone CTA sections that don't set their own inline
+   height (the parallax effect was only meant for banners with
+   `height: 40vh` inline). Same bug pattern in Swiper's
+   `.swiper-wrapper { height: 100% }` for `.swiperImage`.
+   Both surface as huge image-revealing dead-space blocks.
 
-   Both behaviors render normal-looking sections as huge,
-   image-revealing blocks. Restore content-driven sizing here
-   so the only sections that get fixed-pixel heights are the
-   ones that explicitly opted in via inline `height: …`.
+   These overrides restore content-driven sizing.
+
+   This is intentionally Mythic-RX-only — the legacy CSS is not
+   part of the shared system, so the fix lives here, not in
+   shared/css/landing.css.
    ============================================================ */
+
 .section.bg-attach-fixed:not([style*="height:"]) {
   height: auto;
 }

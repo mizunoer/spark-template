@@ -2,7 +2,7 @@
 # Usage: powershell -ExecutionPolicy Bypass -File scripts/serve.ps1
 $ErrorActionPreference = "Stop"
 $root = (Resolve-Path "$PSScriptRoot\..").Path
-$port = 5500
+$port = 5501
 $listener = [System.Net.HttpListener]::new()
 $listener.Prefixes.Add("http://localhost:$port/")
 $listener.Start()

@@ -11,6 +11,7 @@
     <meta http-equiv="Expires" content="0">
     <link rel="stylesheet" href="css/style.css" id="main-stylesheet">
     <link rel="stylesheet" href="assets/css/mythic-rx.css">
+    <link rel="stylesheet" href="assets/css/landing.css">
     <script>
         // Force reload CSS on every page load during development
         (function() {
@@ -771,7 +772,10 @@
         });
     </script>
 
-    <!-- Mythic-RX config-driven content (reads window.MRX_CONFIG, no-op for unfilled values) -->
+    <!-- Shared launch system (sister-sites-shared v2026.05.22.1):
+         landing-config.js sets window.SITE_CONFIG = window.MRX_CONFIG = {...};
+         landing-render.js reads window.SITE_CONFIG, hydrates [data-bind] nodes,
+         and exposes window.siteTrack(eventName). -->
     <script src="assets/js/landing-config.js"></script>
     <script src="assets/js/landing-render.js"></script>
 </body>

@@ -1,238 +1,152 @@
 /**
- * landing-render.js
- * ==========================================================
- * Tiny dependency-free template engine that hydrates a
- * static HTML page from `window.MRX_CONFIG`.
+ * sister-sites-shared — Landing page renderer (canonical)
+ * ------------------------------------------------------------------
+ * Reads `window.SITE_CONFIG` (set by each site's `landing-config.js`)
+ * and writes values into matching `data-bind="path.to.value"` elements.
  *
- * The page renders correctly even if this script never
- * loads — every bound element is authored with a fallback
- * default inside it. This script's job is to overwrite
- * those fallbacks when a real config value is available.
+ * Supports:
+ *   - text bindings:        <span data-bind="product.monthlyPrice">$XXX</span>
+ *   - attribute bindings:   <a data-bind-attr="href:disclosures.privacyPolicyUrl">...</a>
+ *   - list bindings:        <ul data-bind-list="product.included" data-bind-list-tpl="<li>{value}</li>"></ul>
+ *   - show/hide:            <div data-bind-show="product.firstMonthPrice">...</div>
+ *   - tracking events:      <a data-track="cta_click">...</a>
  *
- * Directives recognized:
- *   data-bind="path.to.value"
- *   data-bind-attr="attr1:path1; attr2:path2"
- *   data-bind-list="path" data-bind-list-tpl="<li>{value}</li>"
- *   data-bind-show="path"
- *   data-track="event_name"
+ * Tracking is privacy-safe: ONLY the event name is forwarded.
+ * No PHI, no clinic identity. If `gtag` or `fbq` are present they receive
+ * the generic event; otherwise it logs to `console.debug`.
  *
- * Tracking:
- *   window.mrxTrack(eventName) — forwards to gtag/fbq if
- *   present, then console.debug("[mrx.track]", eventName).
- *   Event names only. No PHI. No partner-clinic identifiers.
- * ========================================================== */
-
+ * Per-site adapters
+ * -----------------
+ * If a site has historical config under a brand-prefixed name
+ * (e.g. NUME_CONFIG, MRX_CONFIG), the site's `landing-config.js`
+ * should alias the brand name AND `SITE_CONFIG` to the same object:
+ *
+ *   window.SITE_CONFIG = window.NUME_CONFIG = { ... };
+ *
+ * That keeps DevTools-friendly debugging via the brand prefix
+ * and lets every site share this exact renderer file.
+ */
 (function () {
   "use strict";
+  var cfg = window.SITE_CONFIG || {};
 
-  var PLACEHOLDER = "[CLIENT TO CONFIRM]";
-
-  // ---------- helpers --------------------------------------------------------
-
-  function resolve(path, root) {
-    if (!path || !root) return undefined;
-    var parts = String(path).split(".");
-    var cur = root;
-    for (var i = 0; i < parts.length; i++) {
-      if (cur === null || cur === undefined) return undefined;
-      cur = cur[parts[i]];
-    }
-    return cur;
+  function get(path) {
+    if (!path) return undefined;
+    return path.split(".").reduce(function (acc, k) {
+      return acc == null ? acc : acc[k];
+    }, cfg);
   }
 
   function isPlaceholder(v) {
-    if (typeof v === "string" && v.indexOf(PLACEHOLDER) === 0) return true;
-    return false;
+    return typeof v === "string" && v.indexOf("[CLIENT TO CONFIRM]") !== -1;
   }
 
-  function isMeaningful(v) {
-    if (v === null || v === undefined) return false;
-    if (typeof v === "string") {
-      var s = v.trim();
-      if (!s) return false;
-      if (isPlaceholder(s)) return false;
-      return true;
-    }
-    if (Array.isArray(v)) {
-      if (!v.length) return false;
-      // empty if every entry is empty/placeholder
-      for (var i = 0; i < v.length; i++) {
-        if (isMeaningful(v[i])) return true;
-      }
-      return false;
-    }
-    if (typeof v === "object") return Object.keys(v).length > 0;
-    return true; // booleans, numbers
-  }
-
-  function toText(v) {
-    if (v === null || v === undefined) return "";
-    if (Array.isArray(v)) return v.filter(isMeaningful).join(", ");
-    return String(v);
-  }
-
-  // A fallback is "obviously authoring shorthand" (e.g. $XXX, [TBD], ...)
-  // and therefore safe to overwrite with a placeholder badge. Anything else
-  // is treated as real content and is left alone — this protects retrofitted
-  // pages whose `data-bind` fallback is the production copy.
-  function isObviousAuthoringStub(text) {
-    if (!text) return true;
-    var t = String(text).trim();
-    if (!t) return true;
-    if (t.length <= 3) return true;
-    if (/^\[.*\]$/.test(t)) return true;                 // [TBD], [TODO], etc.
-    if (/^\$?[X\u2026\u2014\u2013\-\.]+$/.test(t)) return true; // $XXX, XXX, …
-    return false;
-  }
-
-  function applyText(el, value) {
-    if (value === undefined) return;                       // leave fallback
-    if (isPlaceholder(value)) {
-      // Only stamp the QA-yellow placeholder when the existing fallback is
-      // obvious authoring shorthand. Real production copy is preserved.
-      if (isObviousAuthoringStub(el.textContent)) {
-        el.textContent = PLACEHOLDER;
-        el.classList.add("lp-placeholder");
-      }
+  function render(value, host) {
+    if (value == null || value === "") {
+      // Leave the existing default content (page already has fallback copy).
       return;
     }
-    if (!isMeaningful(value)) return;                      // leave fallback
-    el.textContent = toText(value);
-    el.classList.remove("lp-placeholder");
-  }
-
-  function applyAttrs(el, spec, cfg) {
-    if (!spec) return;
-    var pairs = spec.split(";");
-    for (var i = 0; i < pairs.length; i++) {
-      var p = pairs[i].trim();
-      if (!p) continue;
-      var idx = p.indexOf(":");
-      if (idx === -1) continue;
-      var attr = p.slice(0, idx).trim();
-      var path = p.slice(idx + 1).trim();
-      var v = resolve(path, cfg);
-      if (v === undefined || v === null || isPlaceholder(v) || v === "") continue;
-      el.setAttribute(attr, toText(v));
+    if (Array.isArray(value)) {
+      host.textContent = value.join(", ");
+    } else if (isPlaceholder(value)) {
+      host.textContent = value;
+      host.classList.add("lp-placeholder");
+      host.title = "This value is awaiting client confirmation in landing-config.js";
+    } else {
+      host.textContent = value;
     }
   }
 
-  function renderTemplate(tpl, item) {
-    if (item === null || item === undefined) return "";
-    if (typeof item !== "object" || Array.isArray(item)) {
-      return tpl.replace(/\{value\}/g, escapeHtml(toText(item)));
-    }
-    return tpl.replace(/\{([a-zA-Z0-9_]+)\}/g, function (_, k) {
-      return escapeHtml(toText(item[k]));
+  function bindText(root) {
+    root.querySelectorAll("[data-bind]").forEach(function (el) {
+      var path = el.getAttribute("data-bind");
+      var v = get(path);
+      render(v, el);
     });
   }
 
-  function escapeHtml(s) {
-    return String(s)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#39;");
+  function bindAttr(root) {
+    root.querySelectorAll("[data-bind-attr]").forEach(function (el) {
+      var spec = el.getAttribute("data-bind-attr");
+      // Format: "attr1:path1; attr2:path2"
+      spec.split(";").forEach(function (pair) {
+        var p = pair.trim();
+        if (!p) return;
+        var i = p.indexOf(":");
+        if (i < 0) return;
+        var attr = p.slice(0, i).trim();
+        var path = p.slice(i + 1).trim();
+        var v = get(path);
+        if (v != null && !isPlaceholder(v)) el.setAttribute(attr, v);
+      });
+    });
   }
 
-  function applyList(el, listVal, tpl) {
-    if (!Array.isArray(listVal)) return;
-    var meaningful = listVal.filter(isMeaningful);
-    if (!meaningful.length) return;       // leave fallback markup
-    var html = meaningful.map(function (item) {
-      return renderTemplate(tpl, item);
-    }).join("");
-    el.innerHTML = html;
-  }
-
-  function applyShow(el, value) {
-    if (!isMeaningful(value)) {
-      el.style.display = "none";
-    }
-  }
-
-  // ---------- pass over the DOM ---------------------------------------------
-
-  function hydrate(cfg) {
-    if (!cfg) return;
-
-    // 1. data-bind-show first, so subsequent passes skip hidden subtrees if any
-    var showEls = document.querySelectorAll("[data-bind-show]");
-    for (var i = 0; i < showEls.length; i++) {
-      var path = showEls[i].getAttribute("data-bind-show");
-      applyShow(showEls[i], resolve(path, cfg));
-    }
-
-    // 2. data-bind-list
-    var listEls = document.querySelectorAll("[data-bind-list]");
-    for (var j = 0; j < listEls.length; j++) {
-      var el = listEls[j];
-      var p = el.getAttribute("data-bind-list");
+  function bindList(root) {
+    root.querySelectorAll("[data-bind-list]").forEach(function (el) {
+      var path = el.getAttribute("data-bind-list");
       var tpl = el.getAttribute("data-bind-list-tpl") || "<li>{value}</li>";
-      applyList(el, resolve(p, cfg), tpl);
-    }
-
-    // 3. data-bind-attr
-    var attrEls = document.querySelectorAll("[data-bind-attr]");
-    for (var k = 0; k < attrEls.length; k++) {
-      applyAttrs(attrEls[k], attrEls[k].getAttribute("data-bind-attr"), cfg);
-    }
-
-    // 4. data-bind (text)
-    var bindEls = document.querySelectorAll("[data-bind]");
-    for (var l = 0; l < bindEls.length; l++) {
-      var bp = bindEls[l].getAttribute("data-bind");
-      applyText(bindEls[l], resolve(bp, cfg));
-    }
+      var v = get(path);
+      if (!Array.isArray(v) || v.length === 0) return;
+      // Skip placeholder-only lists ([CLIENT TO CONFIRM] entries).
+      var clean = v.filter(function (x) { return !isPlaceholder(x); });
+      if (!clean.length) return;
+      el.innerHTML = clean.map(function (item) {
+        if (item && typeof item === "object") {
+          // Replace {key} for each property
+          return tpl.replace(/\{(\w+)\}/g, function (_, k) {
+            return item[k] == null ? "" : String(item[k]);
+          });
+        }
+        return tpl.replace(/\{value\}/g, String(item));
+      }).join("");
+    });
   }
 
-  // ---------- tracking -------------------------------------------------------
-
-  function mrxTrack(eventName) {
-    if (typeof eventName !== "string" || !eventName) return;
-    try {
-      if (typeof window.gtag === "function") {
-        window.gtag("event", eventName);
-      }
-    } catch (e) { /* swallow */ }
-    try {
-      if (typeof window.fbq === "function") {
-        window.fbq("trackCustom", eventName);
-      }
-    } catch (e) { /* swallow */ }
-    try { console.debug("[mrx.track]", eventName); } catch (e) {}
+  function bindShow(root) {
+    root.querySelectorAll("[data-bind-show]").forEach(function (el) {
+      var path = el.getAttribute("data-bind-show");
+      var v = get(path);
+      var truthy = !(v == null || v === "" || isPlaceholder(v) || (Array.isArray(v) && v.length === 0));
+      if (!truthy) el.style.display = "none";
+    });
   }
 
-  window.mrxTrack = mrxTrack;
-
-  // Delegate click tracking
-  document.addEventListener("click", function (ev) {
-    var el = ev.target;
-    while (el && el !== document.body) {
-      if (el.hasAttribute && el.hasAttribute("data-track")) {
-        mrxTrack(el.getAttribute("data-track"));
-        return;
-      }
-      el = el.parentNode;
+  /* ---------- Privacy-safe tracking ---------- */
+  function track(eventName) {
+    if (typeof window.gtag === "function") {
+      window.gtag("event", eventName);
     }
-  }, true);
-
-  // ---------- boot -----------------------------------------------------------
-
-  function boot() {
-    var cfg = window.MRX_CONFIG || {};
-    try {
-      hydrate(cfg);
-    } catch (e) {
-      try { console.warn("[mrx.render] hydration failed", e); } catch (_) {}
+    if (typeof window.fbq === "function") {
+      window.fbq("trackCustom", eventName);
     }
-    mrxTrack("page_view");
+    if (typeof console !== "undefined" && console.debug) {
+      console.debug("[site.track]", eventName);
+    }
+  }
+  window.siteTrack = track;
+
+  function bindTracking(root) {
+    root.addEventListener("click", function (e) {
+      var t = e.target.closest("[data-track]");
+      if (!t) return;
+      track(t.getAttribute("data-track"));
+    });
+  }
+
+  function init() {
+    var root = document;
+    bindText(root);
+    bindAttr(root);
+    bindList(root);
+    bindShow(root);
+    bindTracking(root);
+    track("page_view");
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", boot);
+    document.addEventListener("DOMContentLoaded", init);
   } else {
-    boot();
+    init();
   }
 })();
