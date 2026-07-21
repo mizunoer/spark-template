@@ -1,0 +1,230 @@
+<meta charset="utf-8">
+<title>Mythic Rx — Direction 1: Clinical Precision</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{
+  --ink:#0B1B2E; --primary:#1B5FAA; --primary-dark:#14477F; --tint:#E9F1FA;
+  --accent:#D9822B; --surface:#fff; --bg:#F7F9FC; --border:#DCE5EF;
+  --text:#1E2A38; --muted:#5B6B7C;
+  --sans:"Segoe UI",-apple-system,BlinkMacSystemFont,Inter,Roboto,Helvetica,Arial,sans-serif;
+  --r:8px;
+}
+*{box-sizing:border-box} html,body{margin:0}
+body{font-family:var(--sans);color:var(--text);background:var(--bg);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+
+/* review banner */
+.review{background:#111;color:#fff;padding:9px 0;font-size:12.5px;letter-spacing:.3px}
+.review .wrap{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.review b{color:#7FC4FF}
+.review a{color:#fff;opacity:.75;text-decoration:none;margin-left:auto}
+
+/* nav */
+.nav{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10}
+.nav .wrap{display:flex;align-items:center;gap:32px;height:74px}
+.nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0;font-size:14.5px}
+.nav a{color:var(--text);text-decoration:none}
+.nav a:hover{color:var(--primary)}
+.nav .right{margin-left:auto;display:flex;gap:12px;align-items:center}
+.btn{display:inline-block;border-radius:var(--r);padding:11px 20px;font-size:14.5px;font-weight:600;text-decoration:none;border:1px solid transparent}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{background:var(--primary-dark)}
+.btn-ghost{border-color:var(--border);color:var(--text)}
+.btn-accent{background:var(--accent);color:#fff}
+
+/* hero */
+.hero{background:linear-gradient(180deg,#fff 0%,var(--tint) 100%);border-bottom:1px solid var(--border);padding:70px 0 64px}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+.eyebrow{font-size:11.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--primary)}
+h1{font-size:47px;line-height:1.1;margin:14px 0 16px;color:var(--ink);letter-spacing:-.8px;font-weight:700}
+.lead{font-size:18px;color:var(--muted);max-width:46ch;margin:0 0 28px}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap}
+
+/* spec panel — B2B credibility device */
+.spec{background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:0 8px 30px rgba(11,27,46,.07);overflow:hidden}
+.spec h4{margin:0;padding:14px 18px;background:var(--ink);color:#fff;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;font-weight:600}
+.spec .row{display:flex;justify-content:space-between;gap:12px;padding:12px 18px;border-bottom:1px solid var(--border);font-size:14px}
+.spec .row:last-child{border-bottom:none}
+.spec .row span:first-child{color:var(--muted)}
+.spec .row span:last-child{font-weight:600;color:var(--ink)}
+
+/* trust bar */
+.trust{background:var(--ink);color:#fff;padding:20px 0}
+.trust .wrap{display:flex;gap:38px;flex-wrap:wrap;justify-content:space-between;font-size:13.5px}
+.trust div{display:flex;gap:9px;align-items:center;opacity:.92}
+.trust svg{flex:none}
+
+/* cards */
+section.cap{padding:72px 0}
+.sechead{max-width:60ch;margin-bottom:36px}
+.sechead h2{font-size:31px;color:var(--ink);margin:8px 0 10px;letter-spacing:-.4px}
+.sechead p{color:var(--muted);margin:0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:26px 24px}
+.card .ic{width:42px;height:42px;border-radius:var(--r);background:var(--tint);display:grid;place-items:center;margin-bottom:16px}
+.card h3{margin:0 0 8px;font-size:17.5px;color:var(--ink)}
+.card p{margin:0;color:var(--muted);font-size:14.5px}
+
+/* cta band */
+.band{background:var(--primary);color:#fff;padding:52px 0}
+.band .wrap{display:flex;align-items:center;gap:30px;flex-wrap:wrap}
+.band h2{margin:0 0 6px;font-size:27px;letter-spacing:-.3px}
+.band p{margin:0;opacity:.9}
+.band .btn{margin-left:auto}
+
+footer{background:var(--ink);color:#9FB2C6;padding:40px 0;font-size:13.5px}
+
+/* palette / rationale */
+.review-sec{background:#fff;border-top:4px solid var(--ink);padding:56px 0}
+.sw{display:flex;gap:0;border-radius:var(--r);overflow:hidden;border:1px solid var(--border);margin:18px 0 26px}
+.sw div{flex:1;height:86px;display:flex;align-items:flex-end;padding:8px;font-size:10.5px;font-family:ui-monospace,monospace}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.two h4{margin:0 0 8px;font-size:13px;letter-spacing:.6px;text-transform:uppercase;color:var(--primary)}
+.two ul{margin:0;padding-left:18px;color:var(--muted);font-size:14.5px}
+.two li{margin-bottom:6px}
+@media(max-width:900px){.hero .wrap,.grid,.two{grid-template-columns:1fr}h1{font-size:36px}}
+</style>
+
+<div class="review">
+  <div class="wrap"><b>DIRECTION 1 of 3</b> · Clinical Precision — navy + clinical blue, geometric mark. The conservative, highest-credibility option.
+  <a href="index.html">← back to all three</a></div>
+</div>
+
+<nav class="nav"><div class="wrap">
+  <!-- LOGO: geometric mark + grotesque wordmark. No mysticism. -->
+  <svg viewBox="0 0 172 40" width="172" height="40" role="img" aria-label="Mythic Rx">
+    <g transform="translate(1,2) scale(0.75)">
+      <path d="M24 2 L43.05 13 L43.05 35 L24 46 L4.95 35 L4.95 13 Z" fill="#1B5FAA"/>
+      <path d="M16 33 L16 15 L24 27 L32 15 L32 33" fill="none" stroke="#FFFFFF" stroke-width="4"/>
+    </g>
+    <text x="44" y="28" font-family="Segoe UI,Inter,Helvetica,Arial,sans-serif" font-size="24" font-weight="600" letter-spacing="0.4" fill="#0B1B2E">Mythic <tspan font-weight="700" fill="#1B5FAA">Rx</tspan></text>
+  </svg>
+  <ul><li><a href="#">Services</a></li><li><a href="#">Formulary</a></li><li><a href="#">New Providers</a></li><li><a href="#">About</a></li></ul>
+  <div class="right"><a class="btn btn-ghost" href="#">Provider Portal</a><a class="btn btn-primary" href="#">Become a Partner</a></div>
+</div></nav>
+
+<div class="hero"><div class="wrap">
+  <div>
+    <div class="eyebrow">503A Compounding Pharmacy</div>
+    <h1>Precision Compounding for Modern Clinics</h1>
+    <p class="lead">Patient-specific formulations prepared to USP standards, dispensed on your clinic's schedule — with the documentation your compliance team expects.</p>
+    <div class="cta-row"><a class="btn btn-primary" href="#">Become a Provider Partner</a><a class="btn btn-ghost" href="#">View Formulary</a></div>
+  </div>
+  <div class="spec">
+    <h4>Facility Credentials</h4>
+    <div class="row"><span>Classification</span><span>503A Patient-Specific</span></div>
+    <div class="row"><span>Sterile standard</span><span>USP &lt;797&gt;</span></div>
+    <div class="row"><span>Non-sterile standard</span><span>USP &lt;795&gt;</span></div>
+    <div class="row"><span>State licensure</span><span>UT · DOPL Verified</span></div>
+    <div class="row"><span>Typical turnaround</span><span>24–48 hours</span></div>
+  </div>
+</div></div>
+
+<div class="trust"><div class="wrap">
+  <div><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1l6 2.5v4C14 11 11.5 14 8 15 4.5 14 2 11 2 7.5v-4L8 1z" stroke="#4E9BE8" stroke-width="1.5"/></svg> DOPL-licensed facility</div>
+  <div><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 5" stroke="#4E9BE8" stroke-width="1.8" stroke-linecap="round"/></svg> USP &lt;795&gt; / &lt;797&gt; compliant</div>
+  <div><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#4E9BE8" stroke-width="1.5"/><path d="M8 5v3.5L10 10" stroke="#4E9BE8" stroke-width="1.5" stroke-linecap="round"/></svg> 24–48 hour turnaround</div>
+  <div><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2.5" y="3" width="11" height="10" rx="1.5" stroke="#4E9BE8" stroke-width="1.5"/><path d="M5.5 6.5h5M5.5 9.5h3" stroke="#4E9BE8" stroke-width="1.5" stroke-linecap="round"/></svg> Full batch documentation</div>
+</div></div>
+
+<section class="cap"><div class="wrap">
+  <div class="sechead">
+    <div class="eyebrow">What we do</div>
+    <h2>Built around the prescriber, not the patient funnel</h2>
+    <p>Mythic Rx is a B2B compounding partner. Everything is designed for the clinic operator who has to defend the choice.</p>
+  </div>
+  <div class="grid">
+    <div class="card"><div class="ic"><svg width="21" height="21" viewBox="0 0 24 24" fill="none"><path d="M9 3v6L4 19a2 2 0 002 2h12a2 2 0 002-2L15 9V3" stroke="#1B5FAA" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 3h8" stroke="#1B5FAA" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+      <h3>Patient-specific formulation</h3><p>Strengths, bases, and delivery forms compounded to the individual prescription — not batch-manufactured stock.</p></div>
+    <div class="card"><div class="ic"><svg width="21" height="21" viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="18" rx="2" stroke="#1B5FAA" stroke-width="1.8"/><path d="M8 8h8M8 12h8M8 16h5" stroke="#1B5FAA" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+      <h3>Documentation that survives audit</h3><p>Batch records, beyond-use dating, and ingredient sourcing available for every dispense.</p></div>
+    <div class="card"><div class="ic"><svg width="21" height="21" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.5" stroke="#1B5FAA" stroke-width="1.8"/><path d="M4.5 20a7.5 7.5 0 0115 0" stroke="#1B5FAA" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+      <h3>Direct provider channel</h3><p>A named pharmacist on your account — not a queue. Portal ordering with status back to your staff.</p></div>
+  </div>
+</div></section>
+
+<div class="band"><div class="wrap">
+  <div><h2>Onboard your clinic in under a week</h2><p>Licensure verification, formulary review, and portal access.</p></div>
+  <a class="btn btn-accent" href="#">Start Partner Onboarding</a>
+</div></div>
+
+<footer><div class="wrap">© 2026 Mythic Rx · 503A Compounding Pharmacy · Salt Lake City, UT — <em>mockup for brand review only</em></div></footer>
+
+<div class="review-sec"><div class="wrap">
+  <h2 style="margin:0;color:var(--ink);font-size:24px">Direction 1 — Clinical Precision</h2>
+  <div class="sw">
+    <div style="background:#0B1B2E;color:#fff">#0B1B2E ink</div>
+    <div style="background:#1B5FAA;color:#fff">#1B5FAA primary</div>
+    <div style="background:#4E9BE8;color:#08243f">#4E9BE8 lift</div>
+    <div style="background:#E9F1FA;color:#0B1B2E">#E9F1FA tint</div>
+    <div style="background:#D9822B;color:#fff">#D9822B signal</div>
+    <div style="background:#F7F9FC;color:#5B6B7C">#F7F9FC bg</div>
+  </div>
+  <div class="two">
+    <div><h4>Why this works</h4><ul>
+      <li>Blue is the most-trusted colour in clinical settings — it reads pharmacy, not supplement shop.</li>
+      <li>The geometric mark can't be mistaken for a wellness or beauty brand.</li>
+      <li>Amber CTA gives a single, unmistakable action colour (the current brand has none).</li>
+      <li>Reads credible to a physician reviewing you in 5 seconds.</li>
+    </ul></div>
+    <div><h4>Trade-off to discuss</h4><ul>
+      <li>Safest and least distinctive — many pharmacies use navy/blue.</li>
+      <li>Leans away from the "Mythic" name's character entirely.</li>
+      <li>Best pick if credibility with prescribers outranks standing out.</li>
+    </ul></div>
+  </div>
+</div></div>
+
+<style>
+.logolab{background:#fff;border-top:1px solid #E3E6ED;padding:56px 0 72px}
+.logolab h2{margin:0 0 6px;font-size:23px;color:#0B1B2E}
+.logolab .note{color:#5B6B7C;margin:0 0 26px;font-size:14.5px}
+.lgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.lcell{margin:0;cursor:zoom-in}
+.lbox{border:1px solid #E3E6ED;border-radius:10px;height:132px;display:grid;place-items:center;padding:16px;transition:.15s;background:#fff}
+.lcell:hover .lbox{border-color:#1B5FAA;box-shadow:0 6px 22px rgba(11,27,46,.12)}
+.lbox.dark{background:#0B1B2E;border-color:#22344A}
+.lbox svg{max-width:100%;height:auto}
+.lbox.tiny svg{width:24px;height:24px}
+.lcell figcaption{font-size:12px;color:#5B6B7C;margin-top:9px;text-align:center}
+#lbx{display:none;position:fixed;inset:0;background:rgba(10,14,22,.93);z-index:999;place-items:center;cursor:zoom-out;padding:40px}
+#lbx.on{display:grid}
+#lbxin{background:#fff;border-radius:14px;padding:58px;display:grid;place-items:center;max-width:92vw}
+#lbxin.ondark{background:#0B1B2E}
+#lbxin svg{width:min(70vw,720px);height:auto}
+#lbx b{position:fixed;bottom:26px;left:0;right:0;text-align:center;color:#9AA3B2;font-size:12.5px;font-weight:400}
+@media(max-width:900px){.lgrid{grid-template-columns:1fr 1fr}}
+</style>
+
+<div class="logolab"><div class="wrap">
+  <h2>Logo — click any version to enlarge</h2>
+  <p class="note">Primary lockup, reversed for dark backgrounds, the standalone mark, and a 24px legibility test (favicon size).</p>
+  <div class="lgrid">
+    <figure class="lcell" onclick="zoomLogo(this)"><div class="lbox">
+      <svg viewBox="0 0 172 40" width="172" height="40" role="img" aria-label="Mythic Rx primary"><g transform="translate(1,2) scale(0.75)"><path d="M24 2 L43.05 13 L43.05 35 L24 46 L4.95 35 L4.95 13 Z" fill="#1B5FAA"/><path d="M16 33 L16 15 L24 27 L32 15 L32 33" fill="none" stroke="#FFFFFF" stroke-width="4"/></g><text x="44" y="28" font-family="Segoe UI,Inter,Helvetica,Arial,sans-serif" font-size="24" font-weight="600" letter-spacing="0.4" fill="#0B1B2E">Mythic <tspan font-weight="700" fill="#1B5FAA">Rx</tspan></text></svg>
+    </div><figcaption>Primary · light background</figcaption></figure>
+
+    <figure class="lcell" onclick="zoomLogo(this)"><div class="lbox dark">
+      <svg viewBox="0 0 172 40" width="172" height="40" role="img" aria-label="Mythic Rx reversed"><g transform="translate(1,2) scale(0.75)"><path d="M24 2 L43.05 13 L43.05 35 L24 46 L4.95 35 L4.95 13 Z" fill="#1B5FAA"/><path d="M16 33 L16 15 L24 27 L32 15 L32 33" fill="none" stroke="#FFFFFF" stroke-width="4"/></g><text x="44" y="28" font-family="Segoe UI,Inter,Helvetica,Arial,sans-serif" font-size="24" font-weight="600" letter-spacing="0.4" fill="#FFFFFF">Mythic <tspan font-weight="700" fill="#4E9BE8">Rx</tspan></text></svg>
+    </div><figcaption>Reversed · dark background</figcaption></figure>
+
+    <figure class="lcell" onclick="zoomLogo(this)"><div class="lbox">
+      <svg viewBox="0 0 48 48" width="76" height="76" role="img" aria-label="Mythic Rx mark"><path d="M24 2 L43.05 13 L43.05 35 L24 46 L4.95 35 L4.95 13 Z" fill="#1B5FAA"/><path d="M16 33 L16 15 L24 27 L32 15 L32 33" fill="none" stroke="#FFFFFF" stroke-width="4"/></svg>
+    </div><figcaption>Mark · app icon &amp; favicon</figcaption></figure>
+
+    <figure class="lcell" onclick="zoomLogo(this)"><div class="lbox tiny">
+      <svg viewBox="0 0 48 48" width="24" height="24" role="img" aria-label="Mythic Rx mark at 24px"><path d="M24 2 L43.05 13 L43.05 35 L24 46 L4.95 35 L4.95 13 Z" fill="#1B5FAA"/><path d="M16 33 L16 15 L24 27 L32 15 L32 33" fill="none" stroke="#FFFFFF" stroke-width="4"/></svg>
+    </div><figcaption>24px legibility test</figcaption></figure>
+  </div>
+</div></div>
+
+<div id="lbx" onclick="this.classList.remove('on')"><div id="lbxin"></div><b>click anywhere to close</b></div>
+<script>
+function zoomLogo(el){
+  var svg=el.querySelector('svg'), box=el.querySelector('.lbox'), i=document.getElementById('lbxin');
+  i.innerHTML=svg.outerHTML;
+  i.className = box.classList.contains('dark') ? 'ondark' : '';
+  document.getElementById('lbx').classList.add('on');
+}
+document.addEventListener('keydown',function(e){ if(e.key==='Escape') document.getElementById('lbx').classList.remove('on'); });
+</script>

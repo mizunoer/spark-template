@@ -1,0 +1,161 @@
+<meta charset="utf-8">
+<title>Mythic Rx — Brand Direction Review (3 options)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{--ink:#15171C;--muted:#61697A;--line:#E3E6ED;--bg:#F7F8FB;--accent:#2F6FE4;
+  --sans:"Segoe UI",-apple-system,BlinkMacSystemFont,Inter,Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"Cascadia Code",Consolas,monospace;}
+*{box-sizing:border-box} html,body{margin:0}
+body{font-family:var(--sans);color:var(--ink);background:var(--bg);font-size:16px;line-height:1.6}
+.wrap{max-width:1100px;margin:0 auto;padding:0 28px}
+header{background:var(--ink);color:#fff;padding:46px 0 40px}
+header h1{margin:8px 0 10px;font-size:34px;letter-spacing:-.6px}
+header p{margin:0;color:#AEB6C6;max-width:66ch}
+.kicker{font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#7FB0FF}
+
+section{padding:52px 0}
+h2{font-size:23px;margin:0 0 6px;letter-spacing:-.3px}
+.sub{color:var(--muted);margin:0 0 26px;max-width:70ch}
+
+.problem{background:#fff;border:1px solid var(--line);border-left:4px solid #D9534F;border-radius:8px;padding:24px 26px;margin-bottom:22px}
+.problem h3{margin:0 0 12px;font-size:17px}
+.problem ul{margin:0;padding-left:19px;color:var(--muted)}
+.problem li{margin-bottom:8px}
+.problem b{color:var(--ink)}
+.current{display:flex;gap:26px;align-items:center;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:8px;padding:22px 26px}
+.current img{max-width:230px;height:auto}
+.swatches{display:flex;gap:0;border-radius:6px;overflow:hidden;border:1px solid var(--line)}
+.swatches div{width:52px;height:52px}
+.cap{font-family:var(--mono);font-size:10.5px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+
+.opts{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.opt{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.opt .top{padding:26px 22px 20px;border-bottom:1px solid var(--line);min-height:104px;display:flex;align-items:center;justify-content:center}
+.opt .body{padding:20px 22px 24px;display:flex;flex-direction:column;flex:1}
+.opt h3{margin:0 0 4px;font-size:19px}
+.opt .who{font-family:var(--mono);font-size:10.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.opt p{margin:0 0 16px;color:var(--muted);font-size:14.5px;flex:1}
+.opt .sw{display:flex;border-radius:5px;overflow:hidden;border:1px solid var(--line);margin-bottom:16px}
+.opt .sw div{flex:1;height:34px}
+.view{display:block;text-align:center;background:var(--ink);color:#fff;text-decoration:none;padding:11px;border-radius:6px;font-size:14px;font-weight:600}
+.view:hover{background:var(--accent)}
+
+.how{background:#fff;border:1px solid var(--line);border-radius:8px;padding:24px 26px}
+.how ol{margin:10px 0 0;padding-left:20px;color:var(--muted)}
+.how li{margin-bottom:9px}
+.how b{color:var(--ink)}
+footer{padding:34px 0 60px;color:var(--muted);font-size:13.5px}
+@media(max-width:900px){.opts{grid-template-columns:1fr}}
+</style>
+
+<header><div class="wrap">
+  <div class="kicker">Brand review · internal</div>
+  <h1>Mythic Rx — three brand directions to choose from</h1>
+  <p>Pick one direction (or tell us what to combine). Each link below is a full working homepage mockup using Mythic's real copy, so you can judge it in context rather than from a swatch.</p>
+</div></header>
+
+<section><div class="wrap">
+  <h2>Why we're changing it</h2>
+  <p class="sub">The current identity works against what Mythic actually sells. Four concrete problems:</p>
+  <div class="problem">
+    <h3>What's wrong today</h3>
+    <ul>
+      <li><b>The palette was inherited, not designed.</b> The CSS variables are still named <code>--mrx-blue</code>, <code>--mrx-cyan</code>, <code>--mrx-navy</code>, <code>--mrx-teal</code> — but every one of them holds a <em>green</em> value. The Mythic palette was made by find-replacing hexes into the sister consumer brand's theme.</li>
+      <li><b>Olive/forest green + pale gold reads "herbal supplement."</b> That's the opposite of the sterile-compounding, USP-compliant rigor a prescriber needs to see.</li>
+      <li><b>The logo says wellness, not pharmacy.</b> A high-contrast fashion serif with a crescent moon replacing the "c" reads celestial/beauty. Mythic sells to physicians, where mysticism undercuts credibility.</li>
+      <li><b>The logo colour doesn't even match the site.</b> The lockup is olive; the site's primary is <code>#1E6B3A</code> forest green. They disagree on every page.</li>
+    </ul>
+  </div>
+  <div class="current">
+    <div>
+      <div class="cap" style="margin-bottom:8px">Current logo</div>
+      <img src="../mythic_rx_brand_kit/logo/mythic-rx-primary-horizontal.png" alt="Current Mythic Rx logo">
+    </div>
+    <div>
+      <div class="cap" style="margin-bottom:8px">Current palette</div>
+      <div class="swatches">
+        <div style="background:#1E6B3A"></div><div style="background:#0F4D2E"></div><div style="background:#0B3A20"></div>
+        <div style="background:#072517"></div><div style="background:#CFE3CC"></div><div style="background:#F8DE70"></div>
+      </div>
+    </div>
+    <div style="flex:1;min-width:220px;color:var(--muted);font-size:14.5px">
+      The site's own tagline is <b style="color:var(--ink)">"Precision Compounding for Modern Clinics."</b> The words are right — the visuals contradict them.
+    </div>
+  </div>
+</div></section>
+
+<section style="padding-top:8px"><div class="wrap">
+  <h2>The three directions</h2>
+  <p class="sub">These are deliberately different in structure, type and feel — not three recolours of the same page. (Recolouring a template is how we got here.)</p>
+  <div class="opts">
+
+    <div class="opt">
+      <div class="top" style="background:#0B1B2E">
+        <svg viewBox="0 0 172 40" width="180" height="42" role="img" aria-label="Mythic Rx">
+          <g transform="translate(1,2) scale(0.75)">
+            <path d="M24 2 L43.05 13 L43.05 35 L24 46 L4.95 35 L4.95 13 Z" fill="#1B5FAA"/>
+            <path d="M16 33 L16 15 L24 27 L32 15 L32 33" fill="none" stroke="#FFFFFF" stroke-width="4"/>
+          </g>
+          <text x="44" y="28" font-family="Segoe UI,Inter,Helvetica,Arial,sans-serif" font-size="24" font-weight="600" letter-spacing="0.4" fill="#FFFFFF">Mythic <tspan font-weight="700" fill="#4E9BE8">Rx</tspan></text>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="who">Direction 1 · safest</div>
+        <h3>Clinical Precision</h3>
+        <p>Navy + clinical blue with a geometric mark. Maximum credibility with prescribers; the option nobody can object to. Trade-off: least distinctive.</p>
+        <div class="sw"><div style="background:#0B1B2E"></div><div style="background:#1B5FAA"></div><div style="background:#4E9BE8"></div><div style="background:#E9F1FA"></div><div style="background:#D9822B"></div></div>
+        <a class="view" href="option-1-clinical.html">View full mockup →</a>
+      </div>
+    </div>
+
+    <div class="opt">
+      <div class="top" style="background:#F5F1E8">
+        <svg viewBox="0 0 208 44" width="200" height="42" role="img" aria-label="Mythic Rx">
+          <text x="0" y="32" font-family="Georgia,'Times New Roman',serif" font-size="30" font-weight="bold" letter-spacing="4" fill="#16181C">MYTHIC</text>
+          <text x="208" y="32" text-anchor="end" font-family="Georgia,'Times New Roman',serif" font-size="30" font-weight="bold" fill="#A9663A">Rx</text>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="who">Direction 2 · most premium</div>
+        <h3>Modern Apothecary</h3>
+        <p>Ink, bone &amp; copper with a mortar-and-pestle mark. Keeps the "Mythic" name meaningful — storied, not occult — and justifies premium pricing.</p>
+        <div class="sw"><div style="background:#16181C"></div><div style="background:#A9663A"></div><div style="background:#3B4A42"></div><div style="background:#F5F1E8"></div><div style="background:#EBE5D8"></div></div>
+        <a class="view" href="option-2-apothecary.html">View full mockup →</a>
+      </div>
+    </div>
+
+    <div class="opt">
+      <div class="top" style="background:#14161B">
+        <svg viewBox="0 0 200 40" width="200" height="40" role="img" aria-label="Mythic Rx">
+          <path d="M9.2 33.3 L16.2 6.9 L24.1 26.3 L32 6.9 L39.1 33.3" fill="none" stroke="#7C6FF0" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="9.2" cy="33.3" r="3.3" fill="#FFFFFF"/><circle cx="16.2" cy="6.9" r="3.3" fill="#FFFFFF"/>
+          <circle cx="32" cy="6.9" r="3.3" fill="#FFFFFF"/><circle cx="39.1" cy="33.3" r="3.3" fill="#FFFFFF"/>
+          <circle cx="24.1" cy="26.3" r="4.4" fill="#3DDC97" stroke="#14161B" stroke-width="1.8"/>
+          <text x="52" y="30.5" font-family="Segoe UI, Inter, Helvetica, Arial, sans-serif" font-size="30" letter-spacing="0.3" fill="#FFFFFF" font-weight="600">Mythic <tspan fill="#7C6FF0" font-weight="700">Rx</tspan></text>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="who">Direction 3 · boldest</div>
+        <h3>Molecular</h3>
+        <p>Graphite, indigo &amp; mint with a molecule mark. Says <em>chemistry</em> — the actual work — and looks like the most modern partner in the market.</p>
+        <div class="sw"><div style="background:#14161B"></div><div style="background:#5B4BE0"></div><div style="background:#7C6FF0"></div><div style="background:#3DDC97"></div><div style="background:#F2F3F7"></div></div>
+        <a class="view" href="option-3-molecular.html">View full mockup →</a>
+      </div>
+    </div>
+
+  </div>
+</div></section>
+
+<section style="padding-top:8px"><div class="wrap">
+  <div class="how">
+    <h2 style="margin-bottom:4px">How to give feedback</h2>
+    <ol>
+      <li><b>Open all three mockups</b> and look at each for five seconds, the way a busy physician would.</li>
+      <li>Ask: <b>"would I trust this pharmacy with a patient-specific prescription?"</b> — that's the only question that matters here.</li>
+      <li>Tell us <b>one direction</b>, plus anything you'd borrow from the others (e.g. "Direction 1's colours, Direction 2's logo").</li>
+      <li>Nothing here is final — the chosen direction becomes a full brand kit (logo variants, favicon, email signature, social) before any of it ships.</li>
+    </ol>
+  </div>
+</div></section>
+
+<footer><div class="wrap">Mockups for internal brand review only · not live pages · Mythic Rx 503A Compounding Pharmacy</div></footer>

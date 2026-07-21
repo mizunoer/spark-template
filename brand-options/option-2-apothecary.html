@@ -1,0 +1,200 @@
+<meta charset="utf-8">
+<title>Mythic Rx — Direction 2: Modern Apothecary</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{
+  --ink:#16181C; --bone:#F5F1E8; --bone-deep:#EBE5D8; --copper:#A9663A;
+  --sage:#3B4A42; --rule:#D5CDBC; --muted:#6B6459; --paper:#FBF9F4;
+  --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
+  --sans:"Segoe UI",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box} html,body{margin:0}
+body{font-family:var(--sans);color:var(--ink);background:var(--paper);font-size:16px;line-height:1.6}
+.wrap{max-width:1060px;margin:0 auto;padding:0 30px}
+.sc{font-size:11px;letter-spacing:2.6px;text-transform:uppercase;font-weight:600}
+
+.review{background:#111;color:#fff;padding:9px 0;font-size:12.5px}
+.review .wrap{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.review b{color:#E0A672}
+.review a{color:#fff;opacity:.75;text-decoration:none;margin-left:auto}
+
+/* nav — thin rules, no shadow, editorial */
+.nav{background:var(--paper);border-bottom:1px solid var(--rule)}
+.nav .wrap{display:flex;align-items:center;height:88px;gap:40px}
+.nav ul{display:flex;gap:30px;list-style:none;margin:0 0 0 auto;padding:0}
+.nav a{color:var(--ink);text-decoration:none;font-size:13px;letter-spacing:1.4px;text-transform:uppercase;font-weight:600}
+.nav a:hover{color:var(--copper)}
+.linkbtn{border:1px solid var(--ink);padding:10px 18px;text-decoration:none;color:var(--ink);font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:600;display:inline-block}
+.linkbtn:hover{background:var(--ink);color:var(--bone)}
+.linkbtn.solid{background:var(--ink);color:var(--bone)}
+.linkbtn.solid:hover{background:var(--copper);border-color:var(--copper)}
+
+/* hero — editorial, asymmetric */
+.hero{padding:96px 0 78px;border-bottom:1px solid var(--rule);background:var(--bone)}
+.hero .sc{color:var(--copper)}
+h1{font-family:var(--serif);font-size:66px;line-height:1.04;margin:22px 0 0;font-weight:400;letter-spacing:-1.2px;max-width:15ch}
+h1 em{font-style:italic;color:var(--copper)}
+.rule{height:1px;background:var(--ink);width:76px;margin:34px 0}
+.hero .cols{display:grid;grid-template-columns:1.5fr 1fr;gap:64px;align-items:end}
+.hero p{font-size:17.5px;color:var(--muted);max-width:44ch;margin:0 0 30px}
+.figures{border-left:1px solid var(--rule);padding-left:28px}
+.fig{margin-bottom:26px}
+.fig b{display:block;font-family:var(--serif);font-size:36px;line-height:1;color:var(--ink)}
+.fig span{color:var(--muted);font-size:13px}
+
+/* numbered list instead of cards */
+section{padding:84px 0}
+.lede{font-family:var(--serif);font-size:32px;line-height:1.3;max-width:24ch;margin:14px 0 52px;font-weight:400}
+.item{display:grid;grid-template-columns:74px 1fr 1fr;gap:34px;padding:30px 0;border-top:1px solid var(--rule);align-items:start}
+.item:last-child{border-bottom:1px solid var(--rule)}
+.num{font-family:var(--serif);font-size:22px;color:var(--copper)}
+.item h3{font-family:var(--serif);font-size:23px;margin:0;font-weight:400}
+.item p{margin:0;color:var(--muted);font-size:15px}
+
+.band{background:var(--ink);color:var(--bone);padding:74px 0}
+.band h2{font-family:var(--serif);font-size:40px;margin:12px 0 10px;font-weight:400;letter-spacing:-.5px}
+.band p{color:#B6AE9F;margin:0 0 28px;max-width:50ch}
+.band .sc{color:var(--copper)}
+.band .linkbtn{border-color:var(--bone);color:var(--bone)}
+.band .linkbtn:hover{background:var(--bone);color:var(--ink)}
+
+footer{background:var(--bone-deep);padding:38px 0;font-size:13px;color:var(--muted);border-top:1px solid var(--rule)}
+
+.review-sec{background:#fff;border-top:4px solid var(--copper);padding:56px 0}
+.sw{display:flex;border:1px solid var(--rule);margin:18px 0 26px}
+.sw div{flex:1;height:86px;display:flex;align-items:flex-end;padding:8px;font-size:10.5px;font-family:ui-monospace,monospace}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.two h4{margin:0 0 8px;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:var(--copper)}
+.two ul{margin:0;padding-left:18px;color:var(--muted);font-size:14.5px}
+.two li{margin-bottom:6px}
+@media(max-width:900px){.hero .cols,.item,.two{grid-template-columns:1fr}h1{font-size:42px}}
+</style>
+
+<div class="review">
+  <div class="wrap"><b>DIRECTION 2 of 3</b> · Modern Apothecary — ink, bone &amp; copper. Premium and human; keeps the gravitas of the "Mythic" name without the mysticism.
+  <a href="index.html">← back to all three</a></div>
+</div>
+
+<nav class="nav"><div class="wrap">
+  <!-- LOGO: text serif wordmark + apothecary vessel glyph. Legendary, not occult. -->
+  <svg viewBox="0 0 208 44" width="208" height="44" role="img" aria-label="Mythic Rx">
+    <text x="0" y="32" font-family="Georgia,'Times New Roman',serif" font-size="30" font-weight="bold" letter-spacing="4" fill="#16181C">MYTHIC</text>
+    <text x="208" y="32" text-anchor="end" font-family="Georgia,'Times New Roman',serif" font-size="30" font-weight="bold" fill="#A9663A">Rx</text>
+  </svg>
+  <ul><li><a href="#">Services</a></li><li><a href="#">Formulary</a></li><li><a href="#">Providers</a></li></ul>
+  <a class="linkbtn solid" href="#">Partner With Us</a>
+</div></nav>
+
+<div class="hero"><div class="wrap">
+  <div class="sc">503A Compounding Pharmacy</div>
+  <div class="cols">
+    <div>
+      <h1>Precision compounding for <em>modern clinics</em></h1>
+      <div class="rule"></div>
+      <p>Every preparation made to order, to USP standard, for one named patient. The craft of the apothecary — held to pharmaceutical discipline.</p>
+      <a class="linkbtn solid" href="#">Become a Provider Partner</a>
+      &nbsp;<a class="linkbtn" href="#">View Formulary</a>
+    </div>
+    <div class="figures">
+      <div class="fig"><b>24–48h</b><span>Typical turnaround</span></div>
+      <div class="fig"><b>USP &lt;797&gt;</b><span>Sterile standard</span></div>
+      <div class="fig"><b>1:1</b><span>Named pharmacist per account</span></div>
+    </div>
+  </div>
+</div></div>
+
+<section><div class="wrap">
+  <div class="sc" style="color:var(--copper)">What we do</div>
+  <div class="lede">Built for the prescriber who has to defend the choice.</div>
+  <div class="item"><div class="num">01</div><h3>Patient-specific formulation</h3><p>Strengths, bases and delivery forms compounded to the individual prescription — never batch-manufactured stock.</p></div>
+  <div class="item"><div class="num">02</div><h3>Documentation that survives audit</h3><p>Batch records, beyond-use dating and ingredient sourcing available for every dispense you order.</p></div>
+  <div class="item"><div class="num">03</div><h3>A direct provider channel</h3><p>A named pharmacist on your account — not a queue. Portal ordering with status returned to your staff.</p></div>
+</div></section>
+
+<div class="band"><div class="wrap">
+  <div class="sc">Onboarding</div>
+  <h2>Your clinic, onboarded in under a week.</h2>
+  <p>Licensure verification, formulary review and portal access — handled by one pharmacist who stays on your account.</p>
+  <a class="linkbtn" href="#">Start Partner Onboarding</a>
+</div></div>
+
+<footer><div class="wrap">© 2026 Mythic Rx · 503A Compounding Pharmacy · Salt Lake City, UT — <em>mockup for brand review only</em></div></footer>
+
+<div class="review-sec"><div class="wrap">
+  <h2 style="margin:0;font-family:var(--serif);font-weight:400;font-size:26px">Direction 2 — Modern Apothecary</h2>
+  <div class="sw">
+    <div style="background:#16181C;color:#F5F1E8">#16181C ink</div>
+    <div style="background:#A9663A;color:#fff">#A9663A copper</div>
+    <div style="background:#3B4A42;color:#fff">#3B4A42 sage</div>
+    <div style="background:#F5F1E8;color:#16181C">#F5F1E8 bone</div>
+    <div style="background:#EBE5D8;color:#16181C">#EBE5D8 bone deep</div>
+    <div style="background:#FBF9F4;color:#6B6459">#FBF9F4 paper</div>
+  </div>
+  <div class="two">
+    <div><h4>Why this works</h4><ul>
+      <li>Keeps the "Mythic" name meaningful — storied and enduring, not occult.</li>
+      <li>Ink-on-bone with generous type reads premium; justifies premium pricing.</li>
+      <li>Mortar-and-pestle glyph says <em>pharmacy</em> instantly and unambiguously.</li>
+      <li>Most differentiated from competitors, who are nearly all blue or green.</li>
+    </ul></div>
+    <div><h4>Trade-off to discuss</h4><ul>
+      <li>Warmer and more "craft" — some prescribers may read it as boutique.</li>
+      <li>Serif headlines need disciplined typography to stay sharp; harder to keep on-brand.</li>
+      <li>Best pick if Mythic wants to feel established and premium, not commodity.</li>
+    </ul></div>
+  </div>
+</div></div>
+
+<style>
+.logolab{background:#fff;border-top:1px solid #D5CDBC;padding:56px 0 72px}
+.logolab h2{margin:0 0 6px;font-size:24px;color:#16181C;font-family:Georgia,serif;font-weight:400}
+.logolab .note{color:#6B6459;margin:0 0 26px;font-size:14.5px}
+.lgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.lcell{margin:0;cursor:zoom-in}
+.lbox{border:1px solid #D5CDBC;height:132px;display:grid;place-items:center;padding:16px;transition:.15s;background:#FBF9F4}
+.lcell:hover .lbox{border-color:#A9663A}
+.lbox.dark{background:#16181C;border-color:#3A3630}
+.lbox svg{max-width:100%;height:auto}
+.lbox.tiny svg{width:24px;height:24px}
+.lcell figcaption{font-size:12px;color:#6B6459;margin-top:9px;text-align:center;letter-spacing:.4px}
+#lbx{display:none;position:fixed;inset:0;background:rgba(18,17,15,.94);z-index:999;place-items:center;cursor:zoom-out;padding:40px}
+#lbx.on{display:grid}
+#lbxin{background:#F5F1E8;padding:58px;display:grid;place-items:center;max-width:92vw}
+#lbxin.ondark{background:#16181C}
+#lbxin svg{width:min(70vw,720px);height:auto}
+#lbx b{position:fixed;bottom:26px;left:0;right:0;text-align:center;color:#A79E90;font-size:12.5px;font-weight:400}
+@media(max-width:900px){.lgrid{grid-template-columns:1fr 1fr}}
+</style>
+
+<div class="logolab"><div class="wrap">
+  <h2>Logo — click any version to enlarge</h2>
+  <p class="note">Primary lockup, reversed for dark backgrounds, the standalone monogram, and a 24px legibility test (favicon size).</p>
+  <div class="lgrid">
+    <figure class="lcell" onclick="zoomLogo(this)"><div class="lbox">
+      <svg viewBox="0 0 208 44" width="208" height="44" role="img" aria-label="Mythic Rx primary"><text x="0" y="32" font-family="Georgia,'Times New Roman',serif" font-size="30" font-weight="bold" letter-spacing="4" fill="#16181C">MYTHIC</text><text x="208" y="32" text-anchor="end" font-family="Georgia,'Times New Roman',serif" font-size="30" font-weight="bold" fill="#A9663A">Rx</text></svg>
+    </div><figcaption>Primary · light background</figcaption></figure>
+
+    <figure class="lcell" onclick="zoomLogo(this)"><div class="lbox dark">
+      <svg viewBox="0 0 208 44" width="208" height="44" role="img" aria-label="Mythic Rx reversed"><text x="0" y="32" font-family="Georgia,'Times New Roman',serif" font-size="30" font-weight="bold" letter-spacing="4" fill="#F5F1E8">MYTHIC</text><text x="208" y="32" text-anchor="end" font-family="Georgia,'Times New Roman',serif" font-size="30" font-weight="bold" fill="#A9663A">Rx</text></svg>
+    </div><figcaption>Reversed · dark background</figcaption></figure>
+
+    <figure class="lcell" onclick="zoomLogo(this)"><div class="lbox">
+      <svg viewBox="0 0 48 48" width="76" height="76" role="img" aria-label="Mythic Rx monogram"><rect width="48" height="48" rx="10" fill="#16181C"/><g fill="#F5F1E8"><rect x="10.4" y="10" width="6.8" height="1.8"/><rect x="13" y="10" width="4.2" height="20"/><rect x="10.4" y="28.2" width="9.4" height="1.8"/><path fill-rule="evenodd" d="M16 10 H27 C32.5 10 35.4 12.3 35.4 15.5 C35.4 18.7 32.5 21 27 21 H16 Z M16 13.4 H26.5 C29.6 13.4 31.2 14.2 31.2 15.5 C31.2 16.8 29.6 17.6 26.5 17.6 H16 Z"/><path d="M23.6 21 L28.4 21 L35.8 35.4 L32.2 37.4 Z"/></g><path d="M22.4 38.8 L38 25.2" stroke="#A9663A" stroke-width="3.6"/></svg>
+    </div><figcaption>Monogram · app icon &amp; favicon</figcaption></figure>
+
+    <figure class="lcell" onclick="zoomLogo(this)"><div class="lbox tiny">
+      <svg viewBox="0 0 48 48" width="24" height="24" role="img" aria-label="Mythic Rx monogram at 24px"><rect width="48" height="48" rx="10" fill="#16181C"/><g fill="#F5F1E8"><rect x="10.4" y="10" width="6.8" height="1.8"/><rect x="13" y="10" width="4.2" height="20"/><rect x="10.4" y="28.2" width="9.4" height="1.8"/><path fill-rule="evenodd" d="M16 10 H27 C32.5 10 35.4 12.3 35.4 15.5 C35.4 18.7 32.5 21 27 21 H16 Z M16 13.4 H26.5 C29.6 13.4 31.2 14.2 31.2 15.5 C31.2 16.8 29.6 17.6 26.5 17.6 H16 Z"/><path d="M23.6 21 L28.4 21 L35.8 35.4 L32.2 37.4 Z"/></g><path d="M22.4 38.8 L38 25.2" stroke="#A9663A" stroke-width="3.6"/></svg>
+    </div><figcaption>24px legibility test</figcaption></figure>
+  </div>
+</div></div>
+
+<div id="lbx" onclick="this.classList.remove('on')"><div id="lbxin"></div><b>click anywhere to close</b></div>
+<script>
+function zoomLogo(el){
+  var svg=el.querySelector('svg'), box=el.querySelector('.lbox'), i=document.getElementById('lbxin');
+  i.innerHTML=svg.outerHTML;
+  i.className = box.classList.contains('dark') ? 'ondark' : '';
+  document.getElementById('lbx').classList.add('on');
+}
+document.addEventListener('keydown',function(e){ if(e.key==='Escape') document.getElementById('lbx').classList.remove('on'); });
+</script>

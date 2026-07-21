@@ -1,0 +1,220 @@
+<meta charset="utf-8">
+<title>Mythic Rx — Direction 3: Molecular</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{
+  --graphite:#14161B; --graphite-2:#1C1F26; --indigo:#5B4BE0; --indigo-2:#7C6FF0;
+  --mint:#3DDC97; --light:#F2F3F7; --line:#2A2E38; --line-l:#E2E4EC;
+  --muted:#9BA1B0; --text:#1A1C22;
+  --sans:"Segoe UI",-apple-system,BlinkMacSystemFont,Inter,Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"Cascadia Code","SF Mono",Consolas,monospace;
+}
+*{box-sizing:border-box} html,body{margin:0}
+body{font-family:var(--sans);color:var(--text);background:#fff;font-size:16px;line-height:1.55}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+.mono{font-family:var(--mono);font-size:11px;letter-spacing:1.6px;text-transform:uppercase}
+
+.review{background:#111;color:#fff;padding:9px 0;font-size:12.5px}
+.review .wrap{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.review b{color:#3DDC97}
+.review a{color:#fff;opacity:.75;text-decoration:none;margin-left:auto}
+
+/* dark-first nav + hero */
+.dark{background:var(--graphite);color:#fff}
+.nav .wrap{display:flex;align-items:center;gap:34px;height:76px;border-bottom:1px solid var(--line)}
+.nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0;font-size:14.5px}
+.nav a{color:#C8CCD6;text-decoration:none}
+.nav a:hover{color:var(--mint)}
+.nav .right{margin-left:auto;display:flex;gap:12px;align-items:center}
+.btn{display:inline-block;border-radius:4px;padding:11px 20px;font-size:13px;font-weight:600;text-decoration:none;letter-spacing:.4px;border:1px solid transparent}
+.btn-mint{background:var(--mint);color:#08301F}
+.btn-mint:hover{background:#34c586}
+.btn-line{border-color:#3A3F4B;color:#fff}
+.btn-line:hover{border-color:var(--mint);color:var(--mint)}
+.btn-indigo{background:var(--indigo);color:#fff}
+
+.hero{padding:84px 0 76px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-140px;top:-90px;width:520px;height:520px;border-radius:50%;
+  background:radial-gradient(circle,rgba(91,75,224,.42) 0%,rgba(91,75,224,0) 68%);pointer-events:none}
+.hero .wrap{position:relative;z-index:1}
+.hero .mono{color:var(--mint)}
+h1{font-size:56px;line-height:1.06;margin:18px 0 18px;letter-spacing:-1.4px;font-weight:700;max-width:17ch}
+h1 span{background:linear-gradient(90deg,var(--indigo-2),var(--mint));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{font-size:18px;color:#AFB5C2;max-width:52ch;margin:0 0 30px}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap}
+
+/* technical spec tiles */
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:64px}
+.tile{background:var(--graphite-2);padding:22px 20px}
+.tile b{display:block;font-size:26px;font-family:var(--mono);color:var(--mint);letter-spacing:-.5px}
+.tile span{color:#8E95A4;font-size:12.5px}
+
+/* light section: hexagon capability grid */
+section{padding:80px 0}
+.sechead{max-width:58ch;margin-bottom:40px}
+.sechead .mono{color:var(--indigo)}
+.sechead h2{font-size:33px;margin:10px 0;letter-spacing:-.6px}
+.sechead p{color:#5C6270;margin:0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{border:1px solid var(--line-l);border-radius:6px;padding:26px 24px;background:#fff;position:relative}
+.card:before{content:"";position:absolute;left:0;top:0;width:100%;height:2px;background:linear-gradient(90deg,var(--indigo),var(--mint));border-radius:6px 6px 0 0}
+.hex{width:44px;height:44px;margin-bottom:16px}
+.card h3{margin:0 0 8px;font-size:17.5px}
+.card p{margin:0;color:#5C6270;font-size:14.5px}
+.card .tag{font-family:var(--mono);font-size:10px;color:var(--indigo);letter-spacing:1.4px;display:block;margin-bottom:9px}
+
+.band{background:linear-gradient(120deg,var(--graphite) 0%,#241F52 100%);color:#fff;padding:60px 0}
+.band .wrap{display:flex;align-items:center;gap:28px;flex-wrap:wrap}
+.band h2{margin:6px 0 6px;font-size:29px;letter-spacing:-.5px}
+.band p{margin:0;color:#B4B9C6}
+.band .mono{color:var(--mint)}
+.band .btn{margin-left:auto}
+
+footer{background:var(--graphite);color:#8E95A4;padding:40px 0;font-size:13.5px}
+
+.review-sec{background:#fff;border-top:4px solid var(--indigo);padding:56px 0}
+.sw{display:flex;border-radius:6px;overflow:hidden;border:1px solid var(--line-l);margin:18px 0 26px}
+.sw div{flex:1;height:86px;display:flex;align-items:flex-end;padding:8px;font-size:10.5px;font-family:var(--mono)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.two h4{margin:0 0 8px;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:var(--indigo);font-family:var(--mono)}
+.two ul{margin:0;padding-left:18px;color:#5C6270;font-size:14.5px}
+.two li{margin-bottom:6px}
+@media(max-width:900px){.tiles,.grid,.two{grid-template-columns:1fr 1fr}h1{font-size:38px}}
+</style>
+
+<div class="review">
+  <div class="wrap"><b>DIRECTION 3 of 3</b> · Molecular — graphite, indigo &amp; mint. Science-forward and the most modern; reads compounding <em>chemistry</em>.
+  <a href="index.html">← back to all three</a></div>
+</div>
+
+<div class="dark">
+<nav class="nav"><div class="wrap">
+  <!-- LOGO: hexagon molecule mark + geometric wordmark -->
+  <svg width="200" height="40" viewBox="0 0 200 40" role="img" aria-label="Mythic Rx">
+    <path d="M9.2 33.3 L16.2 6.9 L24.1 26.3 L32 6.9 L39.1 33.3" fill="none" stroke="#7C6FF0" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="9.2" cy="33.3" r="3.3" fill="#FFFFFF"/>
+    <circle cx="16.2" cy="6.9" r="3.3" fill="#FFFFFF"/>
+    <circle cx="32" cy="6.9" r="3.3" fill="#FFFFFF"/>
+    <circle cx="39.1" cy="33.3" r="3.3" fill="#FFFFFF"/>
+    <circle cx="24.1" cy="26.3" r="4.4" fill="#3DDC97" stroke="#14161B" stroke-width="1.8"/>
+    <text x="52" y="30.5" font-family="Segoe UI, Inter, Helvetica, Arial, sans-serif" font-size="30" letter-spacing="0.3" fill="#FFFFFF" font-weight="600">Mythic <tspan fill="#7C6FF0" font-weight="700">Rx</tspan></text>
+  </svg>
+  <ul><li><a href="#">Services</a></li><li><a href="#">Formulary</a></li><li><a href="#">Providers</a></li></ul>
+  <div class="right"><a class="btn btn-line" href="#">Provider Portal</a><a class="btn btn-mint" href="#">Become a Partner</a></div>
+</div></nav>
+
+<div class="hero"><div class="wrap">
+  <div class="mono">503A Compounding Pharmacy</div>
+  <h1>Precision compounding for <span>modern clinics</span></h1>
+  <p>Patient-specific formulations engineered to USP standard — with the batch data, sourcing and turnaround your clinic can actually plan around.</p>
+  <div class="cta-row"><a class="btn btn-mint" href="#">Become a Provider Partner</a><a class="btn btn-line" href="#">View Formulary</a></div>
+  <div class="tiles">
+    <div class="tile"><b>24–48h</b><span>Turnaround</span></div>
+    <div class="tile"><b>&lt;797&gt;</b><span>Sterile standard</span></div>
+    <div class="tile"><b>&lt;795&gt;</b><span>Non-sterile standard</span></div>
+    <div class="tile"><b>100%</b><span>Batch documented</span></div>
+  </div>
+</div></div>
+</div>
+
+<section><div class="wrap">
+  <div class="sechead">
+    <div class="mono">What we do</div>
+    <h2>Built around the prescriber, not the patient funnel</h2>
+    <p>Mythic Rx is a B2B compounding partner. Every system is designed for the clinic operator who has to defend the choice.</p>
+  </div>
+  <div class="grid">
+    <div class="card"><svg class="hex" viewBox="0 0 44 44" fill="none"><path d="M22 4l15.6 9v18L22 40 6.4 31V13L22 4z" stroke="#5B4BE0" stroke-width="1.6"/><path d="M17 15v5l-4 9a2 2 0 001.8 2.9h14.4A2 2 0 0031 29l-4-9v-5" stroke="#3DDC97" stroke-width="1.6" stroke-linejoin="round"/><path d="M16 15h12" stroke="#3DDC97" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <span class="tag">01 / FORMULATION</span><h3>Patient-specific formulation</h3><p>Strengths, bases and delivery forms compounded to the individual prescription — not batch-manufactured stock.</p></div>
+    <div class="card"><svg class="hex" viewBox="0 0 44 44" fill="none"><path d="M22 4l15.6 9v18L22 40 6.4 31V13L22 4z" stroke="#5B4BE0" stroke-width="1.6"/><rect x="15" y="13" width="14" height="18" rx="2" stroke="#3DDC97" stroke-width="1.6"/><path d="M18.5 18h7M18.5 22h7M18.5 26h4.5" stroke="#3DDC97" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <span class="tag">02 / COMPLIANCE</span><h3>Documentation that survives audit</h3><p>Batch records, beyond-use dating and ingredient sourcing available for every dispense.</p></div>
+    <div class="card"><svg class="hex" viewBox="0 0 44 44" fill="none"><path d="M22 4l15.6 9v18L22 40 6.4 31V13L22 4z" stroke="#5B4BE0" stroke-width="1.6"/><circle cx="22" cy="18" r="4" stroke="#3DDC97" stroke-width="1.6"/><path d="M14 31a8 8 0 0116 0" stroke="#3DDC97" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <span class="tag">03 / SERVICE</span><h3>Direct provider channel</h3><p>A named pharmacist on your account — not a queue. Portal ordering with status back to your staff.</p></div>
+  </div>
+</div></section>
+
+<div class="band"><div class="wrap">
+  <div><div class="mono">Onboarding</div><h2>Onboard your clinic in under a week</h2><p>Licensure verification, formulary review and portal access.</p></div>
+  <a class="btn btn-mint" href="#">Start Partner Onboarding</a>
+</div></div>
+
+<footer><div class="wrap">© 2026 Mythic Rx · 503A Compounding Pharmacy · Salt Lake City, UT — <em>mockup for brand review only</em></div></footer>
+
+<div class="review-sec"><div class="wrap">
+  <h2 style="margin:0;font-size:25px">Direction 3 — Molecular</h2>
+  <div class="sw">
+    <div style="background:#14161B;color:#fff">#14161B graphite</div>
+    <div style="background:#5B4BE0;color:#fff">#5B4BE0 indigo</div>
+    <div style="background:#7C6FF0;color:#fff">#7C6FF0 indigo lift</div>
+    <div style="background:#3DDC97;color:#08301F">#3DDC97 mint</div>
+    <div style="background:#F2F3F7;color:#14161B">#F2F3F7 light</div>
+    <div style="background:#E2E4EC;color:#5C6270">#E2E4EC line</div>
+  </div>
+  <div class="two">
+    <div><h4>Why this works</h4><ul>
+      <li>Says <em>chemistry</em> — the actual thing Mythic does — rather than generic healthcare.</li>
+      <li>Most modern of the three; signals a tech-forward pharmacy partner.</li>
+      <li>Mono labels + spec tiles suit a data-literate prescriber audience.</li>
+      <li>Mint gives a bright, unmistakable CTA against dark surfaces.</li>
+    </ul></div>
+    <div><h4>Trade-off to discuss</h4><ul>
+      <li>Dark-first and boldest — riskiest with conservative, older prescribers.</li>
+      <li>Indigo/violet is less conventional in pharmacy; a deliberate differentiator, not a safe default.</li>
+      <li>Best pick if Mythic wants to look like the newest, most capable option in the market.</li>
+    </ul></div>
+  </div>
+</div></div>
+
+<style>
+.logolab{background:#fff;border-top:1px solid #E2E4EC;padding:56px 0 72px}
+.logolab h2{margin:0 0 6px;font-size:23px;color:#14161B}
+.logolab .note{color:#5C6270;margin:0 0 26px;font-size:14.5px}
+.lgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.lcell{margin:0;cursor:zoom-in}
+.lbox{border:1px solid #E2E4EC;border-radius:10px;height:132px;display:grid;place-items:center;padding:16px;transition:.15s;background:#fff}
+.lcell:hover .lbox{border-color:#5B4BE0;box-shadow:0 6px 22px rgba(20,22,27,.12)}
+.lbox.dark{background:#14161B;border-color:#2A2E38}
+.lbox svg{max-width:100%;height:auto}
+.lbox.tiny svg{width:24px;height:24px}
+.lcell figcaption{font-size:12px;color:#5C6270;margin-top:9px;text-align:center}
+#lbx{display:none;position:fixed;inset:0;background:rgba(10,11,15,.94);z-index:999;place-items:center;cursor:zoom-out;padding:40px}
+#lbx.on{display:grid}
+#lbxin{background:#fff;border-radius:14px;padding:58px;display:grid;place-items:center;max-width:92vw}
+#lbxin.ondark{background:#14161B}
+#lbxin svg{width:min(70vw,720px);height:auto}
+#lbx b{position:fixed;bottom:26px;left:0;right:0;text-align:center;color:#9AA3B2;font-size:12.5px;font-weight:400}
+@media(max-width:900px){.lgrid{grid-template-columns:1fr 1fr}}
+</style>
+
+<div class="logolab"><div class="wrap">
+  <h2>Logo — click any version to enlarge</h2>
+  <p class="note">Primary lockup, reversed for dark backgrounds, the standalone mark, and a 24px legibility test (favicon size).</p>
+  <div class="lgrid">
+    <figure class="lcell" onclick="zoomLogo(this)"><div class="lbox">
+      <svg width="200" height="40" viewBox="0 0 200 40" role="img" aria-label="Mythic Rx primary"><defs><linearGradient id="molGradA" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5B4BE0"/><stop offset="1" stop-color="#7C6FF0"/></linearGradient></defs><path d="M9.2 33.3 L16.2 6.9 L24.1 26.3 L32 6.9 L39.1 33.3" fill="none" stroke="url(#molGradA)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9.2" cy="33.3" r="3.3" fill="#14161B"/><circle cx="16.2" cy="6.9" r="3.3" fill="#14161B"/><circle cx="32" cy="6.9" r="3.3" fill="#14161B"/><circle cx="39.1" cy="33.3" r="3.3" fill="#14161B"/><circle cx="24.1" cy="26.3" r="4.4" fill="#3DDC97" stroke="#14161B" stroke-width="1.8"/><text x="52" y="30.5" font-family="Segoe UI, Inter, Helvetica, Arial, sans-serif" font-size="30" letter-spacing="0.3" fill="#14161B" font-weight="600">Mythic <tspan fill="#5B4BE0" font-weight="700">Rx</tspan></text></svg>
+    </div><figcaption>Primary · light background</figcaption></figure>
+
+    <figure class="lcell" onclick="zoomLogo(this)"><div class="lbox dark">
+      <svg width="200" height="40" viewBox="0 0 200 40" role="img" aria-label="Mythic Rx reversed"><path d="M9.2 33.3 L16.2 6.9 L24.1 26.3 L32 6.9 L39.1 33.3" fill="none" stroke="#7C6FF0" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9.2" cy="33.3" r="3.3" fill="#FFFFFF"/><circle cx="16.2" cy="6.9" r="3.3" fill="#FFFFFF"/><circle cx="32" cy="6.9" r="3.3" fill="#FFFFFF"/><circle cx="39.1" cy="33.3" r="3.3" fill="#FFFFFF"/><circle cx="24.1" cy="26.3" r="4.4" fill="#3DDC97" stroke="#14161B" stroke-width="1.8"/><text x="52" y="30.5" font-family="Segoe UI, Inter, Helvetica, Arial, sans-serif" font-size="30" letter-spacing="0.3" fill="#FFFFFF" font-weight="600">Mythic <tspan fill="#7C6FF0" font-weight="700">Rx</tspan></text></svg>
+    </div><figcaption>Reversed · dark background</figcaption></figure>
+
+    <figure class="lcell" onclick="zoomLogo(this)"><div class="lbox">
+      <svg width="76" height="76" viewBox="0 0 48 48" role="img" aria-label="Mythic Rx mark"><rect width="48" height="48" rx="10" fill="#14161B"/><path d="M12 35 L17.8 13 L24 29 L30.2 13 L36 35" fill="none" stroke="#7C6FF0" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="35" r="3.1" fill="#FFFFFF"/><circle cx="17.8" cy="13" r="3.1" fill="#FFFFFF"/><circle cx="30.2" cy="13" r="3.1" fill="#FFFFFF"/><circle cx="36" cy="35" r="3.1" fill="#FFFFFF"/><circle cx="24" cy="29" r="4.1" fill="#3DDC97" stroke="#14161B" stroke-width="1.8"/></svg>
+    </div><figcaption>Mark · app icon &amp; favicon</figcaption></figure>
+
+    <figure class="lcell" onclick="zoomLogo(this)"><div class="lbox tiny">
+      <svg width="24" height="24" viewBox="0 0 48 48" role="img" aria-label="Mythic Rx mark at 24px"><rect width="48" height="48" rx="10" fill="#14161B"/><path d="M12 35 L17.8 13 L24 29 L30.2 13 L36 35" fill="none" stroke="#7C6FF0" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="35" r="3.1" fill="#FFFFFF"/><circle cx="17.8" cy="13" r="3.1" fill="#FFFFFF"/><circle cx="30.2" cy="13" r="3.1" fill="#FFFFFF"/><circle cx="36" cy="35" r="3.1" fill="#FFFFFF"/><circle cx="24" cy="29" r="4.1" fill="#3DDC97" stroke="#14161B" stroke-width="1.8"/></svg>
+    </div><figcaption>24px legibility test</figcaption></figure>
+  </div>
+</div></div>
+
+<div id="lbx" onclick="this.classList.remove('on')"><div id="lbxin"></div><b>click anywhere to close</b></div>
+<script>
+function zoomLogo(el){
+  var svg=el.querySelector('svg'), box=el.querySelector('.lbox'), i=document.getElementById('lbxin');
+  i.innerHTML=svg.outerHTML;
+  i.className = box.classList.contains('dark') ? 'ondark' : '';
+  document.getElementById('lbx').classList.add('on');
+}
+document.addEventListener('keydown',function(e){ if(e.key==='Escape') document.getElementById('lbx').classList.remove('on'); });
+</script>
